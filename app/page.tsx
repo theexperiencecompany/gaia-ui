@@ -1,104 +1,116 @@
-import Link from "next/link";
-import { ArrowRight, Github, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Navbar } from "@/components/navbar";
+import { generateSEO, generateSoftwareSchema } from "@/lib/seo";
+import { RaisedButton } from "@/registry/new-york/ui/raised-button";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { FaGithub } from "react-icons/fa";
+
+// Enhanced metadata for the homepage
+export const metadata = generateSEO({
+  title: "Gaia UI - Open Source Components for AI Assistants",
+  description:
+    "Beautiful, accessible React components from the Gaia AI assistant project. Free and open source UI library for building chatbots and AI interfaces.",
+  keywords: [
+    "React Components",
+    "UI Library",
+    "AI Assistant",
+    "Chatbot UI",
+    "Open Source",
+    "Gaia",
+    "Free Components",
+    "Radix UI",
+    "Tailwind CSS",
+  ],
+  url: "/",
+});
 
 export default function Home() {
+  const softwareSchema = generateSoftwareSchema();
+
   return (
     <>
+      {/* JSON-LD Structured Data for Software */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
       <Navbar />
       <div className="relative px-4">
-        <section className="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-20">
-          <div className="flex items-center gap-2 rounded-full border px-3 py-1 text-sm">
-            <Sparkles className="h-4 w-4" />
-            <span className="text-muted-foreground">Introducing Gaia UI</span>
-          </div>
-          <h1 className="text-center text-4xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]">
-            Beautiful components
-            <br className="hidden sm:inline" /> built with Radix UI and Tailwind
-            CSS
+        <section className="mx-auto flex flex-col max-w-3xl  gap-5 py-8 md:py-16 lg:py-24">
+          <h1 className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl lg:text-4xl">
+            We&apos;re building Gaia.
+            <br />
+            <span className="text-muted-foreground">
+              Here&apos;s what we&apos;re using.
+            </span>
           </h1>
-          <p className="max-w-[750px] text-center text-lg text-muted-foreground sm:text-xl">
-            Accessible and customizable components that you can copy and paste
-            into your apps. Free. Open Source. Built with React.
+          <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+            We&apos;re working on an open source AI assistant called Gaia. Along
+            the way, we&apos;ve built UI components that we actually use. If
+            you&apos;re building chatbots or AI interfaces, these might be
+            useful. They&apos;re free and open source.
           </p>
-          <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-10">
-            <Button size="lg" asChild>
-              <Link href="/docs">
-                Get Started
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link
-                href="https://github.com/heygaia/ui"
-                target="_blank"
-                rel="noreferrer"
+          <div className="flex flex-wrap items-center justify-start gap-3 py-2">
+            <Link href="/docs">
+              <RaisedButton
+                size="default"
+                color="#0080ff"
+                asChild
+                className="flex items-center"
               >
-                <Github className="mr-2 h-4 w-4" />
-                GitHub
-              </Link>
-            </Button>
+                Browse components
+                <ArrowRight className="h-4 w-4" />
+              </RaisedButton>
+            </Link>
+            <Link
+              href="https://github.com/heygaia/ui"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <RaisedButton
+                size="icon"
+                color="#3b3b3b"
+                asChild
+                className="rounded-lg"
+              >
+                <FaGithub className="h-6 w-6" />
+              </RaisedButton>
+            </Link>
           </div>
-        </section>
-
-        <section className="mx-auto grid max-w-[980px] gap-6 pb-8 pt-6 md:py-10 lg:grid-cols-3">
-          <Card>
-            <CardHeader>
-              <CardTitle>Accessible</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription>
-                Built with Radix UI primitives for optimal accessibility and
-                keyboard navigation.
-              </CardDescription>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Customizable</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription>
-                Styled with Tailwind CSS. Easily customize colors, spacing, and
-                more to match your brand.
-              </CardDescription>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Open Source</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription>
-                Free to use in personal and commercial projects. MIT licensed
-                with full source code.
-              </CardDescription>
-            </CardContent>
-          </Card>
-        </section>
-
-        <section className="mx-auto max-w-[980px] pb-8 pt-6 md:py-10">
-          <div className="flex flex-col items-center gap-4 text-center">
-            <h2 className="text-3xl font-bold leading-tight tracking-tighter md:text-4xl">
-              Start building today
-            </h2>
-            <p className="max-w-[600px] text-muted-foreground">
-              Copy and paste components into your application. Customize them to
-              match your design system.
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold">What&apos;s this for?</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              We needed components that work well for conversational
+              interfaces—animated buttons, smooth transitions, accessible
+              controls. Instead of keeping them in our repo, we&apos;re sharing
+              them for anyone building similar stuff.
             </p>
-            <Button size="lg" asChild>
-              <Link href="/docs/components/raised-button">
-                Browse Components
-              </Link>
-            </Button>
+          </div>
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold">What you&apos;ll find</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Components we use in production. Built with Radix UI and Tailwind
+              CSS. Copy the code and make it yours.
+            </p>
+          </div>
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold">Why share?</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Open source has given us a lot. This is one of our way&apos;s of
+              contributing back.
+            </p>
+          </div>
+
+          <div className="text-xs text-zinc-600 mt-8 flex items-center gap-1">
+            Made with ❤️ by
+            <a
+              href="https://experience.heygaia.io"
+              target="_
+            _blank"
+              className="underline underline-offset-4 hover:text-zinc-300 transition"
+            >
+              The Experience Company
+            </a>
           </div>
         </section>
       </div>

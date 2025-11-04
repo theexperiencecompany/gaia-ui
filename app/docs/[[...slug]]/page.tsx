@@ -1,5 +1,10 @@
 import { DocPageLayout } from "@/components/doc-page-layout";
 import { getMdxFile, getAllDocSlugs } from "@/lib/mdx";
+import {
+  generateSEO,
+  generateArticleSchema,
+  generateBreadcrumbSchema,
+} from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -16,7 +21,6 @@ export async function generateStaticParams() {
     slug: slug.length === 0 ? undefined : slug,
   }));
 }
-
 export default async function DocPage({ params }: PageProps) {
   const { slug = [] } = await params;
   const docData = getMdxFile(slug.length === 0 ? ["index"] : slug);
@@ -37,17 +41,51 @@ export default async function DocPage({ params }: PageProps) {
     notFound();
   }
 
+  // Generate breadcrumbs for structured data
+  const breadcrumbItems = [
+    { name: "Home", url: "/" },
+    { name: "Documentation", url: "/docs" },
+  ];
+
+  if (slug.length > 0) {
+    slug.forEach((part, index) => {
+      const url = `/docs/${slug.slice(0, index + 1).join("/")}`;
+      breadcrumbItems.push({
+        name: part.charAt(0).toUpperCase() + part.slice(1).replace(/-/g, " "),
+        url,
+      });
+    });
+  }
+
+  const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
+  const articleSchema = generateArticleSchema({
+    title: metadata.title,
+    description: metadata.description,
+    url: slug.length === 0 ? "/docs" : `/docs/${slug.join("/")}`,
+  });
+
   return (
-    <DocPageLayout
-      title={metadata.title}
-      description={metadata.description}
-      toc={toc}
-      markdownContent={content}
-    >
-      <Suspense fallback={<div>Loading...</div>}>
-        <MDXContent />
-      </Suspense>
-    </DocPageLayout>
+    <>
+      {/* JSON-LD Structured Data for better SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <DocPageLayout
+        title={metadata.title}
+        description={metadata.description}
+        toc={toc}
+        markdownContent={content}
+      >
+        <Suspense fallback={<div>Loading...</div>}>
+          <MDXContent />
+        </Suspense>
+      </DocPageLayout>
+    </>
   );
 }
 
@@ -63,9 +101,19 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   const { metadata } = docData;
+  const url = slug.length === 0 ? "/docs" : `/docs/${slug.join("/")}`;
 
-  return {
+  return generateSEO({
     title: metadata.title,
     description: metadata.description,
-  };
+    url,
+    type: "article",
+    keywords: [
+      ...((metadata.keywords as string[]) || []),
+      "documentation",
+      "guide",
+      "tutorial",
+      metadata.title,
+    ],
+  });
 }

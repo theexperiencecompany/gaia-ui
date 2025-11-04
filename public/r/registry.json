@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "gaia",
-  "homepage": "https://ui.gaia.com",
+  "name": "gaia ui",
+  "homepage": "https://ui.heygaia.io",
   "items": [
     {
       "name": "raised-button",
