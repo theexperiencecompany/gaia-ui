@@ -19,6 +19,24 @@
           "type": "registry:lib"
         }
       ]
+    },
+    {
+      "name": "author-tooltip",
+      "type": "registry:ui",
+      "title": "Author Tooltip",
+      "description": "An interactive avatar with tooltip showing author information and social links.",
+      "dependencies": [
+        "@radix-ui/react-avatar",
+        "@radix-ui/react-tooltip",
+        "lucide-react"
+      ],
+      "registryDependencies": ["avatar", "tooltip"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/author-tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

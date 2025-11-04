@@ -7,6 +7,7 @@ import { SourceCode } from "@/components/source-code";
 import { RaisedButton } from "@/registry/new-york/ui/raised-button";
 import { Download } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AuthorTooltip } from "./registry/new-york/ui/author-tooltip";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -19,6 +20,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     TabsContent,
     TabsList,
     TabsTrigger,
+    AuthorTooltip,
     h1: ({ className, ...props }) => (
       <h1
         className={cn(

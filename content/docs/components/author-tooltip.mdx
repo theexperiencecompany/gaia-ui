@@ -1,0 +1,155 @@
+---
+title: Author Tooltip
+description: An interactive avatar with tooltip showing author information and social links.
+---
+
+<ComponentPreview
+  code={`<AuthorTooltip
+  author={{
+    name: "Aryan",
+    avatar: "https://github.com/aryanranderiya.png",
+    role: "Founder & CEO",
+    github: "https://github.com/aryanranderiya",
+    twitter: "https://twitter.com/aryanranderiya",
+    linkedin: "https://linkedin.com/in/aryanranderiya"
+  }}
+/>`}
+>
+  <AuthorTooltip
+    author={{
+      name: "Aryan",
+      avatar: "https://github.com/aryanranderiya.png",
+      role: "Founder & CEO",
+      github: "https://github.com/aryanranderiya",
+      twitter: "https://twitter.com/aryanranderiya",
+      linkedin: "https://linkedin.com/in/aryanranderiya",
+    }}
+    avatarSize="lg"
+  />
+</ComponentPreview>
+
+## Sizes
+
+<ComponentPreview
+  code={`<AuthorTooltip
+  author={{
+    name: "Jane Smith",
+    avatar: "https://github.com/vercel.png",
+    role: "Product Designer"
+  }}
+  avatarSize="sm"
+/>
+<AuthorTooltip
+  author={{
+    name: "Jane Smith",
+    avatar: "https://github.com/vercel.png",
+    role: "Product Designer"
+  }}
+  avatarSize="md"
+/>
+<AuthorTooltip
+  author={{
+    name: "Jane Smith",
+    avatar: "https://github.com/vercel.png",
+    role: "Product Designer"
+  }}
+  avatarSize="lg"
+/>`}
+>
+  <AuthorTooltip
+    author={{
+      name: "Jane Smith",
+      avatar: "https://github.com/vercel.png",
+      role: "Product Designer",
+    }}
+    avatarSize="sm"
+  />
+  <AuthorTooltip
+    author={{
+      name: "Jane Smith",
+      avatar: "https://github.com/vercel.png",
+      role: "Product Designer",
+    }}
+    avatarSize="md"
+  />
+  <AuthorTooltip
+    author={{
+      name: "Jane Smith",
+      avatar: "https://github.com/vercel.png",
+      role: "Product Designer",
+    }}
+    avatarSize="lg"
+  />
+</ComponentPreview>
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+{" "}
+
+<TabsContent value="automatic">
+  <InstallCommand component="author-tooltip" />
+</TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode
+  filePath="registry/new-york/ui/author-tooltip.tsx"
+  title="components/ui/author-tooltip.tsx"
+/>
+
+This component requires the Avatar and Tooltip components:
+
+```bash
+npx shadcn@latest add avatar tooltip
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { AuthorTooltip } from "@/components/ui/author-tooltip";
+
+export default function Example() {
+  const author = {
+    name: "Aryan",
+    avatar: "https://github.com/aryanranderiya.png",
+    role: "Founder & CEO",
+    github: "https://github.com/aryanranderiya",
+    twitter: "https://twitter.com/aryanranderiya",
+    linkedin: "https://linkedin.com/in/aryanranderiya",
+  };
+
+  return <AuthorTooltip author={author} />;
+}
+```
+
+## Props
+
+### AuthorTooltip
+
+| Prop            | Type                 | Default                              | Description               |
+| --------------- | -------------------- | ------------------------------------ | ------------------------- |
+| author          | Author               | -                                    | Author information object |
+| avatarSize      | "sm" \| "md" \| "lg" | "sm"                                 | Size of the avatar        |
+| avatarClassName | string               | "cursor-help border-2 border-border" | Additional CSS classes    |
+
+### Author Type
+
+| Property | Type   | Required | Description                  |
+| -------- | ------ | -------- | ---------------------------- |
+| name     | string | Yes      | Author's full name           |
+| avatar   | string | Yes      | URL to author's avatar image |
+| role     | string | Yes      | Author's role or title       |
+| github   | string | No       | GitHub profile URL           |
+| twitter  | string | No       | Twitter/X profile URL        |
+| linkedin | string | No       | LinkedIn profile URL         |

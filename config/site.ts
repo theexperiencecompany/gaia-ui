@@ -48,6 +48,10 @@ export const docsConfig = {
           title: "Raised Button",
           href: "/docs/components/raised-button",
         },
+        {
+          title: "Author Tooltip",
+          href: "/docs/components/author-tooltip",
+        },
       ],
     },
   ],
