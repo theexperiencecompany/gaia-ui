@@ -1,6 +1,6 @@
 "use client";
 
-import { CodeBlock } from "@/components/code-block";
+import { CodeBlock } from "@/components/core/code-block";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,

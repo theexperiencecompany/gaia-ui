@@ -1,4 +1,4 @@
-import { DocPageLayout } from "@/components/doc-page-layout";
+import { DocPageLayout } from "@/components/core/doc-page-layout";
 import { getMdxFile, getAllDocSlugs } from "@/lib/mdx";
 import {
   generateSEO,
@@ -7,6 +7,7 @@ import {
 } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { FaSpinner } from "react-icons/fa";
 
 interface PageProps {
   params: Promise<{
@@ -81,7 +82,13 @@ export default async function DocPage({ params }: PageProps) {
         toc={toc}
         markdownContent={content}
       >
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={
+            <div className="w-full h-full flex items-center justify-center">
+              <FaSpinner className="animate-spin" />
+            </div>
+          }
+        >
           <MDXContent />
         </Suspense>
       </DocPageLayout>

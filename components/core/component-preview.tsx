@@ -1,6 +1,6 @@
 "use client";
 
-import { CodeBlock } from "@/components/code-block";
+import { CodeBlock } from "@/components/core/code-block";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import * as React from "react";

@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/ui/navbar";
 import { generateSEO, generateSoftwareSchema } from "@/lib/seo";
 import { RaisedButton } from "@/registry/new-york/ui/raised-button";
 import { ArrowRight } from "lucide-react";

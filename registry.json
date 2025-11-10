@@ -19,6 +19,19 @@
           "type": "registry:lib"
         }
       ]
+    },
+    {
+      "name": "navbar-menu",
+      "type": "registry:ui",
+      "title": "Navbar Menu",
+      "description": "A beautiful animated dropdown menu for navigation with support for icons, descriptions, and custom layouts.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/navbar-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

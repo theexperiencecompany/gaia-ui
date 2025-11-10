@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
-import { CommandMenu } from "@/components/command-menu";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { CommandMenu } from "@/components/core/command-menu";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -17,7 +17,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { Kbd, KbdGroup } from "./ui/kbd";
+import { Kbd, KbdGroup } from "./kbd";
 import { FaGithub } from "react-icons/fa";
 import Image from "next/image";
 
@@ -36,8 +36,9 @@ export function Navbar() {
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <Link href="/docs" passHref>
-                  <NavigationMenuLink
+                <NavigationMenuLink asChild>
+                  <Link
+                    href="/docs"
                     className={cn(
                       navigationMenuTriggerStyle(),
                       pathname?.startsWith("/docs")
@@ -46,12 +47,13 @@ export function Navbar() {
                     )}
                   >
                     Documentation
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/docs/components" passHref>
-                  <NavigationMenuLink
+                <NavigationMenuLink asChild>
+                  <Link
+                    href="/docs/components"
                     className={cn(
                       navigationMenuTriggerStyle(),
                       pathname?.startsWith("/docs/components")
@@ -60,8 +62,8 @@ export function Navbar() {
                     )}
                   >
                     Components
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>

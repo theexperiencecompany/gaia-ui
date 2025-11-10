@@ -52,6 +52,10 @@ export const docsConfig = {
           title: "Author Tooltip",
           href: "/docs/components/author-tooltip",
         },
+        {
+          title: "Navbar Menu",
+          href: "/docs/components/navbar-menu",
+        },
       ],
     },
   ],

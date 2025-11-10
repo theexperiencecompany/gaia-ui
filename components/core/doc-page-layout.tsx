@@ -1,5 +1,5 @@
-import { TableOfContents } from "@/components/table-of-contents";
-import { PageNavigation } from "@/components/page-navigation";
+import { TableOfContents } from "@/components/core/table-of-contents";
+import { PageNavigation } from "@/components/core/page-navigation";
 import * as React from "react";
 
 interface TocEntry {

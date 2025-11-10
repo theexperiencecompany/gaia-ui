@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { CopyButton } from "@/components/copy-button";
+import { CopyButton } from "@/components/core/copy-button";
 import * as React from "react";
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLPreElement> {

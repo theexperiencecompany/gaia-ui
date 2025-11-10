@@ -1,6 +1,6 @@
 "use client";
 
-import { CopyButton } from "@/components/copy-button";
+import { CopyButton } from "@/components/core/copy-button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { siteConfig } from "@/config/site";
 import { Terminal } from "lucide-react";
