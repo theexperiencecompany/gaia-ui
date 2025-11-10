@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "./siteConfig";
 
 interface SEOProps {
   title?: string;

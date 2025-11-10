@@ -15,13 +15,18 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
 import { Kbd, KbdGroup } from "./kbd";
+import { siteConfig } from "@/lib/siteConfig";
+import { NavSection } from "@/types/nav-item";
 
-export function Navbar() {
+interface NavbarProps {
+  navigation: NavSection[];
+}
+
+export function Navbar({ navigation }: NavbarProps) {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
 
@@ -102,7 +107,7 @@ export function Navbar() {
           </nav>
         </div>
       </div>
-      <CommandMenu open={open} setOpen={setOpen} />
+      <CommandMenu open={open} setOpen={setOpen} navigation={navigation} />
     </header>
   );
 }

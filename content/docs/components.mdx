@@ -3,11 +3,12 @@ title: "Components"
 description: "Here you can find all the components available in the library. We are working on adding more components."
 ---
 
-import { docsConfig } from "@/config/site";
+import { getNavigation } from "@/lib/navigation";
 import Link from "next/link";
 
 export const ComponentsList = () => {
-  const componentsSection = docsConfig.sidebarNav.find(
+  const navigation = getNavigation();
+  const componentsSection = navigation.find(
     (section) => section.title === "Components"
   );
   const components = componentsSection?.items || [];

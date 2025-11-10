@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { getAllDocSlugs } from "@/lib/mdx";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@/lib/siteConfig";
 
 /**
  * Generate dynamic sitemap for all pages
