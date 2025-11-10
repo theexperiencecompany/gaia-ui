@@ -1,9 +1,12 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import * as React from "react";
+import Image from "next/image";
+import { ChevronDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { RaisedButton } from "./raised-button";
 
 export interface NavbarMenuLink {
   label: string;
@@ -25,6 +28,16 @@ export interface NavbarMenuProps {
   activeMenu: string;
   sections: NavbarMenuSection[];
   onClose?: () => void;
+}
+
+export interface NavbarWithMenuProps {
+  sections: NavbarMenuSection[];
+  navItems?: Array<
+    | { type: "link"; label: string; href: string }
+    | { type: "dropdown"; label: string; menu: string }
+  >;
+  logo?: React.ReactNode;
+  cta?: React.ReactNode;
 }
 
 const ListItem = React.forwardRef<
@@ -155,5 +168,125 @@ export function NavbarMenu({ activeMenu, sections, onClose }: NavbarMenuProps) {
         </ul>
       </div>
     </motion.div>
+  );
+}
+
+export function NavbarWithMenu({
+  sections,
+  navItems,
+  logo,
+  cta,
+}: NavbarWithMenuProps) {
+  const [activeDropdown, setActiveDropdown] = React.useState<string | null>(
+    null
+  );
+  const [hoveredItem, setHoveredItem] = React.useState<string | null>(null);
+
+  const defaultNavItems = [
+    { type: "dropdown", label: "Product", menu: "product" },
+    { type: "dropdown", label: "Resources", menu: "resources" },
+    { type: "dropdown", label: "Socials", menu: "socials" },
+  ] as const;
+
+  const items = navItems || defaultNavItems;
+
+  const handleNavbarMouseLeave = () => {
+    setActiveDropdown(null);
+    setHoveredItem(null);
+  };
+
+  const handleMouseEnter = (menu: string) => {
+    setActiveDropdown(menu);
+    setHoveredItem(menu);
+  };
+
+  return (
+    <div className="min-h-[350px] w-full bg-zinc-950 p-4 flex items-start justify-center transition">
+      {/* Remove this parent container to remove the background color and the height when needed. */}
+      <div
+        className="relative mx-auto w-screen max-w-4xl"
+        onMouseLeave={handleNavbarMouseLeave}
+      >
+        <div
+          className={cn(
+            "navbar_content flex h-14 w-full items-center justify-between border border-white/5 px-3 backdrop-blur-md transition-all",
+            activeDropdown
+              ? "rounded-t-2xl border-b-0 bg-zinc-950"
+              : "rounded-2xl bg-zinc-900/30"
+          )}
+        >
+          <div className="flex items-center gap-2 px-2">
+            {logo || (
+              <Image
+                src="/media/text_w_logo_white.webp"
+                alt="Logo"
+                width={100}
+                height={30}
+                className="object-contain"
+              />
+            )}
+          </div>
+
+          <div className="flex items-center gap-1 rounded-lg px-1 py-1">
+            {items.map((item) =>
+              item.type === "link" ? (
+                <button
+                  key={item.href}
+                  className={cn(
+                    "relative flex h-9 cursor-pointer items-center rounded-xl px-4 py-2 text-sm transition-colors hover:bg-zinc-800/40",
+                    hoveredItem === item.label.toLowerCase()
+                      ? "text-zinc-100"
+                      : "text-zinc-400 hover:text-zinc-100"
+                  )}
+                  onMouseEnter={() => {
+                    setHoveredItem(item.label.toLowerCase());
+                    setActiveDropdown(null);
+                  }}
+                >
+                  <span className="relative z-10">{item.label}</span>
+                </button>
+              ) : (
+                <button
+                  key={item.menu}
+                  className="relative flex h-9 cursor-pointer items-center rounded-xl px-4 py-2 text-sm text-zinc-400 capitalize transition-colors hover:text-zinc-100"
+                  onMouseEnter={() => handleMouseEnter(item.menu)}
+                >
+                  {hoveredItem === item.menu && (
+                    <div className="absolute inset-0 h-full w-full rounded-xl bg-zinc-800 transition-all duration-300 ease-out" />
+                  )}
+                  <div className="relative z-10 flex items-center gap-2">
+                    <span>
+                      {item.label.charAt(0).toUpperCase() + item.label.slice(1)}
+                    </span>
+                    <ChevronDown
+                      height={17}
+                      width={17}
+                      className={cn(
+                        "transition duration-200",
+                        hoveredItem === item.menu && "rotate-180"
+                      )}
+                    />
+                  </div>
+                </button>
+              )
+            )}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {cta || <RaisedButton color="#00bbff">Get Started</RaisedButton>}
+          </div>
+        </div>
+
+        <AnimatePresence>
+          {activeDropdown && (
+            <NavbarMenu
+              activeMenu={activeDropdown}
+              sections={sections}
+              onClose={() => setActiveDropdown(null)}
+            />
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
   );
 }

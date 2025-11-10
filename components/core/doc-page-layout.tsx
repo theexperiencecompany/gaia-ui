@@ -29,7 +29,7 @@ export function DocPageLayout({
 
   return (
     <main className="relative py-6 lg:gap-10 lg:py-8 flex-1 xl:flex xl:gap-10">
-      <div className="mx-auto w-full max-w-2xl min-w-0 flex-1">
+      <div className="mx-auto w-full max-w-4xl min-w-0 flex-1">
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight">

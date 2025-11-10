@@ -1,28 +1,22 @@
-import type { MDXComponents } from "mdx/types";
-import { cn } from "@/lib/utils";
 import { CodeBlock } from "@/components/core/code-block";
 import { ComponentPreview } from "@/components/core/component-preview";
 import { InstallCommand } from "@/components/core/install-command";
 import { SourceCode } from "@/components/core/source-code";
-import { RaisedButton } from "@/registry/new-york/ui/raised-button";
-import { Download } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AuthorTooltip } from "./registry/new-york/ui/author-tooltip";
-import { NavbarMenu } from "@/components/previews/navbar-menu-preview";
+import { cn } from "@/lib/utils";
+import { Download } from "lucide-react";
+import type { MDXComponents } from "mdx/types";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ComponentPreview,
     InstallCommand,
     SourceCode,
-    RaisedButton,
     Download,
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
-    AuthorTooltip,
-    NavbarMenu,
     h1: ({ className, ...props }) => (
       <h1
         className={cn(

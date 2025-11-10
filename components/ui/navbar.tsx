@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 
 import { CommandMenu } from "@/components/core/command-menu";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -15,18 +14,19 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Separator } from "@/components/ui/separator";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { Kbd, KbdGroup } from "./kbd";
-import { FaGithub } from "react-icons/fa";
 import Image from "next/image";
+import { FaGithub } from "react-icons/fa";
+import { Kbd, KbdGroup } from "./kbd";
 
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-background">
       <div className="container flex py-3  max-w-screen-2xl items-center px-10">
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">

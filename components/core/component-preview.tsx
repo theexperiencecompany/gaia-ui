@@ -1,75 +1,38 @@
-"use client";
-
-import { CodeBlock } from "@/components/core/code-block";
-import { FullscreenButton } from "@/components/core/fullscreen-button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
+import { getSourceCode } from "@/lib/source";
 import * as React from "react";
-import { codeToHtml } from "shiki";
+import { ComponentPreviewClient } from "./component-preview-client";
+import { getPreviewComponent } from "@/components/previews";
 
 interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  code: string;
+  name?: string;
+  code?: string;
+  children?: React.ReactNode;
 }
 
-export function ComponentPreview({
-  children,
-  className,
+/**
+ * Server component for component preview
+ * Reads source code and dynamically loads preview component
+ */
+export async function ComponentPreview({
+  name,
   code,
+  children,
   ...props
 }: ComponentPreviewProps) {
-  const [html, setHtml] = React.useState("");
+  let sourceCode = code || "";
+  let PreviewComponent = null;
 
-  React.useEffect(() => {
-    codeToHtml(code, {
-      lang: "tsx",
-      themes: {
-        light: "github-light",
-        dark: "github-dark",
-      },
-    }).then(setHtml);
-  }, [code]);
+  // If name is provided, read code and dynamically load component
+  // Name format: component/variant (e.g., "navbar-menu/basic")
+  if (name) {
+    const previewPath = `components/previews/${name}.tsx`;
+    sourceCode = getSourceCode(previewPath);
+    PreviewComponent = await getPreviewComponent(name);
+  }
 
   return (
-    <div className={cn("my-6 w-full", className)} {...props}>
-      <div className="max-h-[600px] overflow-auto rounded-lg border">
-        <Tabs defaultValue="preview" className="w-full gap-0">
-          <TabsList className="bg-background rounded-none border-b p-0 w-full flex justify-start">
-            <TabsTrigger
-              value="preview"
-              className="bg-background data-[state=active]:bg-muted h-full rounded-none border-0 data-[state=active]:shadow-none px-5 font-normal shadow-none"
-            >
-              Preview
-            </TabsTrigger>
-            <TabsTrigger
-              value="code"
-              className="bg-background data-[state=active]:bg-muted h-full rounded-none border-0 data-[state=active]:shadow-none px-5 font-normal shadow-none"
-            >
-              Code
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="preview" className="m-0 p-5 h-fit relative group">
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              {children}
-            </div>
-            <div className="absolute right-4 top-4">
-              <FullscreenButton>{children}</FullscreenButton>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="code" className="m-0 p-0 h-fit!">
-            <CodeBlock
-              raw={code}
-              className="m-0 max-h-none rounded-none border-0 h-full p-4"
-            >
-              <code
-                className="font-mono text-sm"
-                dangerouslySetInnerHTML={{ __html: html }}
-              />
-            </CodeBlock>
-          </TabsContent>
-        </Tabs>
-      </div>
-    </div>
+    <ComponentPreviewClient code={sourceCode} {...props}>
+      {PreviewComponent ? <PreviewComponent /> : children}
+    </ComponentPreviewClient>
   );
 }
