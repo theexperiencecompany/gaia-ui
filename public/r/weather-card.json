@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "weather-card",
+  "type": "registry:ui",
+  "title": "Weather Card",
+  "description": "A beautiful, interactive weather card component with forecast, detailed metrics, and multiple weather conditions support.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["button", "dropdown-menu", "tooltip"],
+  "files": [
+    {
+      "path": "registry/new-york/ui/weather-card.tsx",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/new-york/ui/weather-detail-item.tsx",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/new-york/ui/weather-icons.tsx",
+      "type": "registry:ui"
+    }
+  ]
+}

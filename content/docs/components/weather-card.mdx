@@ -1,0 +1,293 @@
+---
+title: Weather Card
+description: A beautiful, interactive weather card component with forecast, detailed metrics, and multiple weather conditions support.
+---
+
+<ComponentPreview name="weather-card/default" />
+
+## Weather Conditions
+
+The Weather Card automatically adapts its theme based on weather conditions with unique gradients and icons for different weather types including rain, snow, thunderstorms, fog, and more.
+
+<ComponentPreview name="weather-card/conditions" />
+
+## With Forecast
+
+Display a 5-day weather forecast with expandable sections.
+
+<ComponentPreview name="weather-card/with-forecast" />
+
+## Temperature Units
+
+Supports both Celsius and Fahrenheit with easy unit switching.
+
+<ComponentPreview name="weather-card/units" />
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+<TabsContent value="automatic">
+  <InstallCommand component="weather-card" />
+</TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode filePath="registry/new-york/ui/weather-card.tsx" />
+
+This component also requires:
+
+<SourceCode filePath="registry/new-york/ui/weather-detail-item.tsx" />
+
+<SourceCode filePath="registry/new-york/ui/weather-icons.tsx" />
+
+Install the required dependencies:
+
+```bash
+npx shadcn@latest add button dropdown-menu tooltip
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { WeatherCard } from "@/components/ui/weather-card";
+
+const weatherData = {
+  coord: {
+    lon: -122.4194,
+    lat: 37.7749,
+  },
+  weather: [
+    {
+      id: 800,
+      main: "Clear",
+      description: "clear sky",
+      icon: "01d",
+    },
+  ],
+  main: {
+    temp: 22,
+    feels_like: 21,
+    temp_min: 18,
+    temp_max: 25,
+    pressure: 1013,
+    humidity: 60,
+  },
+  visibility: 10000,
+  wind: {
+    speed: 3.5,
+    deg: 180,
+  },
+  dt: 1699641600,
+  sys: {
+    country: "US",
+    sunrise: 1699622400,
+    sunset: 1699660800,
+  },
+  timezone: -28800,
+  name: "San Francisco",
+  location: {
+    city: "San Francisco",
+    country: "United States",
+    region: "California",
+  },
+};
+
+export default function Example() {
+  return <WeatherCard weatherData={weatherData} />;
+}
+```
+
+## Props
+
+### WeatherCard
+
+| Prop         | Type                      | Default   | Description                                    |
+| ------------ | ------------------------- | --------- | ---------------------------------------------- |
+| weatherData  | WeatherData               | -         | Weather data object (required)                 |
+| className    | string                    | undefined | Additional CSS classes                         |
+| showForecast | boolean                   | true      | Whether to show the forecast section           |
+| showDetails  | boolean                   | true      | Whether to show the additional details section |
+| defaultUnit  | "celsius" \| "fahrenheit" | "celsius" | Default temperature unit                       |
+
+### WeatherData Type
+
+```typescript
+interface WeatherData {
+  coord?: {
+    lon: number;
+    lat: number;
+  };
+  weather: WeatherCondition[];
+  main: WeatherMain;
+  visibility?: number;
+  wind: WeatherWind;
+  dt: number;
+  sys: WeatherSys;
+  timezone: number;
+  name: string;
+  location: WeatherLocation;
+  forecast?: ForecastDay[];
+}
+
+interface WeatherLocation {
+  city: string;
+  country: string | null;
+  region: string | null;
+}
+
+interface WeatherMain {
+  temp: number; // Temperature in Celsius
+  feels_like: number; // Feels like temperature in Celsius
+  temp_min: number;
+  temp_max: number;
+  pressure: number; // Atmospheric pressure in hPa
+  humidity: number; // Humidity percentage
+}
+
+interface WeatherWind {
+  speed: number; // Wind speed in m/s
+  deg: number; // Wind direction in degrees
+}
+
+interface WeatherCondition {
+  id: number; // Weather condition ID
+  main: string; // Weather parameter (Rain, Snow, Clear, etc.)
+  description: string; // Weather description
+  icon: string;
+}
+
+interface WeatherSys {
+  country: string; // Country code
+  sunrise: number; // Sunrise time (Unix timestamp)
+  sunset: number; // Sunset time (Unix timestamp)
+}
+
+interface ForecastDay {
+  date: string; // Date string (YYYY-MM-DD)
+  timestamp: number; // Unix timestamp
+  temp_min: number; // Minimum temperature
+  temp_max: number; // Maximum temperature
+  humidity: number; // Humidity percentage
+  weather: {
+    main: string;
+    description: string;
+    icon: string;
+  };
+}
+```
+
+## Weather Conditions
+
+The Weather Card supports all OpenWeatherMap weather condition codes:
+
+### Thunderstorm (200-299)
+
+- ID 200-232: Various thunderstorm conditions
+- Theme: Purple/Slate gradient with yellow lightning icon
+
+### Drizzle (300-399)
+
+- ID 300-321: Light rain conditions
+- Theme: Slate/Blue gradient with light blue drizzle icon
+
+### Rain (500-599)
+
+- ID 500-531: Rain conditions from light to heavy
+- Theme: Slate/Blue gradient with blue rain icon
+
+### Snow (600-699)
+
+- ID 600-622: Snow, sleet, and shower conditions
+- Theme: Light blue/Indigo gradient with cyan snow icon
+
+### Atmospheric (700-799)
+
+- **Mist (701)**: Gray gradient
+- **Smoke (711)**: Gray gradient
+- **Haze (721)**: Amber gradient
+- **Dust/Sand (731, 761, 751)**: Yellow/Orange gradient
+- **Fog (741)**: Gray gradient
+- **Volcanic Ash (762)**: Zinc gradient
+- **Squall (771)**: Blue gradient
+- **Tornado (781)**: Slate gradient
+
+### Clear (800)
+
+- Clear sky conditions
+- Theme: Yellow/Orange gradient with golden sun icon
+
+### Clouds (801-804)
+
+- **Few/Scattered (801-802)**: Blue gradient
+- **Broken/Overcast (803-804)**: Slate gradient
+
+## Features
+
+- **Dynamic Theming**: Automatic color schemes based on weather conditions
+- **Forecast Display**: Optional 5-day weather forecast with day/night temperatures
+- **Detailed Metrics**: Wind speed, humidity, visibility, pressure, sunrise/sunset times
+- **Temperature Units**: Toggle between Celsius and Fahrenheit
+- **Responsive Design**: Adapts to different screen sizes
+- **Expandable Sections**: Collapsible forecast and details sections
+- **Accessible**: Proper ARIA labels and keyboard navigation
+- **Weather Icons**: 12+ custom weather condition icons
+
+## Data Sources
+
+This component works great with weather data from:
+
+- [OpenWeatherMap API](https://openweathermap.org/api)
+- [WeatherAPI](https://www.weatherapi.com/)
+- Any API that provides similar weather data structure
+
+## Examples
+
+### Minimal Weather Card
+
+Display only current weather without forecast or details:
+
+```tsx
+<WeatherCard
+  weatherData={weatherData}
+  showForecast={false}
+  showDetails={false}
+/>
+```
+
+### Fahrenheit by Default
+
+Set Fahrenheit as the default unit:
+
+```tsx
+<WeatherCard weatherData={weatherData} defaultUnit="fahrenheit" />
+```
+
+### Custom Styling
+
+Add custom classes to modify appearance:
+
+```tsx
+<WeatherCard weatherData={weatherData} className="max-w-lg shadow-2xl" />
+```
+
+### With Full Forecast
+
+Show complete weather data with forecast:
+
+```tsx
+<WeatherCard
+  weatherData={weatherDataWithForecast}
+  showForecast={true}
+  showDetails={true}
+/>
+```

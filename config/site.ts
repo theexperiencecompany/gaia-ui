@@ -56,6 +56,10 @@ export const docsConfig = {
           title: "Navbar Menu",
           href: "/docs/components/navbar-menu",
         },
+        {
+          title: "Weather Card",
+          href: "/docs/components/weather-card",
+        },
       ],
     },
   ],
