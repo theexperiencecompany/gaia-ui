@@ -135,7 +135,7 @@ function ImageResults({ images, onImageClick }: ImageResultsProps) {
   }
 
   return (
-    <div className="my-4 flex w-full max-w-2xl -space-x-15 overflow-x-auto pr-2">
+    <div className="my-4 flex w-full max-w-2xl -space-x-15 pr-2">
       {validImages.map((imageUrl, index) => (
         <ImageItem
           key={imageUrl}

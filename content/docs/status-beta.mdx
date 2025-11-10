@@ -1,0 +1,105 @@
+---
+title: Status - Beta
+description: Understanding the current state of Gaia UI and our roadmap for stability.
+---
+
+import { AuthorTooltip } from "@/registry/new-york/ui/author-tooltip";
+
+## Status: Beta
+
+Gaia UI is currently in **beta**. This means we're actively working on expanding the library, improving component stability, and preparing everything for a production-ready v1.0 release.
+
+## What We're Working On
+
+### Component Migration & Stabilization
+
+We're in the process of converting our internal components to open-source versions. This involves:
+
+- **Replacing HeroUI with shadcn/ui** - Moving away from HeroUI to shadcn-compatible components ensures better compatibility with component registries and significantly reduces dependency bloat.
+- **Removing unnecessary styling layers** - We're stripping out additional stylings and animations that were specific to GAIA's needs. These extras aren't necessary for everyone and only increase bundle size.
+- **Making components registry-compatible** - All components are being refactored to work seamlessly with the shadcn CLI and other component registries.
+
+### Ongoing Development
+
+This library is actively maintained and will grow alongside GAIA. We're continuously adding new components as we build and refine them in production.
+
+## Philosophy
+
+### Quality Over Quantity
+
+We believe in shipping **production-ready components** that solve real problems. You won't find:
+
+- ❌ Generic calendar inputs that every UI library has
+- ❌ Random gradient backgrounds and flashy animations
+- ❌ "Portfolio filler" components with no practical use
+- ❌ Bloated dependencies for features you'll never use
+
+Instead, we focus on:
+
+- ✅ **Battle-tested components** we use in production at GAIA
+- ✅ **Painstakingly designed UI** that handles edge cases and real-world scenarios
+- ✅ **Thoughtful interactions** that improve user experience
+- ✅ **Components that actually solve problems** in modern web applications
+
+### Real Components for Real Applications
+
+Some of these components took weeks to get right - handling accessibility, keyboard navigation, edge cases, animations, and responsive design. We've done the hard work so you don't have to.
+
+If we're shipping a component, it's because:
+
+1. We use it in production at GAIA
+2. It's been refined through actual user feedback
+3. It solves a problem better than existing alternatives
+4. It adds genuine value to the open-source ecosystem
+
+## Why Open Source This?
+
+Building great UI is hard. We've invested significant time creating components that go beyond basic implementations. These components handle the nuances and edge cases that only surface when thousands of users interact with them daily.
+
+Rather than keeping these locked away, we want to share them with the community. If you're building a modern web application, chances are you'll need similar components. Why reinvent the wheel when you can use battle-tested code that's already powering real applications?
+
+## What to Expect
+
+During the beta phase:
+
+- **New components added regularly** as we build and refine them
+- **Breaking changes possible** as we stabilize APIs and improve component design
+- **Active development** with frequent updates and improvements
+- **Community feedback welcomed** - we want to hear how you're using these components
+
+Once we hit v1.0, you can expect:
+
+- Stable, semantic versioning
+- No breaking changes without major version bumps
+- Comprehensive documentation for every component
+- Full TypeScript support with proper types
+- Accessibility compliance across all components
+
+## Get Involved
+
+Found a bug? Have a suggestion? Want to contribute? We'd love your input.
+
+- [GitHub Repository](https://github.com/heygaia/ui)
+- [Report Issues](https://github.com/heygaia/ui/issues)
+- [Discussions](https://github.com/heygaia/ui/discussions)
+
+<div className="not-prose mt-10 flex items-center gap-4">
+
+---
+
+<span>— </span>
+  <AuthorTooltip
+    author={{
+      name: "Aryan Randeriya",
+      avatar: "https://github.com/aryanranderiya.png",
+      role: "Founder & CEO",
+      github: "https://github.com/aryanranderiya",
+      twitter: "https://twitter.com/aryanranderiya",
+      linkedin: "https://linkedin.com/in/aryanranderiya",
+    }}
+    avatarSize="sm"
+  />
+    <span>
+        Aryan Randeriya, Founder & CEO of The Experience Company
+    </span>
+</div>

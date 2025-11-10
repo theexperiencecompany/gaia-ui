@@ -96,31 +96,3 @@ export function ChatMessage({
     </div>
   );
 }
-
-export interface ChatConversationProps {
-  messages: Array<{
-    id: string;
-    variant: "sent" | "received";
-    messages: string[];
-    timestamp?: string;
-  }>;
-  className?: string;
-}
-
-export function ChatConversation({
-  messages,
-  className,
-}: ChatConversationProps) {
-  return (
-    <div className={cn("flex flex-col gap-4 p-4", className)}>
-      {messages.map((message) => (
-        <ChatMessage
-          key={message.id}
-          variant={message.variant}
-          messages={message.messages}
-          timestamp={message.timestamp}
-        />
-      ))}
-    </div>
-  );
-}

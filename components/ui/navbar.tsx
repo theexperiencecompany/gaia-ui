@@ -18,6 +18,7 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
+import { Star } from "lucide-react";
 import { Kbd, KbdGroup } from "./kbd";
 import { siteConfig } from "@/lib/siteConfig";
 import { NavSection } from "@/types/nav-item";
@@ -29,6 +30,25 @@ interface NavbarProps {
 export function Navbar({ navigation }: NavbarProps) {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
+  const [stars, setStars] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    const fetchStars = async () => {
+      try {
+        const response = await fetch(
+          "https://api.github.com/repos/theexperiencecompany/ui"
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setStars(data.stargazers_count);
+        }
+      } catch (error) {
+        console.error("Failed to fetch GitHub stars:", error);
+      }
+    };
+
+    fetchStars();
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background">
@@ -92,13 +112,21 @@ export function Navbar({ navigation }: NavbarProps) {
           </div>
           <Separator orientation="vertical" className="h-6" />
           <nav className="flex items-center gap-1">
-            <Button variant="ghost" size="icon" asChild>
+            <Button variant="ghost" size="sm" asChild className="h-9 gap-2">
               <Link
                 href={siteConfig.links.github}
                 target="_blank"
                 rel="noreferrer"
               >
-                <FaGithub className="h-5 w-5" />
+                <FaGithub className="h-4 w-4" />
+                <div className="flex items-center gap-0.5">
+                  <Star className="h-5 w-5 fill-yellow-500 text-transparent" />
+                  {stars !== null && (
+                    <span className="text-sm font-medium">
+                      {stars.toLocaleString()}
+                    </span>
+                  )}
+                </div>
                 <span className="sr-only">GitHub</span>
               </Link>
             </Button>

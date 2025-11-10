@@ -13,6 +13,10 @@ description: Beautiful iOS-style message bubbles with authentic iMessage appeara
 
 <ComponentPreview name="message-bubble/grouped" />
 
+### Grouped with All Rounded Corners
+
+<ComponentPreview name="message-bubble/grouped-rounded" />
+
 ## Installation
 
 <Tabs defaultValue="automatic" className="mt-4">
@@ -153,31 +157,6 @@ export default function Example() {
 }
 ```
 
-### Full Conversation
-
-```tsx
-import { ChatConversation } from "@/components/ui/message-bubble";
-
-export default function Example() {
-  const messages = [
-    {
-      id: "1",
-      variant: "received",
-      messages: ["Hey! How are you?"],
-      timestamp: "10:30 AM",
-    },
-    {
-      id: "2",
-      variant: "sent",
-      messages: ["I'm great! How about you?"],
-      timestamp: "10:31 AM",
-    },
-  ];
-
-  return <ChatConversation messages={messages} />;
-}
-```
-
 ## Components
 
 ### MessageBubble
@@ -207,17 +186,6 @@ A complete message with optional timestamp. Automatically groups multiple messag
 | timestamp     | string               | undefined  | Message timestamp             |
 | showTimestamp | boolean              | true       | Whether to show timestamp     |
 | className     | string               | undefined  | Additional CSS classes        |
-
-### ChatConversation
-
-A container for multiple chat messages.
-
-**Props**
-
-| Prop      | Type                                         | Default   | Description            |
-| --------- | -------------------------------------------- | --------- | ---------------------- |
-| messages  | `Array<{id, variant, messages, timestamp?}>` | -         | Array of messages      |
-| className | string                                       | undefined | Additional CSS classes |
 
 ## Features
 
@@ -267,6 +235,44 @@ The component uses specific colors for authentic iOS appearance:
 - **Sent messages**: `#00bbff` (iOS blue) with black text
 - **Received messages**: `#27272a` (dark gray) with white text
 - **Tails**: Pseudo-elements create the iconic message tail effect
+
+### Customizing Grouped Message Corners
+
+The default CSS uses variant-specific corner radii. You can customize the grouping style:
+
+**Tight Corners (Single Side):**
+
+```css
+.imessage-grouped-first {
+  border-radius: 20px 20px 20px 5px !important;
+}
+
+.imessage-grouped-last {
+  border-radius: 5px 20px 20px 20px !important;
+}
+
+.imessage-grouped-middle {
+  border-radius: 5px 20px 20px 5px !important;
+}
+```
+
+**All Rounded Corners:**
+
+```css
+.imessage-grouped-first {
+  border-radius: 20px 20px 20px 20px !important;
+}
+
+.imessage-grouped-last {
+  border-radius: 20px 20px 20px 20px !important;
+}
+
+.imessage-grouped-middle {
+  border-radius: 20px 20px 20px 20px !important;
+}
+```
+
+You can wrap groups in a div with a custom class to apply specific corner styles per group.
 
 ## Use Cases
 

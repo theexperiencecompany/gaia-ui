@@ -4,7 +4,7 @@ import { LinkPreview } from "@/registry/new-york/ui/link-preview";
 
 export default function LinkPreviewDefault() {
   return (
-    <div className="flex max-w-2xl flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <p className="text-sm leading-relaxed text-foreground">
         GAIA is an open-source AI assistant designed to help you manage your
         digital life. Built with modern web technologies, it provides a seamless
@@ -17,8 +17,8 @@ export default function LinkPreviewDefault() {
         </LinkPreview>{" "}
         to see who&apos;s behind the project. The platform is actively
         maintained and welcomes contributions from developers around the world.
-      </p>
-      <p className="text-sm leading-relaxed text-foreground">
+        <br />
+        <br />
         For more information about modern web frameworks, visit the{" "}
         <LinkPreview href="https://nextjs.org">
           Next.js documentation

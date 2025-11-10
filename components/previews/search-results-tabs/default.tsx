@@ -1,64 +1,75 @@
 "use client";
 
 import { SearchResultsTabs } from "@/registry/new-york/ui/search-results-tabs";
+import { MessageBubble } from "@/registry/new-york/ui/message-bubble";
 
 export default function SearchResultsTabsDefault() {
   const searchResults = {
     web: [
       {
-        title: "GAIA - Open Source AI Assistant",
-        url: "https://heygaia.io",
+        title: "Steve Jobs - Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Steve_Jobs",
         content:
-          "GAIA is your proactive, personal AI assistant designed to increase your productivity. It goes beyond traditional assistants by automating tasks and managing your digital life.",
+          "Steven Paul Jobs (February 24, 1955 – October 5, 2011) was an American businessman, inventor, and investor best known for co-founding the technology company Apple Inc. Jobs was also the founder of NeXT and chairman and majority shareholder of Pixar.",
+        score: 0.91813606,
       },
       {
-        title: "Next.js by Vercel - The React Framework",
-        url: "https://nextjs.org",
+        title:
+          "Steve Jobs | Biography, Education, Apple, & Facts | Britannica Money",
+        url: "https://www.britannica.com/money/Steve-Jobs",
         content:
-          "Next.js is a React framework for building full-stack web applications. You use React Components to build user interfaces, and Next.js for additional features and optimizations.",
+          "Steve Jobs (born February 24, 1955, San Francisco, California, U.S.—died October 5, 2011, Palo Alto, California) was the cofounder of Apple Computer, Inc. With Steve Wozniak, Jobs founded Apple Inc. in 1976 and transformed the company into a world leader in telecommunications.",
+        score: 0.818055,
       },
       {
-        title: "React - The library for web and native user interfaces",
-        url: "https://react.dev",
+        title: "Steve Jobs - Official Trailer (HD) - YouTube",
+        url: "https://www.youtube.com/watch?v=aEr6K1bwIVs",
         content:
-          "React is the library for web and native user interfaces. Build user interfaces out of individual pieces called components written in JavaScript.",
+          "Set backstage at three iconic product launches and ending in 1998 with the unveiling of the iMac, Steve Jobs takes us behind the scenes of the digital revolution to paint an intimate portrait of the brilliant man at its epicenter.",
+        score: 0.69968605,
       },
       {
-        title: "The Experience Company - Design & Development",
-        url: "https://experience.heygaia.io",
+        title: "Steve Jobs' 2005 Stanford Commencement Address - YouTube",
+        url: "https://www.youtube.com/watch?v=UF8uR6Z6KLc",
         content:
-          "We design and build exceptional digital experiences. From concept to launch, we partner with startups and enterprises to create products people love.",
+          "Drawing from some of the most pivotal points in his life, Steve Jobs, chief executive officer and co-founder of Apple Computer and of Pixar",
+        score: 0.6033015,
+      },
+      {
+        title: "Steve Jobs (2015) - IMDb",
+        url: "https://www.imdb.com/title/tt2080374/",
+        content:
+          "The story unfolds backstage at three iconic product launches, ending in 1998 with the unveiling of the iMac. Steve Jobs takes us behind the scenes of the digital revolution, to paint a portrait of the man at its epicenter.",
+        score: 0.5683445,
       },
     ],
     images: [
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800",
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800",
-      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800",
+      "https://cdn.britannica.com/04/171104-050-5B714956/Steve-Jobs-iPhone-2010.jpg",
+      "https://cdn.mos.cms.futurecdn.net/GkeSqnHP3o4skUPJa7QSWZ.jpg",
+      "https://hips.hearstapps.com/hmg-prod/images/apple-ceo-steve-jobs-speaks-during-an-apple-special-event-news-photo-1683661736.jpg",
+      "https://hips.hearstapps.com/hmg-prod/images/apple-ceo-steve-jobs-speaks-during-an-apple-special-event-news-photo-1683661736.jpg?crop=0.800xw:0.563xh;0.0657xw,0.0147xh&resize=1200:*",
+      "https://mg.co.za/wp-content/uploads/2023/03/stevejobs.1419962519.jpeg",
     ],
-    news: [
-      {
-        title: "AI Assistants Transform Productivity in 2025",
-        url: "https://example.com/news/ai-productivity",
-        content:
-          "New AI assistant platforms are revolutionizing how people manage their digital workflows, with open-source solutions leading the charge.",
-        score: 0.95,
-        date: "2025-11-08",
-      },
-      {
-        title: "Open Source Projects See Record Contributions",
-        url: "https://example.com/news/open-source",
-        content:
-          "GitHub reports a 40% increase in contributions to open-source projects, with AI and productivity tools seeing the most growth.",
-        score: 0.89,
-        date: "2025-11-07",
-      },
-    ],
+    news: [],
   };
 
   return (
-    <div className="w-full max-w-3xl">
+    <div className="w-full max-w-3xl space-y-4">
+      {/* Main component */}
       <SearchResultsTabs search_results={searchResults} />
+
+      {/* iOS-style message bubbles */}
+      <div className="space-y-1.5 mt-6">
+        <div className="flex justify-start w-[80%]">
+          <MessageBubble
+            message="Steven Paul Jobs was an American businessman, inventor, and investor best known for co-founding the technology company Apple Inc. Jobs was also the founder of NeXT and chairman and majority shareholder of Pixar."
+            variant="received"
+          />
+        </div>
+        <div className="flex justify-end">
+          <MessageBubble message="ikr" variant="sent" />
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChatConversation } from "@/registry/new-york/ui/message-bubble";
+import { ChatMessage } from "@/registry/new-york/ui/message-bubble";
 
 export default function MessageBubbleDefault() {
   const messages = [
@@ -35,17 +35,18 @@ export default function MessageBubbleDefault() {
       ],
       timestamp: "10:33 AM",
     },
-    {
-      id: "5",
-      variant: "received" as const,
-      messages: ["Wow, that looks amazing! Can I try it out?"],
-      timestamp: "10:34 AM",
-    },
   ];
 
   return (
-    <div className="mx-auto w-full max-w-2xl">
-      <ChatConversation messages={messages} />
+    <div className="flex w-full flex-col gap-1 p-6 ">
+      {messages.map((message) => (
+        <ChatMessage
+          key={message.id}
+          variant={message.variant}
+          messages={message.messages}
+          timestamp={message.timestamp}
+        />
+      ))}
     </div>
   );
 }
