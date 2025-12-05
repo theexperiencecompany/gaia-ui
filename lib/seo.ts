@@ -405,3 +405,40 @@ export function generateFAQSchema(
     })),
   };
 }
+
+/**
+ * Generate JSON-LD structured data for HowTo guides
+ */
+export function generateHowToSchema({
+  name,
+  description,
+  steps,
+  url,
+  image = siteConfig.ogImage,
+}: {
+  name: string;
+  description: string;
+  steps: Array<{ name: string; text: string; url?: string; image?: string }>;
+  url: string;
+  image?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name,
+    description,
+    image: {
+      "@type": "ImageObject",
+      url: image,
+    },
+    url: `${siteConfig.url}${url}`,
+    step: steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      url: step.url ? `${siteConfig.url}${step.url}` : undefined,
+      image: step.image,
+    })),
+  };
+}

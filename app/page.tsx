@@ -31,6 +31,7 @@ export default function Home() {
 			{/* JSON-LD Structured Data for Software */}
 			<script
 				type="application/ld+json"
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: json ld schema is okay
 				dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
 			/>
 			<div className="relative px-4">
