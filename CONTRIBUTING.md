@@ -1,6 +1,6 @@
 # Adding New Components
 
-This guide will walk you through adding a new component to the Gaia UI component library. We'll use a comprehensive approach that ensures consistency and completeness.
+This guide will walk you through adding a new component to the GAIA UI component library. We'll use a comprehensive approach that ensures consistency and completeness.
 
 ## Quick Reference Checklist
 

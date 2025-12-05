@@ -8,7 +8,7 @@ import { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: siteConfig.name,
-    short_name: "Gaia UI",
+    short_name: "GAIA UI",
     description: siteConfig.description,
     start_url: "/",
     scope: "/",

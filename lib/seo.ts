@@ -39,7 +39,7 @@ export function generateSEO({
     title: pageTitle,
     description,
     keywords: [
-      "Gaia UI",
+      "GAIA UI",
       "React",
       "Tailwind CSS",
       "UI Components",
@@ -60,11 +60,11 @@ export function generateSEO({
       ...keywords,
     ],
     authors: authors?.map((name) => ({ name })) || [
-      { name: "Gaia", url: "https://github.com/theexperiencecompany/gaia" },
+      { name: "GAIA", url: "https://github.com/theexperiencecompany/gaia" },
       { name: "The Experience Company", url: "https://experience.heygaia.io" },
     ],
     creator: "The Experience Company",
-    publisher: "Gaia",
+    publisher: "GAIA",
     robots: noIndex
       ? {
           index: false,
@@ -177,7 +177,7 @@ export function generateArticleSchema({
   url,
   publishedTime,
   modifiedTime,
-  authors = ["Gaia"],
+  authors = ["GAIA"],
   image = siteConfig.ogImage,
 }: {
   title: string;
