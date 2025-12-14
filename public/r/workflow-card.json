@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "workflow-card",
+  "type": "registry:ui",
+  "title": "Workflow Card",
+  "description": "A card for displaying workflow automations with rotated tool icons, execution stats, and action buttons.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/ui/workflow-card.tsx",
+      "type": "registry:ui"
+    }
+  ]
+}

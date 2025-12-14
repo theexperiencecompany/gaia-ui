@@ -1,0 +1,136 @@
+---
+title: Code Block
+description: A syntax-highlighted code block with copy and download functionality, perfect for displaying code snippets in documentation and tutorials.
+---
+
+<ComponentPreview name="code-block/default" />
+
+## Features
+
+- **Copy to Clipboard** - One-click code copying with visual feedback
+- **Download** - Save code snippets as files with appropriate extensions
+- **Line Numbers** - Optional line number display
+- **Language Support** - Auto-detects file extensions for 20+ languages
+- **Filename Display** - Show the filename in the header
+- **Syntax Highlighting Ready** - Works seamlessly with syntax highlighting libraries
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="automatic">
+    <InstallCommand component="code-block" />
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode filePath="registry/new-york/ui/code-block.tsx" />
+
+Install required dependencies:
+
+```bash
+npm install lucide-react
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { CodeBlock } from "@/components/ui/code-block";
+
+export default function Example() {
+  const code = `function hello() {
+  console.log("Hello, World!");
+}`;
+
+  return (
+    <CodeBlock language="javascript" filename="hello.js">
+      {code}
+    </CodeBlock>
+  );
+}
+```
+
+## Examples
+
+### Different Languages
+
+<ComponentPreview name="code-block/languages" />
+
+### With Line Numbers
+
+<ComponentPreview name="code-block/line-numbers" />
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| children | string | - | The code content to display |
+| language | string | "plaintext" | Programming language for syntax highlighting |
+| filename | string | - | Optional filename to display in header |
+| showLineNumbers | boolean | false | Show line numbers on the left |
+| className | string | - | Additional CSS classes |
+
+## Supported Languages
+
+The component automatically detects file extensions for the following languages:
+
+- JavaScript (.js)
+- TypeScript (.ts)
+- Python (.py)
+- Java (.java)
+- C++ (.cpp)
+- C (.c)
+- C# (.cs)
+- Ruby (.rb)
+- Go (.go)
+- Rust (.rs)
+- PHP (.php)
+- Swift (.swift)
+- Kotlin (.kt)
+- HTML (.html)
+- CSS (.css)
+- JSON (.json)
+- XML (.xml)
+- YAML (.yaml)
+- Markdown (.md)
+- Bash/Shell (.sh)
+- SQL (.sql)
+
+## Tips
+
+### Integration with Syntax Highlighters
+
+This component works great with syntax highlighting libraries like `react-syntax-highlighter` or `prism-react-renderer`. Simply wrap the code content with your preferred highlighter:
+
+```tsx
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+<CodeBlock language="javascript">
+  <SyntaxHighlighter language="javascript" style={oneDark}>
+    {code}
+  </SyntaxHighlighter>
+</CodeBlock>
+```
+
+### Custom Styling
+
+Override the default styles using Tailwind classes:
+
+```tsx
+<CodeBlock 
+  className="border-blue-500 bg-blue-950" 
+  language="python"
+>
+  {code}
+</CodeBlock>
+```

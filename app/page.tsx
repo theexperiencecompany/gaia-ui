@@ -100,6 +100,25 @@ export default function Home() {
 						</p>
 					</div>
 
+					<div className="space-y-3 mt-6 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+						<h2 className="text-lg font-semibold">Our Philosophy</h2>
+						<p className="text-sm text-muted-foreground leading-relaxed">
+							We believe in shipping <strong>production-ready components</strong> that solve real problems. You won&apos;t find generic filler components here.
+						</p>
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+							<div className="space-y-1">
+								<p className="text-muted-foreground">❌ Generic calendar inputs</p>
+								<p className="text-muted-foreground">❌ Random gradient backgrounds</p>
+								<p className="text-muted-foreground">❌ Portfolio filler components</p>
+							</div>
+							<div className="space-y-1">
+								<p className="text-emerald-600 dark:text-emerald-400">✓ Battle-tested production code</p>
+								<p className="text-emerald-600 dark:text-emerald-400">✓ Handles real-world edge cases</p>
+								<p className="text-emerald-600 dark:text-emerald-400">✓ Thoughtful interactions</p>
+							</div>
+						</div>
+					</div>
+
 					<div className="text-xs text-zinc-600 mt-8 flex items-center gap-1">
 						Made with ❤️ by
 						<a

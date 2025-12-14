@@ -1,16 +1,17 @@
 # Roadmap
 
 - [ ] Composer with SlashCommandDropdown
-- [ ] Code Block
+- [ ] CLI command tab for different package managers
+- [x] Code Block
 - [ ] Model Selector
-- [ ] File Upload
+- [x] File Upload (as File Preview)
 - [ ] Document Preview
 - [ ] Twitter Card
 - [ ] Email Preview
-- [ ] Calendar Event Card
-- [ ] Todo task item
+- [x] Calendar Event Card
+- [x] Todo task item
 - [ ] Goal Graph
 - [ ] File DropZone
-- [ ] Workflow Card with Rotated Icons
-- [ ] Notification Stack Card
-- [ ] Multi Step Navigation Settings Menu (need a better name) 
+- [x] Workflow Card with Rotated Icons
+- [x] Notification Stack Card (as Notification Card)
+- [ ] Multi Step Navigation in Settings Menu (need a better name) 

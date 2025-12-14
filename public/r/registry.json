@@ -63,6 +63,20 @@
       ]
     },
     {
+      "name": "code-block",
+      "type": "registry:ui",
+      "title": "Code Block",
+      "description": "A syntax-highlighted code block with copy and download functionality, perfect for displaying code snippets.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/ui/code-block.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "link-preview",
       "type": "registry:ui",
       "title": "Link Preview",
@@ -143,6 +157,76 @@
         {
           "path": "lib/utils/tool-icons.tsx",
           "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "todo-item",
+      "type": "registry:ui",
+      "title": "Todo Item",
+      "description": "An interactive todo item with priority colors, due dates, labels, and subtask support.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/ui/todo-item.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "calendar-event-card",
+      "type": "registry:ui",
+      "title": "Calendar Event Card",
+      "description": "A styled card for displaying calendar events with color indicators, status states, and action buttons.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/ui/calendar-event-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "file-preview",
+      "type": "registry:ui",
+      "title": "File Preview",
+      "description": "Display uploaded files with smart type detection, file icons, image thumbnails, and upload progress.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/ui/file-preview.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "notification-card",
+      "type": "registry:ui",
+      "title": "Notification Card",
+      "description": "An enhanced notification card with action buttons, read/unread states, and timestamp display.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/ui/notification-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "workflow-card",
+      "type": "registry:ui",
+      "title": "Workflow Card",
+      "description": "A card for displaying workflow automations with rotated tool icons, execution stats, and action buttons.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/ui/workflow-card.tsx",
+          "type": "registry:ui"
         }
       ]
     }

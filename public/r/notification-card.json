@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "notification-card",
+  "type": "registry:ui",
+  "title": "Notification Card",
+  "description": "An enhanced notification card with action buttons, read/unread states, and timestamp display.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/ui/notification-card.tsx",
+      "type": "registry:ui"
+    }
+  ]
+}

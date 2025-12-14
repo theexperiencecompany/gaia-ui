@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "todo-item",
+  "type": "registry:ui",
+  "title": "Todo Item",
+  "description": "An interactive todo item with priority colors, due dates, labels, and subtask support.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/ui/todo-item.tsx",
+      "type": "registry:ui"
+    }
+  ]
+}

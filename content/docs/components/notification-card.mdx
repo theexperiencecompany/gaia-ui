@@ -1,0 +1,94 @@
+---
+title: Notification Card
+description: An enhanced notification card with action buttons, read/unread states, and timestamp display.
+---
+
+<ComponentPreview name="notification-card/default" />
+
+## Features
+
+- **Status States** - Unread, read, and archived visual states
+- **Action Buttons** - Multiple action types with icons (redirect, API call, workflow, modal)
+- **Action Styles** - Primary, danger, and default button styles
+- **Loading State** - Show loading spinner for async actions
+- **Executed State** - Visual indication when action has been completed
+- **Timestamps** - Smart relative time formatting (5m ago, 2h ago, etc.)
+- **Mark as Read** - One-click mark as read functionality
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="automatic">
+    <InstallCommand component="notification-card" />
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode filePath="registry/new-york/ui/notification-card.tsx" />
+
+Install required dependencies:
+
+```bash
+npm install lucide-react
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { NotificationCard } from "@/components/ui/notification-card";
+
+export default function Example() {
+  return (
+    <NotificationCard
+      id="1"
+      title="New message"
+      body="You have a new message from the team."
+      status="unread"
+      createdAt={new Date()}
+      actions={[
+        { id: "view", label: "View", type: "redirect", style: "primary" },
+        { id: "dismiss", label: "Dismiss", type: "api_call" },
+      ]}
+      onAction={(notifId, actionId) => {
+        console.log(`Action ${actionId} on notification ${notifId}`);
+      }}
+    />
+  );
+}
+```
+
+## Props
+
+### NotificationCard
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| id | string | - | Unique notification identifier |
+| title | string | - | Notification title |
+| body | string | - | Notification message |
+| status | "unread" \| "read" \| "archived" | "unread" | Read status |
+| createdAt | string \| Date | - | Creation timestamp |
+| actions | NotificationAction[] | [] | Available actions |
+| onMarkAsRead | (id) => void | - | Mark as read handler |
+| onAction | (notifId, actionId) => void | - | Action button handler |
+| loadingActionId | string | - | Action currently loading |
+
+### NotificationAction
+
+| Property | Type | Description |
+| --- | --- | --- |
+| id | string | Action identifier |
+| label | string | Button text |
+| type | "redirect" \| "api_call" \| "workflow" \| "modal" | Action type (affects icon) |
+| style | "primary" \| "danger" \| "default" | Button color |
+| executed | boolean | Mark action as already executed |

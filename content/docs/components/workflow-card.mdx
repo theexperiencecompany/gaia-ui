@@ -1,0 +1,106 @@
+---
+title: Workflow Card
+description: A card component for displaying workflow automations with rotated tool icons, execution stats, and action buttons.
+---
+
+<ComponentPreview name="workflow-card/default" />
+
+## Features
+
+- **Rotated Tool Icons** - Eye-catching alternating rotation effect for category icons
+- **Multiple Variants** - User (run), explore (create), and suggestion variants
+- **Execution Stats** - Display run count with smart formatting (1.2K, 3.5M)
+- **Activation Status** - Show active/inactive state for user workflows
+- **Trigger Labels** - Display workflow trigger information
+- **Action Buttons** - Configurable action buttons with loading states
+- **Category Colors** - 10+ predefined categories with distinct color schemes
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="automatic">
+    <InstallCommand component="workflow-card" />
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode filePath="registry/new-york/ui/workflow-card.tsx" />
+
+Install required dependencies:
+
+```bash
+npm install lucide-react
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { WorkflowCard } from "@/components/ui/workflow-card";
+
+export default function Example() {
+  return (
+    <WorkflowCard
+      title="Email Summary Workflow"
+      description="Summarize your daily emails automatically"
+      steps={[
+        { id: "1", title: "Fetch emails", toolCategory: "email" },
+        { id: "2", title: "Summarize", toolCategory: "documents" },
+      ]}
+      totalExecutions={1250}
+      isActivated={true}
+      onAction={() => console.log("Run workflow")}
+    />
+  );
+}
+```
+
+## Props
+
+### WorkflowCard
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| title | string | - | Workflow title |
+| description | string | - | Workflow description |
+| steps | WorkflowStep[] | - | Array of workflow steps |
+| totalExecutions | number | 0 | Total execution count |
+| isActivated | boolean | false | Activation status (user variant) |
+| triggerLabel | string | - | Trigger description |
+| variant | "user" \| "explore" \| "suggestion" | "explore" | Card variant |
+| actionLabel | string | - | Custom action button label |
+| isLoading | boolean | false | Show loading spinner |
+| onAction | () => void | - | Action button handler |
+| onClick | () => void | - | Card click handler |
+
+### WorkflowStep
+
+| Property | Type | Description |
+| --- | --- | --- |
+| id | string | Step identifier |
+| title | string | Step title |
+| description | string | Optional description |
+| toolCategory | string | Category for icon/color |
+
+## Supported Categories
+
+- `productivity` - Emerald
+- `documents` - Orange  
+- `development` - Cyan
+- `memory` - Indigo
+- `creative` - Pink
+- `goal_tracking` - Emerald
+- `notifications` - Yellow
+- `email` - Blue
+- `calendar` - Purple
+- `search` - Teal
+- `general` - Gray
