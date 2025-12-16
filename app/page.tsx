@@ -1,10 +1,11 @@
-import Link from "next/link";
 import { ArrowRight02Icon, HugeiconsIcon } from "@/components/icons";
 import { GitHub } from "@/components/icons/github";
+import { Footer } from "@/components/ui/footer";
 import { generateSEO, generateSoftwareSchema } from "@/lib/seo";
 import { RaisedButton } from "@/registry/new-york/ui/raised-button";
+import Image from "next/image";
+import Link from "next/link";
 
-// Enhanced metadata for the homepage
 export const metadata = generateSEO({
 	title: "GAIA UI - Open Source Components for AI Assistants",
 	description:
@@ -35,6 +36,14 @@ export default function Home() {
 			/>
 			<div className="relative px-4">
 				<section className="mx-auto flex flex-col max-w-3xl  gap-5 py-8 md:py-16 lg:py-24">
+					<Image
+						src={"/media/gaiaui_logo.png"}
+						alt="Logo"
+						width={150}
+						height={150}
+						className="aspect-auton"
+					/>
+
 					<h1 className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl lg:text-4xl">
 						We&apos;re building GAIA.
 						<br />
@@ -99,17 +108,7 @@ export default function Home() {
 						</p>
 					</div>
 
-					<div className="text-xs text-zinc-600 mt-8 flex items-center gap-1">
-						Made with ❤️ by
-						<a
-							href="https://experience.heygaia.io"
-							target="_
-            _blank"
-							className="underline underline-offset-4 hover:text-zinc-300 transition"
-						>
-							The Experience Company
-						</a>
-					</div>
+					<Footer />
 				</section>
 			</div>
 		</>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 import { PageNavigation } from "@/components/core/page-navigation";
@@ -14,6 +15,7 @@ interface TocEntry {
 interface DocPageLayoutProps {
 	title: string;
 	description: string;
+	logo?: string;
 	toc?: TocEntry[];
 	markdownContent?: string;
 	children: React.ReactNode;
@@ -23,6 +25,7 @@ interface DocPageLayoutProps {
 export function DocPageLayout({
 	title,
 	description,
+	logo,
 	toc = [],
 	markdownContent,
 	children,
@@ -56,6 +59,17 @@ export function DocPageLayout({
 							</React.Fragment>
 						))}
 					</nav>
+				)}
+				{logo && (
+					<div className="mb-6">
+						<Image
+							src={logo}
+							alt={`${title} logo`}
+							width={100}
+							height={100}
+							className="aspect-auto"
+						/>
+					</div>
 				)}
 				<div className="space-y-2">
 					<div className="flex items-center justify-between">

@@ -55,21 +55,14 @@ export function Navbar({ navigation }: NavbarProps) {
 				<div className="mr-4 flex">
 					<Link
 						href="/"
-						className="mr-6 flex items-center space-x-2 hover:bg-muted-foreground/20 px-2 rounded-sm"
+						className="mr-6 flex items-center space-x-2 hover:bg-muted-foreground/20 p-1 rounded-lg"
 					>
 						<Image
-							src={"/media/logo_black.webp"}
+							src={"/media/gaiaui_logo.png"}
 							alt="Logo"
-							width={120}
-							height={50}
-							className="aspect-auto dark:hidden"
-						/>
-						<Image
-							src={"/media/logo.webp"}
-							alt="Logo"
-							width={120}
-							height={50}
-							className="aspect-auto hidden dark:block"
+							width={40}
+							height={40}
+							className="aspect-auto"
 						/>
 					</Link>
 					<NavigationMenu className="hidden md:flex">

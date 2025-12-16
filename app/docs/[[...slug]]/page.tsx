@@ -185,18 +185,21 @@ export default async function DocPage({ params }: PageProps) {
 			{itemListSchema && (
 				<script
 					type="application/ld+json"
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: json schema
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
 				/>
 			)}
 			{howToSchema && (
 				<script
 					type="application/ld+json"
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: json schema
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
 				/>
 			)}
 			<DocPageLayout
 				title={metadata.title}
 				description={metadata.description}
+				logo={metadata.logo as string | undefined}
 				toc={toc}
 				markdownContent={content}
 				breadcrumbs={uiBreadcrumbs}
