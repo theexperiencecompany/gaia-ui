@@ -1,15 +1,15 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "component-preview-tooltip",
-  "type": "registry:ui",
-  "title": "Component Preview Tooltip",
-  "description": "A hover tooltip that shows a live preview of any component.",
-  "dependencies": [],
-  "registryDependencies": [],
-  "files": [
-    {
-      "path": "registry/new-york/ui/component-preview-tooltip.tsx",
-      "type": "registry:ui"
-    }
-  ]
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "component-preview-tooltip",
+	"type": "registry:ui",
+	"title": "Component Preview Tooltip",
+	"description": "A hover tooltip that shows a live preview of any component.",
+	"dependencies": [],
+	"registryDependencies": [],
+	"files": [
+		{
+			"path": "registry/new-york/ui/component-preview-tooltip.tsx",
+			"type": "registry:ui"
+		}
+	]
 }

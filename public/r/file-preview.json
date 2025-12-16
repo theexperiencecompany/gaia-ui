@@ -1,17 +1,15 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "file-preview",
-  "type": "registry:ui",
-  "title": "File Preview",
-  "description": "Display uploaded files with smart type detection, file icons, image thumbnails, and upload progress.",
-  "dependencies": [
-    "lucide-react"
-  ],
-  "registryDependencies": [],
-  "files": [
-    {
-      "path": "registry/new-york/ui/file-preview.tsx",
-      "type": "registry:ui"
-    }
-  ]
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "file-preview",
+	"type": "registry:ui",
+	"title": "File Preview",
+	"description": "Display uploaded files with smart type detection, file icons, image thumbnails, and upload progress.",
+	"dependencies": ["lucide-react"],
+	"registryDependencies": [],
+	"files": [
+		{
+			"path": "registry/new-york/ui/file-preview.tsx",
+			"type": "registry:ui"
+		}
+	]
 }

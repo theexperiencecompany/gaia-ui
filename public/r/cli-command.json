@@ -1,15 +1,15 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "cli-command",
-  "type": "registry:ui",
-  "title": "CLI Command",
-  "description": "A command display with tabs for different package managers and copy functionality.",
-  "dependencies": ["lucide-react"],
-  "registryDependencies": [],
-  "files": [
-    {
-      "path": "registry/new-york/ui/cli-command.tsx",
-      "type": "registry:ui"
-    }
-  ]
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "cli-command",
+	"type": "registry:ui",
+	"title": "CLI Command",
+	"description": "A command display with tabs for different package managers and copy functionality.",
+	"dependencies": ["lucide-react"],
+	"registryDependencies": [],
+	"files": [
+		{
+			"path": "registry/new-york/ui/cli-command.tsx",
+			"type": "registry:ui"
+		}
+	]
 }

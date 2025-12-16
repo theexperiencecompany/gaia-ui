@@ -2,47 +2,47 @@
 
 import React, { ReactNode } from "react";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
 } from "@/components/ui/tooltip";
 
 export interface WeatherDetailItemProps {
-  icon: ReactNode;
-  label: string;
-  value: string;
-  tooltipText?: string;
-  highlight: string;
+	icon: ReactNode;
+	label: string;
+	value: string;
+	tooltipText?: string;
+	highlight: string;
 }
 
 export const WeatherDetailItem: React.FC<WeatherDetailItemProps> = ({
-  icon,
-  label,
-  value,
-  tooltipText,
-  highlight,
+	icon,
+	label,
+	value,
+	tooltipText,
+	highlight,
 }) => {
-  return (
-    <div className="flex flex-col items-start rounded-2xl bg-black/10 p-2 px-3 backdrop-blur-sm">
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="flex w-full cursor-help flex-row items-start justify-between">
-              <div className="flex flex-col">
-                <div className="w-fit text-sm text-white/70">{label}</div>
-                <div className="w-fit font-medium text-white">{value}</div>
-              </div>
-              <div style={{ color: highlight }}>{icon}</div>
-            </div>
-          </TooltipTrigger>
-          {tooltipText && (
-            <TooltipContent>
-              <p>{tooltipText}</p>
-            </TooltipContent>
-          )}
-        </Tooltip>
-      </TooltipProvider>
-    </div>
-  );
+	return (
+		<div className="flex flex-col items-start rounded-2xl bg-black/10 p-2 px-3 backdrop-blur-sm">
+			<TooltipProvider>
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<div className="flex w-full cursor-help flex-row items-start justify-between">
+							<div className="flex flex-col">
+								<div className="w-fit text-sm text-white/70">{label}</div>
+								<div className="w-fit font-medium text-white">{value}</div>
+							</div>
+							<div style={{ color: highlight }}>{icon}</div>
+						</div>
+					</TooltipTrigger>
+					{tooltipText && (
+						<TooltipContent>
+							<p>{tooltipText}</p>
+						</TooltipContent>
+					)}
+				</Tooltip>
+			</TooltipProvider>
+		</div>
+	);
 };

@@ -1,15 +1,15 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "model-selector",
-  "type": "registry:ui",
-  "title": "Model Selector",
-  "description": "A dropdown selector for choosing AI models with provider information and pro badges.",
-  "dependencies": ["lucide-react"],
-  "registryDependencies": [],
-  "files": [
-    {
-      "path": "registry/new-york/ui/model-selector.tsx",
-      "type": "registry:ui"
-    }
-  ]
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "model-selector",
+	"type": "registry:ui",
+	"title": "Model Selector",
+	"description": "A dropdown selector for choosing AI models with provider information and pro badges.",
+	"dependencies": ["lucide-react"],
+	"registryDependencies": [],
+	"files": [
+		{
+			"path": "registry/new-york/ui/model-selector.tsx",
+			"type": "registry:ui"
+		}
+	]
 }

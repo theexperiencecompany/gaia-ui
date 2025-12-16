@@ -2,9 +2,9 @@ import { getSourceCode } from "@/lib/source";
 import { SourceCodeClient } from "./source-code-client";
 
 interface SourceCodeProps {
-  filePath: string;
-  title?: string;
-  language?: string;
+	filePath: string;
+	title?: string;
+	language?: string;
 }
 
 /**
@@ -14,8 +14,8 @@ interface SourceCodeProps {
  * - "lib/utils/colorUtils.ts" -> "lib/utils/colorUtils.ts" (unchanged)
  */
 function generateTitle(filePath: string): string {
-  // Convert registry paths to components paths
-  return filePath.replace(/^registry\/[^/]+\//, "components/");
+	// Convert registry paths to components paths
+	return filePath.replace(/^registry\/[^/]+\//, "components/");
 }
 
 /**
@@ -24,13 +24,13 @@ function generateTitle(filePath: string): string {
  * Title is auto-generated from filePath if not provided
  */
 export function SourceCode({ filePath, title, language }: SourceCodeProps) {
-  const code = getSourceCode(filePath);
+	const code = getSourceCode(filePath);
 
-  // Infer language from file extension if not provided
-  const lang = language || filePath.split(".").pop() || "tsx";
+	// Infer language from file extension if not provided
+	const lang = language || filePath.split(".").pop() || "tsx";
 
-  // Auto-generate title from filePath if not provided
-  const displayTitle = title || generateTitle(filePath);
+	// Auto-generate title from filePath if not provided
+	const displayTitle = title || generateTitle(filePath);
 
-  return <SourceCodeClient code={code} title={displayTitle} language={lang} />;
+	return <SourceCodeClient code={code} title={displayTitle} language={lang} />;
 }

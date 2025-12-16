@@ -1,15 +1,15 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "goal-card",
-  "type": "registry:ui",
-  "title": "Goal Card",
-  "description": "A card component for displaying goal progress with status indicators and step tracking.",
-  "dependencies": ["lucide-react"],
-  "registryDependencies": [],
-  "files": [
-    {
-      "path": "registry/new-york/ui/goal-card.tsx",
-      "type": "registry:ui"
-    }
-  ]
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "goal-card",
+	"type": "registry:ui",
+	"title": "Goal Card",
+	"description": "A card component for displaying goal progress with status indicators and step tracking.",
+	"dependencies": ["lucide-react"],
+	"registryDependencies": [],
+	"files": [
+		{
+			"path": "registry/new-york/ui/goal-card.tsx",
+			"type": "registry:ui"
+		}
+	]
 }

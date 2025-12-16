@@ -14,15 +14,15 @@ type PreviewComponent = ComponentType<unknown>;
  *           "raised-button/default" -> previews/raised-button/default.tsx
  */
 export async function getPreviewComponent(
-  name: string
+	name: string,
 ): Promise<PreviewComponent | null> {
-  try {
-    // Dynamic import based on path (folder/file)
-    // Next.js will bundle all files in the previews directory
-    const component_module = await import(`@/components/previews/${name}`);
-    return component_module.default;
-  } catch (error) {
-    console.error(`Error loading preview component: ${name}`, error);
-    return null;
-  }
+	try {
+		// Dynamic import based on path (folder/file)
+		// Next.js will bundle all files in the previews directory
+		const component_module = await import(`@/components/previews/${name}`);
+		return component_module.default;
+	} catch (error) {
+		console.error(`Error loading preview component: ${name}`, error);
+		return null;
+	}
 }

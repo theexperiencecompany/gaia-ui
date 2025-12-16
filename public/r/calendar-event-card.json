@@ -1,17 +1,15 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "calendar-event-card",
-  "type": "registry:ui",
-  "title": "Calendar Event Card",
-  "description": "A styled card for displaying calendar events with color indicators, status states, and action buttons.",
-  "dependencies": [
-    "lucide-react"
-  ],
-  "registryDependencies": [],
-  "files": [
-    {
-      "path": "registry/new-york/ui/calendar-event-card.tsx",
-      "type": "registry:ui"
-    }
-  ]
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "calendar-event-card",
+	"type": "registry:ui",
+	"title": "Calendar Event Card",
+	"description": "A styled card for displaying calendar events with color indicators, status states, and action buttons.",
+	"dependencies": ["lucide-react"],
+	"registryDependencies": [],
+	"files": [
+		{
+			"path": "registry/new-york/ui/calendar-event-card.tsx",
+			"type": "registry:ui"
+		}
+	]
 }

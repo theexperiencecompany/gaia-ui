@@ -1,15 +1,15 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "file-dropzone",
-  "type": "registry:ui",
-  "title": "File Dropzone",
-  "description": "A drag-and-drop file upload zone with preview, validation, and file management.",
-  "dependencies": ["lucide-react"],
-  "registryDependencies": [],
-  "files": [
-    {
-      "path": "registry/new-york/ui/file-dropzone.tsx",
-      "type": "registry:ui"
-    }
-  ]
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "file-dropzone",
+	"type": "registry:ui",
+	"title": "File Dropzone",
+	"description": "A drag-and-drop file upload zone with preview, validation, and file management.",
+	"dependencies": ["lucide-react"],
+	"registryDependencies": [],
+	"files": [
+		{
+			"path": "registry/new-york/ui/file-dropzone.tsx",
+			"type": "registry:ui"
+		}
+	]
 }

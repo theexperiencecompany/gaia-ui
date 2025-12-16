@@ -1,15 +1,15 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "twitter-card",
-  "type": "registry:ui",
-  "title": "Twitter Card",
-  "description": "A Twitter/X-style post card with author info, engagement metrics, and media support.",
-  "dependencies": ["lucide-react"],
-  "registryDependencies": [],
-  "files": [
-    {
-      "path": "registry/new-york/ui/twitter-card.tsx",
-      "type": "registry:ui"
-    }
-  ]
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "twitter-card",
+	"type": "registry:ui",
+	"title": "Twitter Card",
+	"description": "A Twitter/X-style post card with author info, engagement metrics, and media support.",
+	"dependencies": ["lucide-react"],
+	"registryDependencies": [],
+	"files": [
+		{
+			"path": "registry/new-york/ui/twitter-card.tsx",
+			"type": "registry:ui"
+		}
+	]
 }

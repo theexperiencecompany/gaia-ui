@@ -2,7 +2,7 @@ import { getNavigation } from "@/lib/navigation";
 import { Navbar } from "@/components/ui/navbar";
 
 export function NavbarWrapper() {
-  const navigation = getNavigation();
+	const navigation = getNavigation();
 
-  return <Navbar navigation={navigation} />;
+	return <Navbar navigation={navigation} />;
 }

@@ -3,7 +3,7 @@
 import { CodeBlock } from "@/registry/new-york/ui/code-block";
 
 export default function CodeBlockLineNumbers() {
-  const code = `import React from "react";
+	const code = `import React from "react";
 import { cn } from "@/lib/utils";
 
 export function Component({ className }) {
@@ -19,15 +19,11 @@ export function Component({ className }) {
   );
 }`;
 
-  return (
-    <div className="flex justify-center w-full">
-      <CodeBlock 
-        language="typescript" 
-        filename="component.tsx"
-        showLineNumbers
-      >
-        {code}
-      </CodeBlock>
-    </div>
-  );
+	return (
+		<div className="flex justify-center w-full">
+			<CodeBlock language="typescript" filename="component.tsx" showLineNumbers>
+				{code}
+			</CodeBlock>
+		</div>
+	);
 }

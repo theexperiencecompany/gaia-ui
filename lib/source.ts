@@ -7,17 +7,17 @@ import path from "path";
  * @returns The file contents as a string
  */
 export function getSourceCode(filePath: string): string {
-  const fullPath = path.join(process.cwd(), filePath);
+	const fullPath = path.join(process.cwd(), filePath);
 
-  if (!fs.existsSync(fullPath)) {
-    console.warn(`Source file not found: ${filePath}`);
-    return `// File not found: ${filePath}`;
-  }
+	if (!fs.existsSync(fullPath)) {
+		console.warn(`Source file not found: ${filePath}`);
+		return `// File not found: ${filePath}`;
+	}
 
-  try {
-    return fs.readFileSync(fullPath, "utf8");
-  } catch (error) {
-    console.error(`Error reading source file: ${filePath}`, error);
-    return `// Error reading file: ${filePath}`;
-  }
+	try {
+		return fs.readFileSync(fullPath, "utf8");
+	} catch (error) {
+		console.error(`Error reading source file: ${filePath}`, error);
+		return `// Error reading file: ${filePath}`;
+	}
 }
