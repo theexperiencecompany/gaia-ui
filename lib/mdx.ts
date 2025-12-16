@@ -23,9 +23,8 @@ export interface DocMetadata {
 export function extractTocFromMdx(content: string): TocEntry[] {
 	const toc: TocEntry[] = [];
 	const headingRegex = /^(#{2,4})\s+(.+)$/gm;
-	const match = headingRegex.exec(content);
 
-	while (match !== null) {
+	for (const match of content.matchAll(headingRegex)) {
 		const level = match[1].length;
 		const text = match[2].trim();
 
