@@ -1,0 +1,163 @@
+---
+title: "Knowledge Graph"
+description: "An interactive D3.js-powered knowledge graph visualization with zoom, pan, drag, tooltips, and export functionality."
+---
+
+import KnowledgeGraphDemo from "@/components/previews/knowledge-graph/default";
+
+# Knowledge Graph
+
+An interactive force-directed graph visualization powered by D3.js. Perfect for displaying relationships, knowledge bases, memory systems, mind maps, and entity connections.
+
+<KnowledgeGraphDemo />
+
+## Usage in Gaia
+
+Visualizing the brain. Shows how Gaia connects entities and memories.
+
+## Installation
+
+First, install the required D3.js dependency:
+
+```bash
+npm install d3 @types/d3
+```
+
+Then add the component:
+
+```package-install
+npx shadcn@latest add "https://ui.heygaia.io/r/knowledge-graph"
+```
+
+## Usage
+
+```tsx
+import { KnowledgeGraph } from "@/components/ui/knowledge-graph";
+
+const nodes = [
+  { id: "1", label: "React", type: "technology" },
+  { id: "2", label: "TypeScript", type: "technology" },
+  { id: "3", label: "User", type: "user", size: 30 },
+];
+
+const links = [
+  { source: "3", target: "1", label: "uses" },
+  { source: "3", target: "2", label: "uses" },
+  { source: "1", target: "2" },
+];
+
+export default function Example() {
+  return (
+    <div className="h-[400px]">
+      <KnowledgeGraph
+        nodes={nodes}
+        links={links}
+        onNodeClick={(node) => console.log(node)}
+      />
+    </div>
+  );
+}
+```
+
+## Features
+
+- **Interactive**: Drag nodes, zoom with scroll, pan the canvas
+- **Automatic Layout**: Force-directed simulation positions nodes optimally
+- **Colored by Type**: Each node type gets a unique, deterministic color
+- **Legend**: Optional legend showing all node types
+- **Link Labels**: Display relationship labels on edges
+- **Tooltips**: Hover for node information
+- **Export**: Export to SVG or PNG
+- **Center Node**: Optionally center a specific node
+
+## Examples
+
+### With Ref for Export Controls
+
+```tsx
+import { useRef } from "react";
+import { KnowledgeGraph, type KnowledgeGraphHandle } from "@/components/ui/knowledge-graph";
+
+export default function Example() {
+  const graphRef = useRef<KnowledgeGraphHandle>(null);
+
+  return (
+    <div>
+      <button onClick={() => graphRef.current?.exportAsPNG()}>
+        Export as PNG
+      </button>
+      <button onClick={() => graphRef.current?.resetZoom()}>
+        Reset Zoom
+      </button>
+      <KnowledgeGraph ref={graphRef} nodes={nodes} links={links} />
+    </div>
+  );
+}
+```
+
+### Minimal (No Legend, No Link Labels)
+
+```tsx
+<KnowledgeGraph
+  nodes={nodes}
+  links={links}
+  showLegend={false}
+  showLinkLabels={false}
+/>
+```
+
+### Custom Node Sizes and Colors
+
+```tsx
+const nodes = [
+  { id: "1", label: "Important", type: "main", size: 40, color: "#ff0000" },
+  { id: "2", label: "Related", type: "secondary", size: 20 },
+];
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `nodes` | `GraphNode[]` | Required | Array of nodes to display |
+| `links` | `GraphLink[]` | Required | Array of links connecting nodes |
+| `onNodeClick` | `(node: GraphNode) => void` | - | Callback when node is clicked |
+| `onNodeHover` | `(node: GraphNode \| null) => void` | - | Callback on node hover |
+| `showLegend` | `boolean` | `true` | Show node type legend |
+| `showLinkLabels` | `boolean` | `true` | Show relationship labels on links |
+| `centerNodeId` | `string` | - | Node ID to position in center |
+| `className` | `string` | - | Additional CSS classes |
+
+## Node Interface
+
+```typescript
+interface GraphNode {
+  id: string;        // Unique identifier
+  label: string;     // Display label
+  type: string;      // Category (for coloring)
+  size?: number;     // Node radius (default: 20)
+  color?: string;    // Custom color override
+  data?: unknown;    // Additional data
+}
+```
+
+## Link Interface
+
+```typescript
+interface GraphLink {
+  source: string;      // Source node ID
+  target: string;      // Target node ID
+  label?: string;      // Relationship label
+  strength?: number;   // Link strength (default: 0.8)
+}
+```
+
+## Handle Methods
+
+Access via ref:
+
+| Method | Description |
+|--------|-------------|
+| `exportAsSVG()` | Download graph as SVG file |
+| `exportAsPNG()` | Download graph as PNG file |
+| `resetZoom()` | Reset zoom and pan to default |

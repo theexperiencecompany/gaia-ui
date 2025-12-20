@@ -1,10 +1,12 @@
-import Image from "next/image";
-import Link from "next/link";
+import { ComponentsGrid } from "@/components/core/components-grid";
 import { ArrowRight02Icon, HugeiconsIcon } from "@/components/icons";
 import { GitHub } from "@/components/icons/github";
 import { Footer } from "@/components/ui/footer";
+import { getNavigation } from "@/lib/navigation";
 import { generateSEO, generateSoftwareSchema } from "@/lib/seo";
 import { RaisedButton } from "@/registry/new-york/ui/raised-button";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata = generateSEO({
 	title: "GAIA UI - Open Source Components for AI Assistants",
@@ -27,6 +29,12 @@ export const metadata = generateSEO({
 export default function Home() {
 	const softwareSchema = generateSoftwareSchema();
 
+	const navigation = getNavigation();
+	const componentsSection = navigation.find(
+		(section) => section.title === "Components",
+	);
+	const components = componentsSection?.items || [];
+
 	return (
 		<>
 			<script
@@ -35,7 +43,7 @@ export default function Home() {
 				dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
 			/>
 			<div className="relative px-4">
-				<section className="mx-auto flex flex-col max-w-3xl  gap-5 py-8 md:py-16 lg:py-24">
+				<section className="mx-auto flex flex-col max-w-5xl  gap-5 py-8 md:py-16 lg:py-24">
 					<Image
 						src={"/media/gaiaui_logo.png"}
 						alt="Logo"
@@ -94,7 +102,7 @@ export default function Home() {
 							CSS. Copy the code and make it yours.
 						</p>
 					</div>
-					<div className="space-y-1">
+					<div className="space-y-1 mb-10">
 						<h2 className="text-lg font-semibold">Why share?</h2>
 						<p className="text-sm text-muted-foreground leading-relaxed">
 							Open source has given us a lot. This is one of our way&apos;s of
@@ -102,6 +110,7 @@ export default function Home() {
 						</p>
 					</div>
 
+					<ComponentsGrid components={components} />
 					<Footer />
 				</section>
 			</div>

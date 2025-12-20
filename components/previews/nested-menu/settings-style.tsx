@@ -30,6 +30,9 @@ import {
 	DiscordIcon,
 	TwitterIcon,
 } from "@/components/icons/social-icons";
+import { Avatar } from "@radix-ui/react-avatar";
+import { AvatarIcon } from "@radix-ui/react-icons";
+import { AvatarImage } from "@/components/ui/avatar";
 
 // Icon wrapper component for consistent styling
 const Icon = ({
@@ -54,10 +57,10 @@ const menuSections: NestedMenuSectionProps[] = [
 				icon: (props) => <Icon icon={CircleArrowUp02Icon} {...props} />,
 				iconColor: "#00bbff",
 				onSelect: () => console.log("Upgrade clicked"),
-				className: "text-blue-500 font-medium",
+				className: "text-[#00bbff] font-medium",
 			},
 		],
-		showDivider: true,
+		showDivider: false,
 	},
 	{
 		title: "Settings",
@@ -87,7 +90,7 @@ const menuSections: NestedMenuSectionProps[] = [
 				onSelect: () => console.log("Memory clicked"),
 			},
 		],
-		showDivider: true,
+		showDivider: false,
 	},
 	{
 		title: "Community",
@@ -107,7 +110,7 @@ const menuSections: NestedMenuSectionProps[] = [
 				onSelect: () => window.open("https://discord.com", "_blank"),
 			},
 		],
-		showDivider: true,
+		showDivider: false,
 	},
 	{
 		items: [
@@ -222,10 +225,14 @@ export default function NestedMenuSettings() {
 				trigger={
 					<button
 						type="button"
-						className="flex items-center gap-2 rounded-full bg-zinc-800 p-2 text-white transition hover:bg-zinc-700"
+						className="flex items-center gap-3 rounded-2xl bg-muted-foreground/10 p-2 cursor-pointer hover:bg-muted-foreground/20 transition-all px-4"
 					>
-						<div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500 font-medium text-white">
-							A
+						<Avatar className="size-10">
+							<AvatarImage src={"https://github.com/aryanranderiya.png"} />
+						</Avatar>
+						<div className="flex flex-col items-start">
+							<span className="font-semibold">User Name</span>
+							<span className="text-sm text-muted-foreground">Click on me</span>
 						</div>
 					</button>
 				}

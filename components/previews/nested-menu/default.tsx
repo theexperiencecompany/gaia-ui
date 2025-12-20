@@ -110,7 +110,7 @@ export default function NestedMenuDefault() {
 			<NestedMenu
 				sections={menuSections}
 				trigger={
-					<Button variant="outline" className="gap-2">
+					<Button variant={"secondary"} className="gap-2">
 						<HugeiconsIcon icon={Settings01Icon} size={16} />
 						Open Menu
 					</Button>

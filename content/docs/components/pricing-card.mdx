@@ -1,0 +1,117 @@
+---
+title: "Pricing Card"
+description: "A beautiful glassmorphism pricing card component with nested card design, feature lists, and customizable accent colors."
+---
+
+# Pricing Card
+
+A premium pricing card component with a modern glassmorphism design. Features a nested card layout with price display, feature list, and customizable call-to-action button.
+
+<ComponentPreview name="pricing-card/default" />
+ 
+## Usage in Gaia
+ 
+Conversion central. Clear, tiered value props for our subscription plans.
+ 
+## Features
+
+## Installation
+
+```package-install
+npx shadcn@latest add "https://ui.heygaia.io/r/pricing-card"
+```
+
+## Usage
+
+```tsx
+import { PricingCard } from "@/components/ui/pricing-card";
+
+export default function Example() {
+  return (
+    <PricingCard
+      title="Pro"
+      price={9.99}
+      description="Everything you need to be productive."
+      features={[
+        "Unlimited conversations",
+        "Priority support",
+        "Custom integrations",
+      ]}
+      onButtonClick={() => console.log("Selected!")}
+    />
+  );
+}
+```
+
+## Examples
+
+### Free Tier
+
+```tsx
+<PricingCard
+  title="Free"
+  price={0}
+  description="Get started for free."
+  features={["5 conversations per day", "Basic AI", "Community support"]}
+  buttonLabel="Get Started"
+/>
+```
+
+### Pro Tier with Yearly Discount
+
+```tsx
+<PricingCard
+  title="Pro"
+  price={9}
+  originalPrice={12}
+  isMonthly={false}
+  description="Best value for power users."
+  features={["Unlimited everything", "Priority support", "All integrations"]}
+  accentColor="#00bbff"
+/>
+```
+
+### Current Plan State
+
+```tsx
+<PricingCard
+  title="Pro"
+  price={12}
+  isCurrentPlan={true}
+  features={["All Pro features"]}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | - | Plan title (e.g., "Free", "Pro") |
+| `price` | `number` | - | Price amount |
+| `currency` | `string` | `"$"` | Currency symbol |
+| `originalPrice` | `number` | - | Original price (shows strikethrough) |
+| `description` | `string` | - | Plan description/subtitle |
+| `features` | `(string \| PricingFeature)[]` | - | List of included features |
+| `featuresTitle` | `ReactNode` | - | Custom title above features |
+| `isMonthly` | `boolean` | `true` | Billing period display |
+| `isCurrentPlan` | `boolean` | `false` | Shows "Current Plan" badge |
+| `buttonLabel` | `string` | Auto | Custom button label |
+| `onButtonClick` | `() => void` | - | Button click handler |
+| `isDisabled` | `boolean` | `false` | Disable the button |
+| `isLoading` | `boolean` | `false` | Show loading state |
+| `accentColor` | `string` | `"#3b82f6"` | Button accent color |
+| `className` | `string` | - | Additional CSS classes |
+
+## Feature Objects
+
+Features can be strings or objects with custom icons:
+
+```tsx
+const features = [
+  "Simple string feature",
+  {
+    text: "Feature with custom icon",
+    icon: <CustomIcon className="h-4 w-4" />,
+  },
+];
+```

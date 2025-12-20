@@ -117,6 +117,8 @@ const CategoryIcon: FC<{
 					<Image
 						src={categoryConfig.imageUrl}
 						alt={category}
+						width={20}
+						height={20}
 						className="h-full w-full object-cover"
 					/>
 				) : categoryConfig.icon ? (

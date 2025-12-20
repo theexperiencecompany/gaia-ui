@@ -215,6 +215,32 @@
 					"type": "registry:ui"
 				}
 			]
+		},
+		{
+			"name": "pricing-card",
+			"type": "registry:ui",
+			"title": "Pricing Card",
+			"description": "A beautiful glassmorphism pricing card component with nested card design, feature lists, and customizable accent colors.",
+			"registryDependencies": ["icons"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/pricing-card.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "knowledge-graph",
+			"type": "registry:ui",
+			"title": "Knowledge Graph",
+			"description": "An interactive D3.js-powered knowledge graph visualization with zoom, pan, drag, tooltips, and export functionality.",
+			"dependencies": ["d3"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/knowledge-graph.tsx",
+					"type": "registry:ui"
+				}
+			]
 		}
 	]
 }
