@@ -1,6 +1,6 @@
-![](https://img.shields.io/badge/Status-Beta-00ba6d)
+<img width="170" height="170" alt="untitled" src="https://github.com/user-attachments/assets/df0f6e50-4e45-4118-8925-4f9230ac3093" />
 
-# GAIA UI - Component Registry
+# GAIA UI - Component Registry ![](https://img.shields.io/badge/Status-Beta-00ba6d)
 
 A collection of production-ready UI components designed specifically for building AI assistants and chatbots. These are the components we use at GAIA, now available for anyone building conversational interfaces.
 
@@ -110,4 +110,4 @@ MIT License - feel free to use these components in your projects!
 
 ---
 
-Built with ❤️ by the GAIA team
+Built with ❤️ by The Experience Company
