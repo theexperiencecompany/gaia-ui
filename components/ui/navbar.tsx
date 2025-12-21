@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useGitHubStars } from "@/hooks/use-github-stars";
 import { siteConfig } from "@/lib/siteConfig";
 import { cn } from "@/lib/utils";
 import type { NavSection } from "@/types/nav-item";
@@ -29,25 +30,7 @@ interface NavbarProps {
 export function Navbar({ navigation }: NavbarProps) {
 	const pathname = usePathname();
 	const [open, setOpen] = React.useState(false);
-	const [stars, setStars] = React.useState<number | null>(null);
-
-	React.useEffect(() => {
-		const fetchStars = async () => {
-			try {
-				const response = await fetch(
-					"https://api.github.com/repos/theexperiencecompany/ui",
-				);
-				if (response.ok) {
-					const data = await response.json();
-					setStars(data.stargazers_count);
-				}
-			} catch (error) {
-				console.error("Failed to fetch GitHub stars:", error);
-			}
-		};
-
-		fetchStars();
-	}, []);
+	const { data: stars } = useGitHubStars();
 
 	return (
 		<header className="sticky top-0 z-50 w-full bg-background">
