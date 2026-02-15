@@ -36,7 +36,7 @@ export function ComponentPreviewClient({
 
 	return (
 		<div className={cn("my-6 w-full", className)} {...props}>
-			<div className="rounded-lg border overflow-hidden">
+			<div className="rounded-lg border overflow-visible">
 				<Tabs defaultValue="preview" className="w-full gap-0">
 					<TabsList className="bg-background rounded-t-lg rounded-b-none border-b p-0 w-full flex justify-start">
 						<TabsTrigger
