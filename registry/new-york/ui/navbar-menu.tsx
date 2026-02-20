@@ -74,7 +74,7 @@ const ListItem = React.forwardRef<
           target={external ? "_blank" : undefined}
           rel={external ? "noopener noreferrer" : undefined}
           className={cn(
-            "group relative flex h-full min-h-18 w-full flex-col justify-center overflow-hidden rounded-2xl bg-zinc-800/0 p-3.5 leading-none no-underline outline-none transition-all duration-150 select-none hover:bg-zinc-800 hover:text-zinc-100 focus:bg-zinc-800 focus:text-zinc-100",
+            "group relative flex h-full min-h-18 w-full flex-col justify-center overflow-hidden rounded-2xl bg-zinc-100/0 p-3.5 leading-none no-underline outline-none transition-all duration-150 select-none hover:bg-zinc-100 hover:text-zinc-900 focus:bg-zinc-100 focus:text-zinc-900 dark:bg-zinc-800/0 dark:hover:bg-zinc-800 dark:hover:text-zinc-100 dark:focus:bg-zinc-800 dark:focus:text-zinc-100",
             className,
           )}
           {...props}
@@ -87,7 +87,7 @@ const ListItem = React.forwardRef<
                 alt={title}
                 className="absolute inset-0 z-0 h-full w-full object-cover transition-all group-hover:brightness-60"
               />
-              <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
+              <div className="absolute inset-0 z-[1] bg-gradient-to-t from-white/90 via-white/50 to-white/20 dark:from-black/90 dark:via-black/50 dark:to-black/20" />
             </>
           )}
           <div
@@ -101,20 +101,20 @@ const ListItem = React.forwardRef<
                 className={cn(
                   "relative flex min-h-10 min-w-10 items-center justify-center rounded-xl p-2 text-primary transition group-hover:text-zinc-300",
                   backgroundImage
-                    ? "bg-white/5 backdrop-blur group-hover:bg-white/10"
-                    : "bg-zinc-800/80 group-hover:bg-zinc-700/80",
+                    ? "bg-black/5 backdrop-blur group-hover:bg-black/10 dark:bg-white/5 dark:group-hover:bg-white/10"
+                    : "bg-zinc-100/90 group-hover:bg-zinc-200 dark:bg-zinc-800/80 dark:group-hover:bg-zinc-700/80",
                 )}
               >
                 {icon}
               </span>
             )}
-            <div className="flex h-full flex-col justify-start gap-1 leading-none font-normal text-zinc-100">
+            <div className="flex h-full flex-col justify-start gap-1 leading-none font-normal text-zinc-900 dark:text-zinc-100">
               {title}
 
               {children && (
                 <p
                   className={cn(
-                    "line-clamp-2 text-sm leading-tight font-light text-zinc-500",
+                    "line-clamp-2 text-sm leading-tight font-light text-zinc-500 dark:text-zinc-400",
                     backgroundImage && "relative z-[2]",
                   )}
                 >
@@ -148,7 +148,7 @@ export function NavbarMenu({ activeMenu, sections }: NavbarMenuProps) {
         ease: [0.19, 1, 0.15, 1.01],
       }}
       className={cn(
-        "absolute top-full left-0 z-40 w-full origin-top overflow-hidden rounded-b-2xl border-1 border-y-0 border-white/5 bg-gradient-to-b from-zinc-950 to-zinc-900/30 backdrop-blur-2xl outline-none",
+        "absolute top-full left-0 z-40 w-full origin-top overflow-hidden rounded-b-2xl border-1 border-y-0 border-zinc-200 bg-gradient-to-b from-white to-zinc-100/80 backdrop-blur-2xl outline-none dark:border-white/5 dark:from-zinc-950 dark:to-zinc-900/30",
       )}
     >
       <div className="p-6">
@@ -202,7 +202,7 @@ export function NavbarWithMenu({
   };
 
   return (
-    <div className="min-h-[350px] w-full bg-zinc-950 p-4 flex items-start justify-center transition">
+    <div className="min-h-[350px] w-full bg-zinc-100 p-4 flex items-start justify-center transition dark:bg-zinc-950">
       {/* biome-ignore lint/a11y/noStaticElementInteractions: Hover container for menu, not interactive content */}
       <div
         className="relative mx-auto w-screen max-w-4xl"
@@ -210,21 +210,30 @@ export function NavbarWithMenu({
       >
         <div
           className={cn(
-            "navbar_content flex h-14 w-full items-center justify-between border border-white/5 px-3 backdrop-blur-md transition-all",
+            "navbar_content flex h-14 w-full items-center justify-between border border-zinc-200 px-3 backdrop-blur-md transition-all dark:border-zinc-800",
             activeDropdown
-              ? "rounded-t-2xl border-b-0 bg-zinc-950"
-              : "rounded-2xl bg-zinc-900/30",
+              ? "rounded-t-2xl border-b-0 bg-white dark:bg-zinc-950"
+              : "rounded-2xl bg-white/80 dark:bg-zinc-900/30",
           )}
         >
           <div className="flex items-center gap-2 px-2">
             {logo || (
-              <Image
-                src="/media/text_w_logo_white.webp"
-                alt="Logo"
-                width={100}
-                height={30}
-                className="object-contain"
-              />
+              <>
+                <Image
+                  src="/media/logo_black.webp"
+                  alt="Logo"
+                  width={100}
+                  height={30}
+                  className="h-[30px] w-[100px] object-contain dark:hidden"
+                />
+                <Image
+                  src="/media/text_w_logo_white.webp"
+                  alt="Logo"
+                  width={100}
+                  height={30}
+                  className="hidden h-[30px] w-[100px] object-contain dark:block"
+                />
+              </>
             )}
           </div>
 
@@ -235,10 +244,10 @@ export function NavbarWithMenu({
                   type="button"
                   key={item.href}
                   className={cn(
-                    "relative flex h-9 cursor-pointer items-center rounded-xl px-4 py-2 text-sm transition-colors hover:bg-zinc-800/40",
+                    "relative flex h-9 cursor-pointer items-center rounded-xl px-4 py-2 text-sm transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/40",
                     hoveredItem === item.label.toLowerCase()
-                      ? "text-zinc-100"
-                      : "text-zinc-400 hover:text-zinc-100",
+                      ? "text-zinc-900 dark:text-zinc-100"
+                      : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100",
                   )}
                   onMouseEnter={() => {
                     setHoveredItem(item.label.toLowerCase());
@@ -251,11 +260,11 @@ export function NavbarWithMenu({
                 <button
                   type="button"
                   key={item.menu}
-                  className="relative flex h-9 cursor-pointer items-center rounded-xl px-4 py-2 text-sm text-zinc-400 capitalize transition-colors hover:text-zinc-100"
+                  className="relative flex h-9 cursor-pointer items-center rounded-xl px-4 py-2 text-sm text-zinc-500 capitalize transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
                   onMouseEnter={() => handleMouseEnter(item.menu)}
                 >
                   {hoveredItem === item.menu && (
-                    <div className="absolute inset-0 h-full w-full rounded-xl bg-zinc-800 transition-all duration-300 ease-out" />
+                    <div className="absolute inset-0 h-full w-full rounded-xl bg-zinc-100 transition-all duration-300 ease-out dark:bg-zinc-800" />
                   )}
                   <div className="relative z-10 flex items-center gap-2">
                     <span>

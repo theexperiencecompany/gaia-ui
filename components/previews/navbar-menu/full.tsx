@@ -37,7 +37,7 @@ export default function NavbarMenuFull() {
 						<HugeiconsIcon
 							icon={Message01Icon}
 							size={20}
-							className="text-white"
+							className="text-zinc-900 dark:text-white"
 						/>
 					),
 				},
@@ -48,7 +48,7 @@ export default function NavbarMenuFull() {
 					rowSpan: 2,
 					backgroundImage: "/media/wallpapers/meadow.webp",
 					icon: (
-						<HugeiconsIcon icon={Idea01Icon} size={20} className="text-white" />
+						<HugeiconsIcon icon={Idea01Icon} size={20} className="text-zinc-900 dark:text-white" />
 					),
 				},
 				{
@@ -59,7 +59,7 @@ export default function NavbarMenuFull() {
 						<HugeiconsIcon
 							icon={CreditCardIcon}
 							size={20}
-							className="text-white"
+							className="text-zinc-900 dark:text-white"
 						/>
 					),
 				},
@@ -68,7 +68,7 @@ export default function NavbarMenuFull() {
 					href: "/roadmap",
 					description: "See what's coming next",
 					icon: (
-						<HugeiconsIcon icon={MapsIcon} size={20} className="text-white" />
+						<HugeiconsIcon icon={MapsIcon} size={20} className="text-zinc-900 dark:text-white" />
 					),
 				},
 			],
@@ -82,7 +82,7 @@ export default function NavbarMenuFull() {
 					href: "/blog",
 					description: "Latest updates and insights",
 					icon: (
-						<HugeiconsIcon icon={PencilIcon} size={20} className="text-white" />
+						<HugeiconsIcon icon={PencilIcon} size={20} className="text-zinc-900 dark:text-white" />
 					),
 				},
 				{
@@ -90,7 +90,7 @@ export default function NavbarMenuFull() {
 					href: "/docs",
 					description: "Guides and API reference",
 					icon: (
-						<HugeiconsIcon icon={Book01Icon} size={20} className="text-white" />
+						<HugeiconsIcon icon={Book01Icon} size={20} className="text-zinc-900 dark:text-white" />
 					),
 				},
 				{
@@ -101,7 +101,7 @@ export default function NavbarMenuFull() {
 						<HugeiconsIcon
 							icon={HelpCircleIcon}
 							size={20}
-							className="text-white"
+							className="text-zinc-900 dark:text-white"
 						/>
 					),
 				},
@@ -113,7 +113,7 @@ export default function NavbarMenuFull() {
 						<HugeiconsIcon
 							icon={UserGroupIcon}
 							size={20}
-							className="text-white"
+							className="text-zinc-900 dark:text-white"
 						/>
 					),
 				},

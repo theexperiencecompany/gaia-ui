@@ -107,11 +107,13 @@ export function Navbar({ navigation }: NavbarProps) {
                     href={siteConfig.links.gaia}
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "text-foreground/60",
+                      "text-foreground",
                     )}
                   >
                     <div className="flex items-center gap-2 font-medium">
-                      <span>GAIA</span>
+                      <span className="text-zinc-900 opacity-100 dark:text-white">
+                        GAIA
+                      </span>
                       <HugeiconsIcon
                         icon={LinkSquare02Icon}
                         width={12}

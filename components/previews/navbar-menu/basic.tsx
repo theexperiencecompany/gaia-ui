@@ -23,7 +23,7 @@ export default function NavbarMenuBasic() {
 						<HugeiconsIcon
 							icon={Message01Icon}
 							size={20}
-							className="text-white"
+							className="text-zinc-900 dark:text-white"
 						/>
 					),
 				},
@@ -32,7 +32,7 @@ export default function NavbarMenuBasic() {
 					href: "/use-cases",
 					description: "Discover workflows",
 					icon: (
-						<HugeiconsIcon icon={Idea01Icon} size={20} className="text-white" />
+						<HugeiconsIcon icon={Idea01Icon} size={20} className="text-zinc-900 dark:text-white" />
 					),
 				},
 				{
@@ -43,7 +43,7 @@ export default function NavbarMenuBasic() {
 						<HugeiconsIcon
 							icon={CreditCardIcon}
 							size={20}
-							className="text-white"
+							className="text-zinc-900 dark:text-white"
 						/>
 					),
 				},
@@ -52,7 +52,7 @@ export default function NavbarMenuBasic() {
 					href: "/roadmap",
 					description: "What's coming next",
 					icon: (
-						<HugeiconsIcon icon={MapsIcon} size={20} className="text-white" />
+						<HugeiconsIcon icon={MapsIcon} size={20} className="text-zinc-900 dark:text-white" />
 					),
 				},
 			],
