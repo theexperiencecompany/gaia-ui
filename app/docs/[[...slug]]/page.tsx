@@ -124,6 +124,7 @@ export default async function DocPage({ params }: PageProps) {
 
 	// Check if this is the installation page
 	const isInstallationPage = slug.length === 1 && slug[0] === "installation";
+	const isGalleryPage = slug.length === 1 && slug[0] === "gallery";
 	let howToSchema = null;
 
 	if (isInstallationPage) {
@@ -203,6 +204,7 @@ export default async function DocPage({ params }: PageProps) {
 				toc={toc}
 				markdownContent={content}
 				breadcrumbs={uiBreadcrumbs}
+				fullWidth={isGalleryPage}
 			>
 				<Suspense
 					fallback={

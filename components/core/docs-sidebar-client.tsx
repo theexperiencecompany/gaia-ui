@@ -50,7 +50,7 @@ export function DocsSidebarClient({ navigation }: DocsSidebarClientProps) {
 	};
 
 	return (
-		<aside className="sticky top-14 hidden md:block w-full md:w-[220px] lg:w-[240px] shrink-0 h-[calc(100vh-3.5rem)]">
+		<aside className="sticky top-14 hidden md:block w-full shrink-0 h-[calc(100vh-3.5rem)]">
 			<div className="py-10  lg:py-8 overflow-auto h-full">
 				<nav className="grid grid-flow-row auto-rows-max text-sm">
 					{navigation.map((section) => (
