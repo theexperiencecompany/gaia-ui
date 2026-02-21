@@ -33,8 +33,7 @@ export function DocPageLayout({
 	breadcrumbs = [],
 	fullWidth = false,
 }: DocPageLayoutProps) {
-	const fullMarkdown = `# ${title}\n\n${description}\n\n${markdownContent || ""
-		}`;
+	const fullMarkdown = `# ${title}\n\n${description}\n\n${markdownContent || ""}`;
 	const navigation = getNavigation();
 
 	return (
@@ -98,11 +97,13 @@ export function DocPageLayout({
 					navigation={navigation}
 				/>
 			</div>
-			<div className="hidden text-sm xl:block w-[250px] shrink-0">
-				<div className="sticky top-16 -mt-10 h-[calc(100vh-3.5rem)] overflow-hidden pt-6">
-					<TableOfContents toc={toc} />
+			{!fullWidth && toc.length > 0 && (
+				<div className="hidden text-sm xl:block w-[250px] shrink-0">
+					<div className="sticky top-16 -mt-10 h-[calc(100vh-3.5rem)] overflow-hidden pt-6">
+						<TableOfContents toc={toc} />
+					</div>
 				</div>
-			</div>
+			)}
 		</main>
 	);
 }

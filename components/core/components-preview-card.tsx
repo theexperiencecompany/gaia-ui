@@ -50,10 +50,7 @@ export const ComponentPreviewCard: FC<ComponentPreviewCardProps> = ({
   }, [componentName]);
 
   return (
-    <Link
-      href={href}
-      className={cn("group relative flex flex-col gap-2", className)}
-    >
+    <div className={cn("group relative flex flex-col gap-2", className)}>
       {/* Preview Area */}
       <div className="relative w-full overflow-hidden rounded-xl transition-all duration-300 aspect-video">
         {isLoading ? (
@@ -79,9 +76,17 @@ export const ComponentPreviewCard: FC<ComponentPreviewCardProps> = ({
           </div>
         )}
 
+        <Link
+          href={href}
+          aria-label={`View ${title} component docs`}
+          className="absolute inset-0 z-[3] rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          <span className="sr-only">View {title} component docs</span>
+        </Link>
+
         {/* Hover Overlay with Title */}
         <div
-          className="absolute inset-x-0 bottom-0 flex items-end px-4 pb-4 pt-12 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gradient-to-t from-black/60 via-black/40 to-transparent backdrop-blur-md"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex items-end px-4 pb-4 pt-12 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100 bg-gradient-to-t from-black/60 via-black/40 to-transparent backdrop-blur-md"
           style={{
             maskImage: "linear-gradient(to top, black, transparent)",
             WebkitMaskImage: "linear-gradient(to top, black, transparent)",
@@ -97,6 +102,6 @@ export const ComponentPreviewCard: FC<ComponentPreviewCardProps> = ({
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };

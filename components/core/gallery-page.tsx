@@ -3,6 +3,8 @@ import { getPreviewComponent } from "@/components/previews";
 import { cn } from "@/lib/utils";
 import { getComponentsMetadata } from "@/lib/utils/get-component-metadata";
 
+// Keep this list aligned with the canonical registry metadata from getComponentsMetadata().
+// Add entries when a component should render in the gallery preview grid, preferring registry-driven data where possible.
 const GALLERY_PREVIEW_COMPONENTS = [
 	"author-tooltip",
 	"github-stars-button",
@@ -25,6 +27,8 @@ const GALLERY_PREVIEW_COMPONENTS = [
 	"link-preview",
 ] as const;
 
+// Add manual entries only when preview wiring or metadata is not fully represented in the registry source.
+// When adding new registry components, update this list (and GALLERY_PREVIEW_COMPONENTS) as needed to prevent drift.
 const MANUAL_GALLERY_COMPONENTS = [
 	{
 		name: "notification-card",
@@ -50,7 +54,12 @@ export async function GalleryPage() {
 		}
 	}
 
-	const previewPromises = components.map(async (component) => {
+	const previewNames = new Set<string>(GALLERY_PREVIEW_COMPONENTS);
+	const previewComponents = components.filter((component) =>
+		previewNames.has(component.name),
+	);
+
+	const previewPromises = previewComponents.map(async (component) => {
 		const previewName =
 			component.name === "navbar-menu"
 				? "navbar-menu/full"
@@ -74,9 +83,45 @@ export async function GalleryPage() {
 			.map((item) => [item.name, item]),
 	);
 
+	const warnedMissingPreviews = new Set<string>();
+
 	const renderCard = (name: string, previewWidthClassName?: string) => {
 		const item = previewMap.get(name);
-		if (!item) return null;
+		if (!item) {
+			if (!warnedMissingPreviews.has(name)) {
+				console.warn(`[GalleryPage] Missing preview component for "${name}".`);
+				warnedMissingPreviews.add(name);
+			}
+
+			return (
+				<div
+					key={name}
+					data-component={name}
+					className="group relative isolate z-0 hover:z-20 focus-within:z-20"
+				>
+					<div
+						className={cn(
+							"relative flex w-full min-w-0 items-center justify-center rounded-xl border border-dashed border-zinc-300 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-[#0a0a0a]",
+							name === "composer" ? "overflow-visible" : "overflow-hidden",
+						)}
+					>
+						<div
+							className={cn(
+								"relative z-0 w-full min-w-0 text-center",
+								previewWidthClassName,
+							)}
+						>
+							<p className="text-sm font-semibold text-zinc-700 dark:text-zinc-200">
+								Preview unavailable
+							</p>
+							<p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+								{name} could not be loaded.
+							</p>
+						</div>
+					</div>
+				</div>
+			);
+		}
 
 		const { title, PreviewComponent } = item;
 
@@ -86,13 +131,15 @@ export async function GalleryPage() {
 				data-component={name}
 				className="group relative isolate z-0 hover:z-20 focus-within:z-20"
 			>
-				<div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex -translate-y-full justify-center opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 group-focus-within:opacity-100">
+				<div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex -translate-y-full justify-center text-zinc-700 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 group-focus-within:opacity-100 dark:text-zinc-200">
 					<Link
 						href={`/docs/components/${name}`}
-						className="pointer-events-none rounded-2xl border border-black/10 bg-zinc-100/95 px-4 py-2 text-sm text-zinc-700 shadow-[0_6px_20px_rgba(0,0,0,0.18)] backdrop-blur group-hover:pointer-events-auto group-focus-within:pointer-events-auto"
+						className="pointer-events-none rounded-2xl border border-black/10 bg-zinc-100/95 px-4 py-2 text-sm shadow-[0_6px_20px_rgba(0,0,0,0.18)] backdrop-blur group-hover:pointer-events-auto group-focus-within:pointer-events-auto dark:border-white/10 dark:bg-zinc-900/95 dark:shadow-[0_6px_20px_rgba(0,0,0,0.55)]"
 					>
-						<span className="font-semibold text-zinc-800">{title}</span>
-						<span className="text-zinc-500"> · View Docs -&gt;</span>
+						<span className="font-semibold text-zinc-800 dark:text-zinc-100">
+							{title}
+						</span>
+						<span className="text-zinc-500 dark:text-zinc-400"> · View Docs -&gt;</span>
 					</Link>
 				</div>
 				<div

@@ -58,6 +58,7 @@ interface SlashCommandDropdownProps {
 // Default icon size for consistency
 const ICON_SIZE = 20;
 const CATEGORY_ICON_SIZE = 16;
+const MONOCHROME_ICON_CATEGORIES = new Set(["github", "linear"]);
 
 /**
  * Get a default icon for a tool based on its category
@@ -81,7 +82,11 @@ const getDefaultToolIcon = (
 	if (categoryIcon) return categoryIcon;
 
 	return (
-		<HugeiconsIcon icon={ToolsIcon} size={size} className="text-zinc-400" />
+		<HugeiconsIcon
+			icon={ToolsIcon}
+			size={size}
+			className="text-zinc-500 dark:text-zinc-400"
+		/>
 	);
 };
 
@@ -186,7 +191,7 @@ export const SlashCommandDropdown: React.FC<SlashCommandDropdownProps> = ({
 				// Base styles
 				"fixed z-[200] overflow-hidden rounded-2xl",
 				// Light mode support
-				"border border-zinc-200 bg-white/95 dark:border-zinc-800 dark:bg-zinc-900/95",
+				"border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900/95",
 				"backdrop-blur-xl shadow-2xl",
 				// Animation
 				"animate-in fade-in-0 slide-in-from-bottom-2 duration-200",
@@ -206,14 +211,14 @@ export const SlashCommandDropdown: React.FC<SlashCommandDropdownProps> = ({
 		>
 			{/* Header section - Only show when opened via button */}
 			{openedViaButton && (
-				<div className="flex items-center justify-between pl-5 pr-2 py-1">
+				<div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pl-5 pr-2 py-1">
 					<div className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
 						Browse Tools
 					</div>
 					<button
 						type="button"
 						onClick={onClose}
-						className="cursor-pointer rounded-full p-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
+						className="cursor-pointer rounded-full p-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
 						aria-label="Close"
 					>
 						<HugeiconsIcon icon={Cancel01Icon} size={16} />
@@ -223,7 +228,7 @@ export const SlashCommandDropdown: React.FC<SlashCommandDropdownProps> = ({
 
 			{/* Category Tabs */}
 			{computedCategories.length > 1 && (
-				<div>
+				<div className="border-b border-zinc-200 dark:border-zinc-800">
 					<div className="flex overflow-x-auto px-3 py-1 gap-1.5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 						{computedCategories.map((category) => (
 							<button
@@ -236,10 +241,16 @@ export const SlashCommandDropdown: React.FC<SlashCommandDropdownProps> = ({
 									// Selected state
 									selectedCategory === category
 										? "bg-zinc-100 text-zinc-900 dark:bg-zinc-700/50 dark:text-white"
-										: "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300",
+										: "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-200",
 								)}
 							>
-								{getCategoryTabIcon(category)}
+									{category === "github" ? (
+										<span className="flex h-4 w-4 items-center justify-center rounded-sm bg-zinc-800 dark:bg-transparent">
+											{getCategoryTabIcon(category)}
+										</span>
+									) : (
+										getCategoryTabIcon(category)
+									)}
 								<span>
 									{category === "all" ? "All" : formatToolName(category)}
 								</span>
@@ -255,7 +266,7 @@ export const SlashCommandDropdown: React.FC<SlashCommandDropdownProps> = ({
 				className="max-h-[200px] overflow-y-auto py-1.5"
 			>
 				{filteredMatches.length === 0 ? (
-					<div className="px-4 py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
+					<div className="px-4 py-8 text-center text-sm text-zinc-600 dark:text-zinc-400">
 						No tools found
 					</div>
 				) : (
@@ -266,21 +277,27 @@ export const SlashCommandDropdown: React.FC<SlashCommandDropdownProps> = ({
 								type="button"
 								key={`${match.tool.category}-${match.tool.name}`}
 								data-index={index}
-								className={cn(
-									// Base styles - full width with consistent padding
-									"w-full text-left mx-0 px-3 py-0 cursor-pointer transition-all duration-150",
-									// Selected/hover states with light mode support
-									isSelected
-										? "bg-zinc-100 dark:bg-zinc-700/40"
-										: "hover:bg-zinc-50 dark:hover:bg-zinc-800/40",
-								)}
+									className={cn(
+										// Base styles - full width with consistent padding
+										"w-full text-left mx-0 px-3 py-0 cursor-pointer transition-all duration-150",
+										// Selected/hover states with light mode support
+										isSelected
+											? "bg-zinc-100 dark:bg-zinc-800"
+											: "hover:bg-zinc-100 dark:hover:bg-zinc-800",
+									)}
 								onClick={() => onSelect(match)}
 							>
 								<div className="flex items-center gap-3 py-2.5 px-1">
-									{/* Icon container - fixed size for consistency */}
-									<div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-800">
-										{getDefaultToolIcon(match.tool, ICON_SIZE)}
-									</div>
+										{/* Icon container - fixed size for consistency */}
+										<div
+											className={cn(
+												"flex-shrink-0 flex h-8 w-8 items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800",
+												MONOCHROME_ICON_CATEGORIES.has(match.tool.category) &&
+													"[&_img]:brightness-0 dark:[&_img]:brightness-100",
+											)}
+										>
+											{getDefaultToolIcon(match.tool, ICON_SIZE)}
+										</div>
 
 									{/* Content - fills remaining space */}
 									<div className="min-w-0 flex-1">
@@ -289,13 +306,13 @@ export const SlashCommandDropdown: React.FC<SlashCommandDropdownProps> = ({
 												{formatToolName(match.tool.name)}
 											</span>
 											{selectedCategory === "all" && (
-												<span className="flex-shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 text-xs text-zinc-500 dark:text-zinc-400">
+												<span className="flex-shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 text-xs text-zinc-600 dark:text-zinc-400">
 													{formatToolName(match.tool.category)}
 												</span>
 											)}
 										</div>
 										{match.tool.description && (
-											<p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 truncate">
+											<p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 truncate">
 												{match.tool.description}
 											</p>
 										)}

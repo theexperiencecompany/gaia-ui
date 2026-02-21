@@ -111,7 +111,7 @@ export function Navbar({ navigation }: NavbarProps) {
                     )}
                   >
                     <div className="flex items-center gap-2 font-medium">
-                      <span className="text-zinc-900 opacity-100 dark:text-white">
+                      <span className="text-zinc-900 dark:text-white">
                         GAIA
                       </span>
                       <HugeiconsIcon
