@@ -16,7 +16,7 @@ export function ContributorsPage() {
 	return (
 		<>
 			{isLoading ? (
-				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
 					{Array.from({ length: 10 }).map((_, i) => (
 						<div
 							key={`skeleton-${i}`}
@@ -49,7 +49,7 @@ export function ContributorsPage() {
 					</div>
 				</div>
 			) : (
-				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
 					{contributors.map((contributor) => (
 						<AuthorTooltip
 							key={contributor.login}
@@ -64,7 +64,7 @@ export function ContributorsPage() {
 									href={contributor.html_url}
 									target="_blank"
 									rel="noopener noreferrer"
-									className="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-accent transition-colors group aspect-square cursor-pointer"
+									className="flex flex-col items-center min-w-0 w-full gap-3 p-4 rounded-xl hover:bg-accent transition-colors group aspect-square cursor-pointer"
 								>
 									<Image
 										src={contributor.avatar_url}
@@ -73,8 +73,8 @@ export function ContributorsPage() {
 										height={64}
 										className="h-16 w-16 rounded-full"
 									/>
-									<div className="text-center">
-										<div className="text-sm font-medium group-hover:text-foreground transition-colors truncate text-nowrap">
+									<div className="text-center w-full min-w-0">
+										<div className="text-sm font-medium truncate w-full text-center group-hover:text-foreground transition-colors">
 											{contributor.name || contributor.login}
 										</div>
 										<div className="text-xs text-muted-foreground">
