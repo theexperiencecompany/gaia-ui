@@ -1,5 +1,10 @@
 "use client";
 
+import type { IconSvgElement } from "@hugeicons/react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type React from "react";
 import {
 	Download05Icon,
 	Home09Icon,
@@ -8,16 +13,11 @@ import {
 	MapsIcon,
 	ShapeCollectionIcon,
 	StatusIcon,
-	UserLove01Icon
+	UserLove01Icon,
 } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { ComponentPreviewTooltip } from "@/registry/new-york/ui/component-preview-tooltip";
 import type { NavSection } from "@/types/nav-item";
-import type { IconSvgElement } from "@hugeicons/react";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import type React from "react";
 import { DiscordIcon, TwitterIcon } from "../icons/social-icons";
 
 interface DocsSidebarClientProps {
@@ -51,17 +51,17 @@ export function DocsSidebarClient({ navigation }: DocsSidebarClientProps) {
 
 	return (
 		<aside className="sticky top-14 hidden md:block w-full shrink-0 h-[calc(100vh-3.5rem)]">
-			<div className="py-10  lg:py-8 overflow-auto h-full">
+			<div className="h-full overflow-auto py-10 pr-2 lg:py-8">
 				<nav className="grid grid-flow-row auto-rows-max text-sm">
 					{navigation.map((section) => (
-						<div key={section.title} className="pb-6">
+						<div key={section.title} className="pb-7">
 							{section.title.length > 0 && section.title !== "Socials" && (
-								<h4 className="rounded-md px-2 py-1 text-xs text-muted-foreground">
+								<h4 className="rounded-md px-2.5 py-1 text-xs text-muted-foreground">
 									{section.title}
 								</h4>
 							)}
 							{section.items && (
-								<div className="grid grid-flow-row auto-rows-max gap-1">
+								<div className="grid grid-flow-row auto-rows-max gap-1.5">
 									{section.items.map((item) => {
 										const componentName = getComponentName(item.href);
 										const isComponentPage = item.href.includes("/components/");
@@ -106,7 +106,7 @@ export function DocsSidebarClient({ navigation }: DocsSidebarClientProps) {
 												href={item.href}
 												target="_blank"
 												rel="noopener noreferrer"
-												className="group flex w-fit items-center gap-1.5 text-sm rounded-md border border-transparent px-2 py-1 hover:bg-accent hover:text-accent-foreground font-medium text-foreground"
+												className="group flex w-fit items-center gap-2 rounded-md border border-transparent px-2.5 py-1.5 text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground"
 											>
 												{linkContent}
 											</a>
@@ -114,7 +114,7 @@ export function DocsSidebarClient({ navigation }: DocsSidebarClientProps) {
 											<Link
 												href={item.href}
 												className={cn(
-													"group flex w-fit items-center gap-1.5 text-sm rounded-md border border-transparent px-2 py-1 hover:bg-accent hover:text-accent-foreground font-medium text-foreground",
+													"group flex w-fit items-center gap-2 rounded-md border border-transparent px-2.5 py-1.5 text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground",
 													pathname === item.href ? "bg-accent" : "",
 												)}
 											>

@@ -72,7 +72,7 @@ export default function NotificationCardDefault() {
 	];
 
 	return (
-		<div className="flex flex-col gap-3 w-full max-w-md">
+		<div className="mx-auto flex w-full max-w-md flex-col gap-3">
 			{notifications.map((notification) => (
 				<NotificationCard
 					key={notification.id}

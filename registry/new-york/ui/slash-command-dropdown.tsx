@@ -191,7 +191,7 @@ export const SlashCommandDropdown: React.FC<SlashCommandDropdownProps> = ({
 				// Base styles
 				"fixed z-[200] overflow-hidden rounded-2xl",
 				// Light mode support
-				"border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900/95",
+				"border border-zinc-200 dark:border-zinc-800 bg-background",
 				"backdrop-blur-xl shadow-2xl",
 				// Animation
 				"animate-in fade-in-0 slide-in-from-bottom-2 duration-200",
@@ -244,13 +244,13 @@ export const SlashCommandDropdown: React.FC<SlashCommandDropdownProps> = ({
 										: "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-200",
 								)}
 							>
-									{category === "github" ? (
-										<span className="flex h-4 w-4 items-center justify-center rounded-sm bg-zinc-800 dark:bg-transparent">
-											{getCategoryTabIcon(category)}
-										</span>
-									) : (
-										getCategoryTabIcon(category)
-									)}
+								{category === "github" ? (
+									<span className="flex h-4 w-4 items-center justify-center rounded-sm bg-zinc-800 dark:bg-transparent">
+										{getCategoryTabIcon(category)}
+									</span>
+								) : (
+									getCategoryTabIcon(category)
+								)}
 								<span>
 									{category === "all" ? "All" : formatToolName(category)}
 								</span>
@@ -277,27 +277,27 @@ export const SlashCommandDropdown: React.FC<SlashCommandDropdownProps> = ({
 								type="button"
 								key={`${match.tool.category}-${match.tool.name}`}
 								data-index={index}
-									className={cn(
-										// Base styles - full width with consistent padding
-										"w-full text-left mx-0 px-3 py-0 cursor-pointer transition-all duration-150",
-										// Selected/hover states with light mode support
-										isSelected
-											? "bg-zinc-100 dark:bg-zinc-800"
-											: "hover:bg-zinc-100 dark:hover:bg-zinc-800",
-									)}
+								className={cn(
+									// Base styles - full width with consistent padding
+									"w-full text-left mx-0 px-3 py-0 cursor-pointer transition-all duration-150",
+									// Selected/hover states with light mode support
+									isSelected
+										? "bg-zinc-100 dark:bg-zinc-800"
+										: "hover:bg-zinc-100 dark:hover:bg-zinc-800",
+								)}
 								onClick={() => onSelect(match)}
 							>
 								<div className="flex items-center gap-3 py-2.5 px-1">
-										{/* Icon container - fixed size for consistency */}
-										<div
-											className={cn(
-												"flex-shrink-0 flex h-8 w-8 items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800",
-												MONOCHROME_ICON_CATEGORIES.has(match.tool.category) &&
-													"[&_img]:brightness-0 dark:[&_img]:brightness-100",
-											)}
-										>
-											{getDefaultToolIcon(match.tool, ICON_SIZE)}
-										</div>
+									{/* Icon container - fixed size for consistency */}
+									<div
+										className={cn(
+											"flex-shrink-0 flex h-8 w-8 items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800",
+											MONOCHROME_ICON_CATEGORIES.has(match.tool.category) &&
+												"[&_img]:brightness-0 dark:[&_img]:brightness-100",
+										)}
+									>
+										{getDefaultToolIcon(match.tool, ICON_SIZE)}
+									</div>
 
 									{/* Content - fills remaining space */}
 									<div className="min-w-0 flex-1">

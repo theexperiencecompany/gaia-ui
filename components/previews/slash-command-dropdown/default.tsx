@@ -63,8 +63,7 @@ export default function SlashCommandDropdownPreview() {
 		score: 1,
 	}));
 
-	const handleSelect = (match: SlashCommandMatch) => {
-		console.log("Selected:", match.tool.name);
+	const handleSelect = () => {
 		setIsVisible(false);
 	};
 
@@ -72,9 +71,9 @@ export default function SlashCommandDropdownPreview() {
 		setIsVisible(!isVisible);
 	};
 
-		return (
-			<div className="w-full h-[400px] relative flex items-center justify-center bg-white dark:bg-zinc-950 p-6 rounded-3xl border border-zinc-200 dark:border-zinc-800">
-				<div className="flex flex-col items-center gap-4">
+	return (
+		<div className="w-full h-[400px] relative flex items-center justify-center bg-white dark:bg-zinc-950 p-6 rounded-3xl border border-zinc-200 dark:border-zinc-800">
+			<div className="flex flex-col items-center gap-4">
 				<p className="text-zinc-400 text-sm mb-4">
 					Click the button to open the tool menu
 				</p>
