@@ -3,9 +3,9 @@ import { getPreviewComponent } from "@/components/previews";
 import { cn } from "@/lib/utils";
 import { getComponentsMetadata } from "@/lib/utils/get-component-metadata";
 
-// Keep this list aligned with the canonical registry metadata from getComponentsMetadata().
-// Add entries when a component should render in the gallery preview grid, preferring registry-driven data where possible.
-const GALLERY_PREVIEW_COMPONENTS = [
+// Components in this list are shown first in this exact order.
+// Components not listed here are added after this list.
+const PRIORITY_GALLERY_COMPONENTS = [
     "author-tooltip",
     "github-stars-button",
     "nested-menu",
@@ -25,6 +25,8 @@ const GALLERY_PREVIEW_COMPONENTS = [
     "wave-spinner",
     "search-results-tabs",
     "link-preview",
+    "model-selector",
+    "workflow-card",
 ] as const;
 
 const DESKTOP_GALLERY_COMPONENTS = [
@@ -43,16 +45,18 @@ const DESKTOP_GALLERY_COMPONENTS = [
     "notification-card",
     "weather-card",
     "search-results-tabs",
+    "model-selector",
     "pricing-card",
     "wave-spinner",
     "link-preview",
     "navbar-menu",
-] as const satisfies readonly (typeof GALLERY_PREVIEW_COMPONENTS)[number][];
+    "workflow-card",
+] as const satisfies readonly (typeof PRIORITY_GALLERY_COMPONENTS)[number][];
 
 const GALLERY_CARD_SURFACE_CLASS = "dark:bg-background";
 
-// Add manual entries only when preview wiring or metadata is not fully represented in the registry source.
-// When adding new registry components, update this list (and GALLERY_PREVIEW_COMPONENTS) as needed to prevent drift.
+// Add a component here only if it is missing from registry metadata.
+// If a component is in registry metadata, it is added automatically.
 const MANUAL_GALLERY_COMPONENTS = [
     {
         name: "notification-card",
@@ -67,6 +71,20 @@ const MANUAL_GALLERY_COMPONENTS = [
         description:
             "An interactive todo row with priority, labels, and subtasks.",
         firstPreview: "todo-item/default",
+    },
+    {
+        name: "model-selector",
+        title: "Model Selector",
+        description:
+            "A dropdown selector for choosing AI models with provider information and pro badges.",
+        firstPreview: "model-selector/default",
+    },
+    {
+        name: "workflow-card",
+        title: "Workflow Card",
+        description:
+            "A card component for displaying workflow templates with icons and descriptions.",
+        firstPreview: "workflow-card/default",
     },
 ] as const;
 
@@ -84,7 +102,20 @@ export async function GalleryPage() {
         }
     }
 
-    const previewNames = new Set<string>(GALLERY_PREVIEW_COMPONENTS);
+    const priorityNames = new Set<string>(PRIORITY_GALLERY_COMPONENTS);
+
+    // New components added to registry.json that are NOT in PRIORITY_GALLERY_COMPONENTS
+    // will automatically appear at the bottom of the gallery.
+    const appendedComponentNames = components
+        .map((component) => component.name)
+        .filter((name) => !priorityNames.has(name));
+
+    const galleryComponentNames = [
+        ...PRIORITY_GALLERY_COMPONENTS,
+        ...appendedComponentNames,
+    ] as const;
+
+    const previewNames = new Set<string>(galleryComponentNames);
     const previewComponents = components.filter((component) =>
         previewNames.has(component.name),
     );
@@ -121,6 +152,13 @@ export async function GalleryPage() {
 
     const renderCard = (name: string, previewWidthClassName?: string) => {
         const item = previewMap.get(name);
+        const allowOverflowPreview =
+            name === "composer" || name === "model-selector";
+        const shouldLeftAlignPreview = name === "navbar-menu";
+        const previewAlignmentClass = shouldLeftAlignPreview
+            ? "items-start justify-start"
+            : "items-center justify-center";
+
         if (!item) {
             if (!warnedMissingPreviews.has(name)) {
                 console.warn(
@@ -137,9 +175,10 @@ export async function GalleryPage() {
                 >
                     <div
                         className={cn(
-                            "relative flex w-full min-w-0 items-center justify-center rounded-xl border border-dashed border-zinc-300 bg-zinc-50 p-4 dark:border-zinc-700",
+                            "relative flex w-full min-w-0 rounded-xl border border-dashed border-zinc-300 bg-zinc-50 p-4 dark:border-zinc-700",
+                            previewAlignmentClass,
                             GALLERY_CARD_SURFACE_CLASS,
-                            name === "composer"
+                            allowOverflowPreview
                                 ? "overflow-visible"
                                 : "overflow-hidden",
                         )}
@@ -186,9 +225,10 @@ export async function GalleryPage() {
                 </div>
                 <div
                     className={cn(
-                        "relative flex w-full min-w-0 items-center justify-center rounded-xl border border-zinc-200 bg-white p-4 dark:border-transparent",
+                        "relative flex w-full min-w-0 rounded-xl border border-zinc-200 bg-white p-4 dark:border-transparent",
+                        previewAlignmentClass,
                         GALLERY_CARD_SURFACE_CLASS,
-                        name === "composer"
+                        allowOverflowPreview
                             ? "overflow-visible"
                             : "overflow-hidden",
                     )}
@@ -207,6 +247,7 @@ export async function GalleryPage() {
     };
 
     const desktopRenderedNames = new Set<string>();
+    const desktopCuratedNames = new Set<string>(DESKTOP_GALLERY_COMPONENTS);
     const renderDesktopCard = (
         name: (typeof DESKTOP_GALLERY_COMPONENTS)[number],
         previewWidthClassName?: string,
@@ -259,12 +300,24 @@ export async function GalleryPage() {
                 <div className="flex flex-col gap-3">
                     {renderDesktopCard("wave-spinner")}
                     {renderDesktopCard("link-preview")}
+                    {renderDesktopCard(
+                        "model-selector",
+                        "mx-auto w-full max-w-xs",
+                    )}
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-3">
-                {renderDesktopCard("navbar-menu")}
+            <div className="grid grid-cols-2 gap-3">
+                {renderDesktopCard("navbar-menu", "mx-0 w-fit")}
+                {renderDesktopCard("workflow-card", "mx-auto w-full max-w-sm")}
             </div>
+
+            {/* New components from registry auto-appear here */}
+            {appendedComponentNames.length > 0 && (
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                    {appendedComponentNames.map((name) => renderCard(name))}
+                </div>
+            )}
         </div>
     );
 
@@ -274,32 +327,33 @@ export async function GalleryPage() {
         ) => {
             void renderCardRef;
 
-            const desktopNames = new Set<string>(DESKTOP_GALLERY_COMPONENTS);
-            const missingFromDesktopList = GALLERY_PREVIEW_COMPONENTS.filter(
-                (name) => !desktopNames.has(name),
-            );
-            const missingFromDesktopRender = GALLERY_PREVIEW_COMPONENTS.filter(
+            const missingFromDesktopRender = DESKTOP_GALLERY_COMPONENTS.filter(
                 (name) => !desktopRenderedNames.has(name),
             );
-
-            if (
-                DESKTOP_GALLERY_COMPONENTS.length !==
-                GALLERY_PREVIEW_COMPONENTS.length
-            ) {
-                throw new Error(
-                    `[GalleryPage] Desktop gallery layout is out of sync with GALLERY_PREVIEW_COMPONENTS. Update DESKTOP_GALLERY_COMPONENTS and renderCard invocations together.`,
-                );
-            }
-
-            if (missingFromDesktopList.length > 0) {
-                throw new Error(
-                    `[GalleryPage] DESKTOP_GALLERY_COMPONENTS is missing preview names: ${missingFromDesktopList.join(", ")}.`,
-                );
-            }
 
             if (missingFromDesktopRender.length > 0) {
                 throw new Error(
                     `[GalleryPage] Desktop renderCard layout is missing preview names: ${missingFromDesktopRender.join(", ")}.`,
+                );
+            }
+
+            const desktopNamesOutsideCuratedOrder =
+                DESKTOP_GALLERY_COMPONENTS.filter(
+                    (name) => !priorityNames.has(name),
+                );
+            if (desktopNamesOutsideCuratedOrder.length > 0) {
+                throw new Error(
+                    `[GalleryPage] DESKTOP_GALLERY_COMPONENTS contains names outside PRIORITY_GALLERY_COMPONENTS: ${desktopNamesOutsideCuratedOrder.join(", ")}.`,
+                );
+            }
+
+            const appendedNamesInDesktopCuratedLayout =
+                appendedComponentNames.filter((name) =>
+                    desktopCuratedNames.has(name),
+                );
+            if (appendedNamesInDesktopCuratedLayout.length > 0) {
+                throw new Error(
+                    `[GalleryPage] Appended names should not be in DESKTOP_GALLERY_COMPONENTS: ${appendedNamesInDesktopCuratedLayout.join(", ")}.`,
                 );
             }
         };
@@ -310,12 +364,14 @@ export async function GalleryPage() {
     return (
         <div className="w-full min-w-0">
             <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:hidden">
-                {GALLERY_PREVIEW_COMPONENTS.map((name) =>
+                {galleryComponentNames.map((name) =>
                     renderCard(
                         name,
                         name === "navbar-menu" || name === "pricing-card"
                             ? "mx-auto w-full"
-                            : undefined,
+                            : name === "model-selector"
+                                ? "mx-auto w-full max-w-xs"
+                                : undefined,
                     ),
                 )}
             </div>
