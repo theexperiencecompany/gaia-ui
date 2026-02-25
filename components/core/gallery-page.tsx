@@ -256,127 +256,102 @@ export async function GalleryPage() {
         return renderCard(name, previewWidthClassName);
     };
 
-    const desktopGallery = (
-        <div className="hidden w-full flex-col gap-3 lg:flex">
-            <div className="grid grid-cols-3 gap-3">
-                {renderDesktopCard("author-tooltip", "mx-auto w-fit")}
-                {renderDesktopCard("github-stars-button", "mx-auto w-fit")}
-                {renderDesktopCard("nested-menu", "mx-auto w-fit [&>div]:py-0")}
-            </div>
+    const gallery = (
+        <div className="w-full min-w-0">
+            {/* Single render path for all screen sizes. */}
+            <div className="flex w-full flex-col gap-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    {renderDesktopCard("author-tooltip", "mx-auto w-fit")}
+                    {renderDesktopCard("github-stars-button", "mx-auto w-fit")}
+                    {renderDesktopCard("nested-menu", "mx-auto w-fit [&>div]:py-0")}
+                </div>
 
-            <div className="grid grid-cols-3 items-start gap-3">
-                <div className="flex flex-col gap-3">
-                    {renderDesktopCard("composer")}
-                    {renderDesktopCard("holo-card")}
-                    {renderDesktopCard("message-bubble")}
+                <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="flex flex-col gap-3">
+                        {renderDesktopCard("composer")}
+                        {renderDesktopCard("holo-card")}
+                        {renderDesktopCard("message-bubble")}
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        {renderDesktopCard("slash-command-dropdown")}
+                        {renderDesktopCard(
+                            "todo-item",
+                            "w-full min-w-0 overflow-hidden",
+                        )}
+                        {renderDesktopCard("knowledge-graph")}
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        {renderDesktopCard("raised-button")}
+                        {renderDesktopCard("email-compose-card")}
+                        {renderDesktopCard("tool-calls-section")}
+                        {renderDesktopCard("notification-card")}
+                    </div>
                 </div>
-                <div className="flex flex-col gap-3">
-                    {renderDesktopCard("slash-command-dropdown")}
-                    {renderDesktopCard(
-                        "todo-item",
-                        "w-full min-w-0 overflow-hidden",
-                    )}
-                    {renderDesktopCard("knowledge-graph")}
-                </div>
-                <div className="flex flex-col gap-3">
-                    {renderDesktopCard("raised-button")}
-                    {renderDesktopCard("email-compose-card")}
-                    {renderDesktopCard("tool-calls-section")}
-                    {renderDesktopCard("notification-card")}
-                </div>
-            </div>
 
-            <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.45fr)_minmax(0,1fr)] items-start gap-3">
-                <div className="flex flex-col gap-3">
-                    {renderDesktopCard("weather-card")}
-                    {renderDesktopCard("search-results-tabs")}
+                <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.45fr)_minmax(0,1fr)]">
+                    <div className="flex flex-col gap-3">
+                        {renderDesktopCard("weather-card")}
+                        {renderDesktopCard("search-results-tabs")}
+                    </div>
+                    <div>
+                        {renderDesktopCard(
+                            "pricing-card",
+                            "mx-auto w-full max-w-[760px]",
+                        )}
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        {renderDesktopCard("wave-spinner")}
+                        {renderDesktopCard("link-preview")}
+                        {renderDesktopCard(
+                            "model-selector",
+                            "mx-auto w-full max-w-xs",
+                        )}
+                    </div>
                 </div>
-                <div>
-                    {renderDesktopCard(
-                        "pricing-card",
-                        "mx-auto w-full max-w-[760px]",
-                    )}
-                </div>
-                <div className="flex flex-col gap-3">
-                    {renderDesktopCard("wave-spinner")}
-                    {renderDesktopCard("link-preview")}
-                    {renderDesktopCard(
-                        "model-selector",
-                        "mx-auto w-full max-w-xs",
-                    )}
-                </div>
-            </div>
 
-            <div className="grid grid-cols-2 gap-3">
-                {renderDesktopCard("navbar-menu", "mx-0 w-fit")}
-                {renderDesktopCard("workflow-card", "mx-auto w-full max-w-sm")}
-            </div>
-
-            {/* New components from registry auto-appear here */}
-            {appendedComponentNames.length > 0 && (
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                    {appendedComponentNames.map((name) => renderCard(name))}
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {renderDesktopCard("navbar-menu", "mx-0 w-fit")}
+                    {renderDesktopCard("workflow-card", "mx-auto w-full max-w-sm")}
                 </div>
-            )}
+
+                {/* New components from registry auto-appear here */}
+                {appendedComponentNames.length > 0 && (
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                        {appendedComponentNames.map((name) => renderCard(name))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 
     if (process.env.NODE_ENV !== "production") {
-        const assertDesktopGalleryCoverage = (
-            renderCardRef: typeof renderCard,
-        ) => {
-            void renderCardRef;
-
-            const missingFromDesktopRender = DESKTOP_GALLERY_COMPONENTS.filter(
-                (name) => !desktopRenderedNames.has(name),
+        const missingFromDesktopRender = DESKTOP_GALLERY_COMPONENTS.filter(
+            (name) => !desktopRenderedNames.has(name),
+        );
+        if (missingFromDesktopRender.length > 0) {
+            throw new Error(
+                `[GalleryPage] Desktop renderCard layout is missing preview names: ${missingFromDesktopRender.join(", ")}.`,
             );
+        }
 
-            if (missingFromDesktopRender.length > 0) {
-                throw new Error(
-                    `[GalleryPage] Desktop renderCard layout is missing preview names: ${missingFromDesktopRender.join(", ")}.`,
-                );
-            }
+        const desktopNamesOutsideCuratedOrder = DESKTOP_GALLERY_COMPONENTS.filter(
+            (name) => !priorityNames.has(name),
+        );
+        if (desktopNamesOutsideCuratedOrder.length > 0) {
+            throw new Error(
+                `[GalleryPage] DESKTOP_GALLERY_COMPONENTS contains names outside PRIORITY_GALLERY_COMPONENTS: ${desktopNamesOutsideCuratedOrder.join(", ")}.`,
+            );
+        }
 
-            const desktopNamesOutsideCuratedOrder =
-                DESKTOP_GALLERY_COMPONENTS.filter(
-                    (name) => !priorityNames.has(name),
-                );
-            if (desktopNamesOutsideCuratedOrder.length > 0) {
-                throw new Error(
-                    `[GalleryPage] DESKTOP_GALLERY_COMPONENTS contains names outside PRIORITY_GALLERY_COMPONENTS: ${desktopNamesOutsideCuratedOrder.join(", ")}.`,
-                );
-            }
-
-            const appendedNamesInDesktopCuratedLayout =
-                appendedComponentNames.filter((name) =>
-                    desktopCuratedNames.has(name),
-                );
-            if (appendedNamesInDesktopCuratedLayout.length > 0) {
-                throw new Error(
-                    `[GalleryPage] Appended names should not be in DESKTOP_GALLERY_COMPONENTS: ${appendedNamesInDesktopCuratedLayout.join(", ")}.`,
-                );
-            }
-        };
-
-        assertDesktopGalleryCoverage(renderCard);
+        const appendedNamesInDesktopCuratedLayout = appendedComponentNames.filter(
+            (name) => desktopCuratedNames.has(name),
+        );
+        if (appendedNamesInDesktopCuratedLayout.length > 0) {
+            throw new Error(
+                `[GalleryPage] Appended names should not be in DESKTOP_GALLERY_COMPONENTS: ${appendedNamesInDesktopCuratedLayout.join(", ")}.`,
+            );
+        }
     }
 
-    return (
-        <div className="w-full min-w-0">
-            <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:hidden">
-                {galleryComponentNames.map((name) =>
-                    renderCard(
-                        name,
-                        name === "navbar-menu" || name === "pricing-card"
-                            ? "mx-auto w-full"
-                            : name === "model-selector"
-                                ? "mx-auto w-full max-w-xs"
-                                : undefined,
-                    ),
-                )}
-            </div>
-
-            {desktopGallery}
-        </div>
-    );
+    return gallery;
 }
