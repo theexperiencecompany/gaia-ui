@@ -150,7 +150,12 @@ export async function GalleryPage() {
 
     const warnedMissingPreviews = new Set<string>();
 
-    const renderCard = (name: string, previewWidthClassName?: string) => {
+    const renderCard = (
+        name: string,
+        previewWidthClassName?: string,
+        wrapperClassName?: string,
+        cardHeightClassName?: string,
+    ) => {
         const item = previewMap.get(name);
         const allowOverflowPreview =
             name === "composer" || name === "model-selector";
@@ -171,13 +176,17 @@ export async function GalleryPage() {
                 <div
                     key={name}
                     data-component={name}
-                    className="group relative isolate z-0 hover:z-20 focus-within:z-20"
+                    className={cn(
+                        "group relative isolate z-0 hover:z-20 focus-within:z-20",
+                        wrapperClassName,
+                    )}
                 >
                     <div
                         className={cn(
-                            "relative flex w-full min-w-0 rounded-xl border border-dashed border-zinc-300 bg-zinc-50 p-4 dark:border-zinc-700",
+                            "relative flex h-full w-full min-w-0 rounded-xl border border-dashed border-zinc-300 bg-zinc-50 p-4 dark:border-zinc-700",
                             previewAlignmentClass,
                             GALLERY_CARD_SURFACE_CLASS,
+                            cardHeightClassName,
                             allowOverflowPreview
                                 ? "overflow-visible"
                                 : "overflow-hidden",
@@ -207,7 +216,10 @@ export async function GalleryPage() {
             <div
                 key={name}
                 data-component={name}
-                className="group relative isolate z-0 hover:z-20 focus-within:z-20"
+                className={cn(
+                    "group relative isolate z-0 hover:z-20 focus-within:z-20",
+                    wrapperClassName,
+                )}
             >
                 <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex -translate-y-full justify-center text-zinc-700 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 group-focus-within:opacity-100 dark:text-zinc-200">
                     <Link
@@ -225,9 +237,10 @@ export async function GalleryPage() {
                 </div>
                 <div
                     className={cn(
-                        "relative flex w-full min-w-0 rounded-xl border border-zinc-200 bg-white p-4 dark:border-transparent",
+                        "relative flex h-full w-full min-w-0 rounded-xl border border-zinc-200 bg-white p-4 dark:border-transparent",
                         previewAlignmentClass,
                         GALLERY_CARD_SURFACE_CLASS,
+                        cardHeightClassName,
                         allowOverflowPreview
                             ? "overflow-visible"
                             : "overflow-hidden",
@@ -251,67 +264,106 @@ export async function GalleryPage() {
     const renderDesktopCard = (
         name: (typeof DESKTOP_GALLERY_COMPONENTS)[number],
         previewWidthClassName?: string,
+        wrapperClassName?: string,
+        cardHeightClassName?: string,
     ) => {
         desktopRenderedNames.add(name);
-        return renderCard(name, previewWidthClassName);
+        return renderCard(name, previewWidthClassName, wrapperClassName, cardHeightClassName);
     };
 
     const gallery = (
         <div className="w-full min-w-0">
-            {/* Single render path for all screen sizes. */}
+            {/* Bento grid layout */}
             <div className="flex w-full flex-col gap-3">
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
+                {/* Row 1: Hero strip — 3 small/compact components side by side */}
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     {renderDesktopCard("author-tooltip", "mx-auto w-fit")}
                     {renderDesktopCard("github-stars-button", "mx-auto w-fit")}
                     {renderDesktopCard("nested-menu", "mx-auto w-fit [&>div]:py-0")}
                 </div>
 
-                <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {/* Row 2: Bento block — composer (tall, 2-col) + right stack */}
+                <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+                    {/* Composer: spans 2 cols on large screens */}
+                    {renderDesktopCard(
+                        "composer",
+                        undefined,
+                        "lg:col-span-2",
+                    )}
+                    {/* Right column: holo-card + raised-button stacked */}
                     <div className="flex flex-col gap-3">
-                        {renderDesktopCard("composer")}
                         {renderDesktopCard("holo-card")}
-                        {renderDesktopCard("message-bubble")}
+                        {renderDesktopCard("raised-button")}
                     </div>
+                </div>
+
+                {/* Row 3: Mixed — slash-command (1-col) + pricing-card (2-col, tall) */}
+                <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+                    {/* Left stack: slash-command + message-bubble */}
                     <div className="flex flex-col gap-3">
                         {renderDesktopCard("slash-command-dropdown")}
+                        {renderDesktopCard("message-bubble")}
+                    </div>
+                    {/* Pricing card: large feature card spanning 2 cols */}
+                    {renderDesktopCard(
+                        "pricing-card",
+                        "mx-auto w-full max-w-[760px]",
+                        "lg:col-span-2",
+                    )}
+                </div>
+
+                {/* Row 4: Knowledge graph (2-col, tall) + right stack */}
+                <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+                    {/* Knowledge graph takes 2 columns */}
+                    {renderDesktopCard(
+                        "knowledge-graph",
+                        undefined,
+                        "lg:col-span-2",
+                    )}
+                    {/* Right stack: email + todo */}
+                    <div className="flex flex-col gap-3">
+                        {renderDesktopCard("email-compose-card")}
                         {renderDesktopCard(
                             "todo-item",
                             "w-full min-w-0 overflow-hidden",
                         )}
-                        {renderDesktopCard("knowledge-graph")}
-                    </div>
-                    <div className="flex flex-col gap-3">
-                        {renderDesktopCard("raised-button")}
-                        {renderDesktopCard("email-compose-card")}
-                        {renderDesktopCard("tool-calls-section")}
-                        {renderDesktopCard("notification-card")}
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.45fr)_minmax(0,1fr)]">
-                    <div className="flex flex-col gap-3">
-                        {renderDesktopCard("weather-card")}
-                        {renderDesktopCard("search-results-tabs")}
-                    </div>
-                    <div>
-                        {renderDesktopCard(
-                            "pricing-card",
-                            "mx-auto w-full max-w-[760px]",
-                        )}
-                    </div>
-                    <div className="flex flex-col gap-3">
-                        {renderDesktopCard("wave-spinner")}
-                        {renderDesktopCard("link-preview")}
-                        {renderDesktopCard(
-                            "model-selector",
-                            "mx-auto w-full max-w-xs",
-                        )}
-                    </div>
+                {/* Row 5: Navbar (wide, 2-col) + tool-calls */}
+                <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+                    {renderDesktopCard(
+                        "navbar-menu",
+                        "mx-0 w-fit",
+                        "lg:col-span-2",
+                    )}
+                    {renderDesktopCard("tool-calls-section")}
                 </div>
 
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    {renderDesktopCard("navbar-menu", "mx-0 w-fit")}
-                    {renderDesktopCard("workflow-card", "mx-auto w-full max-w-sm")}
+                {/* Row 6: 4-column bento — weather, notification, wave-spinner, link-preview */}
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    {renderDesktopCard("weather-card")}
+                    {renderDesktopCard("notification-card")}
+                    {renderDesktopCard("wave-spinner")}
+                    {renderDesktopCard("link-preview")}
+                </div>
+
+                {/* Row 7: Search-results-tabs (2-col) + model-selector + workflow-card */}
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    {renderDesktopCard(
+                        "search-results-tabs",
+                        undefined,
+                        "lg:col-span-2",
+                    )}
+                    {renderDesktopCard(
+                        "model-selector",
+                        "mx-auto w-full max-w-xs",
+                    )}
+                    {renderDesktopCard(
+                        "workflow-card",
+                        "mx-auto w-full max-w-sm",
+                    )}
                 </div>
 
                 {/* New components from registry auto-appear here */}
