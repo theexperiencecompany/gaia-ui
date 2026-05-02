@@ -30,6 +30,10 @@ export function getNavigation(): NavSection[] {
 				title: "Twitter",
 				href: "https://twitter.com/trygaia",
 			},
+			{
+				title: "llms.txt",
+				href: "/llms.txt",
+			},
 		],
 	});
 

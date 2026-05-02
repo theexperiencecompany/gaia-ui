@@ -1,0 +1,50 @@
+# GAIA UI
+
+> Beautiful, accessible UI components built with Radix UI and Tailwind CSS. Copy-paste ready for your Next.js / React projects.
+
+## Docs
+
+- [Introduction](https://ui.heygaia.io/docs): Overview, philosophy, and tech stack.
+- [Installation](https://ui.heygaia.io/docs/installation): How to set up GAIA UI in your project.
+- [Components](https://ui.heygaia.io/docs/components): Index of all available components.
+- [Gallery](https://ui.heygaia.io/docs/gallery): Visual gallery of component previews.
+- [Roadmap](https://ui.heygaia.io/docs/roadmap): Planned features and upcoming work.
+- [Status - Beta](https://ui.heygaia.io/docs/status-beta): Current release status.
+- [Contributors](https://ui.heygaia.io/docs/contributors): People who contributed to GAIA UI.
+
+## Components
+
+- [Author Tooltip](https://ui.heygaia.io/docs/components/author-tooltip)
+- [Calendar Event Card](https://ui.heygaia.io/docs/components/calendar-event-card)
+- [Code Block](https://ui.heygaia.io/docs/components/code-block)
+- [Component Preview Tooltip](https://ui.heygaia.io/docs/components/component-preview-tooltip)
+- [Composer](https://ui.heygaia.io/docs/components/composer)
+- [Email Compose Card](https://ui.heygaia.io/docs/components/email-compose-card)
+- [File Dropzone](https://ui.heygaia.io/docs/components/file-dropzone)
+- [File Preview](https://ui.heygaia.io/docs/components/file-preview)
+- [GitHub Stars Button](https://ui.heygaia.io/docs/components/github-stars-button)
+- [Goal Card](https://ui.heygaia.io/docs/components/goal-card)
+- [Holo Card](https://ui.heygaia.io/docs/components/holo-card)
+- [Knowledge Graph](https://ui.heygaia.io/docs/components/knowledge-graph)
+- [Link Preview](https://ui.heygaia.io/docs/components/link-preview)
+- [Message Bubble](https://ui.heygaia.io/docs/components/message-bubble)
+- [Model Selector](https://ui.heygaia.io/docs/components/model-selector)
+- [Navbar Menu](https://ui.heygaia.io/docs/components/navbar-menu)
+- [Nested Menu](https://ui.heygaia.io/docs/components/nested-menu)
+- [Notification Card](https://ui.heygaia.io/docs/components/notification-card)
+- [Pricing Card](https://ui.heygaia.io/docs/components/pricing-card)
+- [Raised Button](https://ui.heygaia.io/docs/components/raised-button)
+- [Search Results Tabs](https://ui.heygaia.io/docs/components/search-results-tabs)
+- [Slash Command Dropdown](https://ui.heygaia.io/docs/components/slash-command-dropdown)
+- [Todo Item](https://ui.heygaia.io/docs/components/todo-item)
+- [Tool Calls Section](https://ui.heygaia.io/docs/components/tool-calls-section)
+- [Twitter Card](https://ui.heygaia.io/docs/components/twitter-card)
+- [Wave Spinner](https://ui.heygaia.io/docs/components/wave-spinner)
+- [Weather Card](https://ui.heygaia.io/docs/components/weather-card)
+- [Workflow Card](https://ui.heygaia.io/docs/components/workflow-card)
+
+## Links
+
+- Website: https://heygaia.io
+- Discord: https://discord.heygaia.io
+- Twitter: https://twitter.com/trygaia
