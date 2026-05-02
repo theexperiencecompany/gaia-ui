@@ -241,6 +241,155 @@
 					"type": "registry:ui"
 				}
 			]
+		},
+		{
+			"name": "tool-calls-section",
+			"type": "registry:ui",
+			"title": "Tool Calls Section",
+			"description": "An expandable section showing AI agent tool usage with icons, inputs, and outputs.",
+			"registryDependencies": ["icons"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/tool-calls-section.tsx",
+					"type": "registry:ui"
+				},
+				{
+					"path": "registry/new-york/ui/compact-markdown.tsx",
+					"type": "registry:ui"
+				},
+				{
+					"path": "lib/utils/tool-icons.tsx",
+					"type": "registry:lib"
+				}
+			]
+		},
+		{
+			"name": "wave-spinner",
+			"type": "registry:ui",
+			"title": "Wave Spinner",
+			"description": "A beautiful animated loading spinner with wave effects, multiple patterns, colors, and highly customizable animations.",
+			"dependencies": ["class-variance-authority"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/wave-spinner.tsx",
+					"type": "registry:ui"
+				},
+				{
+					"path": "registry/new-york/ui/wave-spinner.css",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "stat-row",
+			"type": "registry:ui",
+			"title": "Stat Row",
+			"description": "A compact KPI tile with optional trend indicator for dashboards and summary panels.",
+			"dependencies": ["@hugeicons/react", "@hugeicons/core-free-icons"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/stat-row.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "bar-chart",
+			"type": "registry:ui",
+			"title": "Bar Chart",
+			"description": "A bar chart for comparisons and distributions, with stacked, horizontal, and grouped variants.",
+			"dependencies": ["recharts"],
+			"registryDependencies": ["chart", "card"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/bar-chart.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "line-chart",
+			"type": "registry:ui",
+			"title": "Line Chart",
+			"description": "A line chart for trends over time with optional dots, labels, and multiple series.",
+			"dependencies": ["recharts"],
+			"registryDependencies": ["chart", "card"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/line-chart.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "area-chart",
+			"type": "registry:ui",
+			"title": "Area Chart",
+			"description": "A filled area chart with gradient fills for cumulative trends and stacked totals.",
+			"dependencies": ["recharts"],
+			"registryDependencies": ["chart", "card"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/area-chart.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "pie-chart",
+			"type": "registry:ui",
+			"title": "Pie Chart",
+			"description": "A pie chart for proportions with donut, label, and legend display modes.",
+			"dependencies": ["recharts"],
+			"registryDependencies": ["chart", "card"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/pie-chart.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "scatter-chart",
+			"type": "registry:ui",
+			"title": "Scatter Chart",
+			"description": "A scatter chart for exploring correlation between two numeric variables.",
+			"dependencies": ["recharts"],
+			"registryDependencies": ["chart", "card"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/scatter-chart.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "radar-chart",
+			"type": "registry:ui",
+			"title": "Radar Chart",
+			"description": "A radar chart for multi-axis comparisons across several dimensions.",
+			"dependencies": ["recharts"],
+			"registryDependencies": ["chart", "card"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/radar-chart.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "gauge-chart",
+			"type": "registry:ui",
+			"title": "Gauge Chart",
+			"description": "A radial gauge for a single value with thresholds, plus text and stacked variants.",
+			"dependencies": ["recharts"],
+			"registryDependencies": ["chart"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/gauge-chart.tsx",
+					"type": "registry:ui"
+				}
+			]
 		}
 	]
 }

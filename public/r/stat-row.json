@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat-row",
+  "type": "registry:ui",
+  "title": "Stat Row",
+  "description": "A compact KPI tile with optional trend indicator for dashboards and summary panels.",
+  "dependencies": [
+    "@hugeicons/react",
+    "@hugeicons/core-free-icons"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/stat-row.tsx",
+      "content": "\"use client\";\n\nimport {\n\tArrowDown01Icon,\n\tArrowRight01Icon,\n\tArrowUp01Icon,\n} from \"@hugeicons/core-free-icons\";\nimport { HugeiconsIcon } from \"@hugeicons/react\";\n\nexport type StatRowProps = {\n\ttitle: string;\n\tvalue: string | number;\n\tunit?: string;\n\ttrend?: \"up\" | \"down\" | \"neutral\";\n\ttrendLabel?: string;\n};\n\nconst TREND_STYLES: Record<string, { color: string }> = {\n\tup: { color: \"text-emerald-500 dark:text-emerald-400\" },\n\tdown: { color: \"text-red-500 dark:text-red-400\" },\n\tneutral: { color: \"text-muted-foreground\" },\n};\n\nfunction TrendIcon({\n\ttrend,\n\tclassName,\n}: {\n\ttrend: string;\n\tclassName?: string;\n}) {\n\tif (trend === \"up\")\n\t\treturn <HugeiconsIcon icon={ArrowUp01Icon} className={className} />;\n\tif (trend === \"down\")\n\t\treturn <HugeiconsIcon icon={ArrowDown01Icon} className={className} />;\n\treturn <HugeiconsIcon icon={ArrowRight01Icon} className={className} />;\n}\n\nexport function StatRow(props: StatRowProps) {\n\tconst trendStyle = props.trend ? TREND_STYLES[props.trend] : null;\n\treturn (\n\t\t<div className=\"rounded-2xl bg-card text-card-foreground border p-5 w-fit min-w-50 h-full flex flex-col justify-between gap-2\">\n\t\t\t<p className=\"text-xs text-muted-foreground truncate\">{props.title}</p>\n\t\t\t<div className=\"flex items-end gap-1.5\">\n\t\t\t\t<span className=\"text-4xl font-bold text-foreground leading-none\">\n\t\t\t\t\t{props.value}\n\t\t\t\t</span>\n\t\t\t\t{props.unit && (\n\t\t\t\t\t<span className=\"text-sm text-muted-foreground mb-0.5\">\n\t\t\t\t\t\t{props.unit}\n\t\t\t\t\t</span>\n\t\t\t\t)}\n\t\t\t</div>\n\t\t\t<div className=\"h-4 flex items-center\">\n\t\t\t\t{trendStyle && props.trendLabel && props.trend ? (\n\t\t\t\t\t<div className={`flex items-center gap-1 ${trendStyle.color}`}>\n\t\t\t\t\t\t<TrendIcon\n\t\t\t\t\t\t\ttrend={props.trend}\n\t\t\t\t\t\t\tclassName={`w-3.5 h-3.5 ${trendStyle.color}`}\n\t\t\t\t\t\t/>\n\t\t\t\t\t\t<span className=\"text-xs font-medium\">{props.trendLabel}</span>\n\t\t\t\t\t</div>\n\t\t\t\t) : null}\n\t\t\t</div>\n\t\t</div>\n\t);\n}\n",
+      "type": "registry:ui"
+    }
+  ]
+}

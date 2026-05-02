@@ -1,0 +1,83 @@
+---
+title: Radar Chart
+description: A radar chart for multi-axis comparisons across several dimensions.
+---
+
+<ComponentPreview name="radar-chart/default" />
+
+## Usage in Gaia
+
+Used to compare entities across multiple dimensions at once — skill profiles, model evaluations, or feature scorecards — where shape conveys strengths and weaknesses.
+
+## Features
+
+- **Multi-Dimensional** - Plot any number of axes around the polar grid
+- **Multi-Series Support** - Overlay multiple shapes for side-by-side comparison
+- **Custom Tick Labels** - Each axis displays both value and dimension name
+- **Auto Legend** - Appears automatically with two or more series
+- **Translucent Fills** - Areas overlap cleanly with `fillOpacity={0.2}`
+- **Theme-Aware** - Built on the shadcn chart primitive
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="automatic">
+    <InstallCommand component="radar-chart" />
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode filePath="registry/new-york/ui/radar-chart.tsx" />
+
+Install required dependencies:
+
+```bash
+npm install recharts
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { RadarChart } from "@/components/ui/radar-chart";
+
+const data = [
+  { skill: "Speed", you: 82, team: 70 },
+  { skill: "Accuracy", you: 91, team: 75 },
+  { skill: "Reliability", you: 76, team: 80 },
+];
+
+export default function Example() {
+  return (
+    <RadarChart
+      data={data}
+      angleKey="skill"
+      valueKeys={["you", "team"]}
+      title="Performance"
+    />
+  );
+}
+```
+
+## Props
+
+### RadarChart
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| data | Array<Record<string, string \| number>> | - | Chart data rows |
+| angleKey | string | - | Key on each row used for the axis label |
+| valueKeys | string \| string[] | - | One or more numeric keys to plot |
+| title | string | - | Card title |
+| description | string | - | Card description |
+| footer | string | - | Optional footer text |
+| colors | string[] | CHART_COLORS | Custom palette for series |

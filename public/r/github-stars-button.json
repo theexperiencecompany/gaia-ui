@@ -1,13 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "github-stars-button",
+  "type": "registry:ui",
   "title": "GitHub Stars Button",
   "description": "A beautiful button that displays your GitHub repository's star count with real-time data fetching.",
   "dependencies": [
     "@radix-ui/react-icons"
   ],
   "registryDependencies": [
-    "https://ui.heygaia.io/r/raised-button.json"
+    "raised-button"
   ],
   "files": [
     {
@@ -15,6 +16,5 @@
       "content": "\"use client\";\n\nimport { StarFilledIcon } from \"@radix-ui/react-icons\";\nimport { useEffect, useState } from \"react\";\nimport { Github } from \"@/components/icons/social-icons\";\nimport { RaisedButton } from \"@/registry/new-york/ui/raised-button\";\n\ninterface GitHubRepo {\n\tstargazers_count: number;\n\thtml_url: string;\n\tname: string;\n\tfull_name: string;\n}\n\ninterface GitHubStarsButtonProps {\n\trepo: string;\n\tshowLabel?: boolean;\n\tsize?: \"sm\" | \"default\" | \"lg\";\n\tclassName?: string;\n}\n\nexport function GitHubStarsButton({\n\trepo,\n\tshowLabel = true,\n\tsize = \"sm\",\n\tclassName,\n}: GitHubStarsButtonProps) {\n\tconst [starCount, setStarCount] = useState<number | null>(null);\n\tconst [isLoading, setIsLoading] = useState(true);\n\n\tuseEffect(() => {\n\t\tlet isMounted = true;\n\n\t\tasync function fetchStars() {\n\t\t\ttry {\n\t\t\t\tconst response = await fetch(`https://api.github.com/repos/${repo}`);\n\n\t\t\t\tif (!response.ok) {\n\t\t\t\t\tthrow new Error(\"Failed to fetch repository data\");\n\t\t\t\t}\n\n\t\t\t\tconst data: GitHubRepo = await response.json();\n\n\t\t\t\tif (isMounted) {\n\t\t\t\t\tsetStarCount(data.stargazers_count);\n\t\t\t\t\tsetIsLoading(false);\n\t\t\t\t}\n\t\t\t} catch (error) {\n\t\t\t\tconsole.error(\"Error fetching GitHub stars:\", error);\n\t\t\t\tif (isMounted) {\n\t\t\t\t\tsetIsLoading(false);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\tfetchStars();\n\n\t\treturn () => {\n\t\t\tisMounted = false;\n\t\t};\n\t}, [repo]);\n\n\treturn (\n\t\t<a\n\t\t\thref={`https://github.com/${repo}`}\n\t\t\ttarget=\"_blank\"\n\t\t\trel=\"noopener noreferrer\"\n\t\t>\n\t\t\t<RaisedButton\n\t\t\t\tsize={size}\n\t\t\t\tclassName={`group rounded-xl border-0! ${className || \"\"}`}\n\t\t\t\tcolor=\"#1c1c1c\"\n\t\t\t>\n\t\t\t\t<div className=\"flex items-center\">\n\t\t\t\t\t<Github />\n\t\t\t\t\t{showLabel && <span className=\"ml-1\">GitHub</span>}\n\t\t\t\t</div>\n\t\t\t\t<div className=\"flex items-center gap-1 text-sm\">\n\t\t\t\t\t<StarFilledIcon className=\"relative top-px size-4 text-white group-hover:text-yellow-300\" />\n\t\t\t\t\t<span className=\"font-medium text-white\">\n\t\t\t\t\t\t{isLoading ? \"...\" : starCount || \"0\"}\n\t\t\t\t\t</span>\n\t\t\t\t</div>\n\t\t\t</RaisedButton>\n\t\t</a>\n\t);\n}\n",
       "type": "registry:ui"
     }
-  ],
-  "type": "registry:ui"
+  ]
 }

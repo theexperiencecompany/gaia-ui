@@ -1,0 +1,79 @@
+---
+title: Gauge Chart
+description: A radial gauge for a single value with thresholds, plus text and stacked variants.
+---
+
+<ComponentPreview name="gauge-chart/default" />
+
+## Usage in Gaia
+
+Used to render single-value indicators — capacity, utilization, scores, percentages — in dashboards and AI-generated status responses where the value's position within a min/max range matters.
+
+## Features
+
+- **Three Variants** - `gauge` (default radial track), `text` (single big number), `stacked` (two-value comparison)
+- **Threshold Colors** - Auto-switches between green / amber / red based on warning/danger
+- **Custom Range** - Configurable min and max for non-percentage values
+- **Optional Unit** - Suffix the value with `%`, `ms`, etc.
+- **Theme-Aware** - Track and background adapt to muted/background tokens
+- **Stacked Mode** - Compare a primary value against a secondary segment
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="automatic">
+    <InstallCommand component="gauge-chart" />
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode filePath="registry/new-york/ui/gauge-chart.tsx" />
+
+Install required dependencies:
+
+```bash
+npm install recharts
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { GaugeChart } from "@/components/ui/gauge-chart";
+
+export default function Example() {
+  return (
+    <GaugeChart
+      value={68}
+      title="Memory"
+      unit="%"
+      thresholds={{ warning: 60, danger: 80 }}
+    />
+  );
+}
+```
+
+## Props
+
+### GaugeChart
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| value | number | - | Primary value to render |
+| title | string | - | Label below the value |
+| min | number | 0 | Lower bound of the range |
+| max | number | 100 | Upper bound of the range |
+| unit | string | - | Optional unit suffix (e.g. "%") |
+| thresholds | { warning: number; danger: number } | { warning: 60, danger: 80 } | Percentage thresholds for color switching |
+| variant | "gauge" \| "text" \| "stacked" | "gauge" | Visual style |
+| secondValue | number | - | Secondary value (stacked variant only) |
+| secondLabel | string | - | Secondary label (stacked variant only) |

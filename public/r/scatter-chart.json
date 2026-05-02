@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scatter-chart",
+  "type": "registry:ui",
+  "title": "Scatter Chart",
+  "description": "A scatter chart for exploring correlation between two numeric variables.",
+  "dependencies": [
+    "recharts"
+  ],
+  "registryDependencies": [
+    "chart",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/scatter-chart.tsx",
+      "content": "\"use client\";\n\nimport type * as React from \"react\";\nimport {\n\tScatterChart as RechartsScatterChart,\n\tScatter,\n\tXAxis,\n\tYAxis,\n} from \"recharts\";\nimport { Card, CardContent, CardFooter, CardHeader } from \"@/components/ui/card\";\nimport {\n\ttype ChartConfig,\n\tChartContainer,\n\tChartTooltip,\n\tChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nconst CHART_COLORS = [\"#00bbff\", \"#34d399\", \"#60a5fa\", \"#f472b6\", \"#fb923c\"];\n\nfunction ChartCard({\n\ttitle,\n\tdescription,\n\tfooter,\n\tchildren,\n\tdataPoints = 0,\n}: {\n\ttitle?: string;\n\tdescription?: string;\n\tfooter?: string;\n\tchildren: React.ReactNode;\n\tdataPoints?: number;\n}) {\n\tconst width =\n\t\tdataPoints > 0 ? Math.min(768, Math.max(300, dataPoints * 80)) : undefined;\n\treturn (\n\t\t<Card\n\t\t\tclassName=\"max-w-3xl\"\n\t\t\tstyle={width ? { width } : { width: \"100%\" }}\n\t\t>\n\t\t\t{(title || description) && (\n\t\t\t\t<CardHeader className=\"pb-0\">\n\t\t\t\t\t{title && (\n\t\t\t\t\t\t<p className=\"text-sm font-semibold text-card-foreground\">\n\t\t\t\t\t\t\t{title}\n\t\t\t\t\t\t</p>\n\t\t\t\t\t)}\n\t\t\t\t\t{description && (\n\t\t\t\t\t\t<p className=\"text-xs text-muted-foreground\">{description}</p>\n\t\t\t\t\t)}\n\t\t\t\t</CardHeader>\n\t\t\t)}\n\t\t\t<CardContent>{children}</CardContent>\n\t\t\t{footer && (\n\t\t\t\t<CardFooter>\n\t\t\t\t\t<p className=\"text-xs text-muted-foreground\">{footer}</p>\n\t\t\t\t</CardFooter>\n\t\t\t)}\n\t\t</Card>\n\t);\n}\n\nexport type ScatterChartProps = {\n\tdata: Array<Record<string, string | number>>;\n\txKey: string;\n\tyKey: string;\n\ttitle?: string;\n\tdescription?: string;\n\tfooter?: string;\n\tlabelKey?: string;\n};\n\nexport function ScatterChart(props: ScatterChartProps) {\n\tconst chartConfig: ChartConfig = {\n\t\tscatter: { label: \"Data\", color: CHART_COLORS[0] },\n\t};\n\treturn (\n\t\t<ChartCard\n\t\t\ttitle={props.title}\n\t\t\tdescription={props.description}\n\t\t\tfooter={props.footer}\n\t\t\tdataPoints={props.data.length}\n\t\t>\n\t\t\t<ChartContainer config={chartConfig} className=\"h-50 w-full\">\n\t\t\t\t<RechartsScatterChart>\n\t\t\t\t\t<XAxis\n\t\t\t\t\t\tdataKey={props.xKey}\n\t\t\t\t\t\taxisLine={false}\n\t\t\t\t\t\ttickLine={false}\n\t\t\t\t\t\ttick={{ fill: \"#71717a\", fontSize: 11 }}\n\t\t\t\t\t/>\n\t\t\t\t\t<YAxis\n\t\t\t\t\t\tdataKey={props.yKey}\n\t\t\t\t\t\taxisLine={false}\n\t\t\t\t\t\ttickLine={false}\n\t\t\t\t\t\ttick={{ fill: \"#71717a\", fontSize: 11 }}\n\t\t\t\t\t/>\n\t\t\t\t\t<ChartTooltip content={<ChartTooltipContent />} />\n\t\t\t\t\t<Scatter data={props.data} fill=\"var(--color-scatter)\" />\n\t\t\t\t</RechartsScatterChart>\n\t\t\t</ChartContainer>\n\t\t</ChartCard>\n\t);\n}\n",
+      "type": "registry:ui"
+    }
+  ]
+}
