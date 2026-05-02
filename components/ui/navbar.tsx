@@ -105,26 +105,6 @@ export function Navbar({ navigation }: NavbarProps) {
                                     </Link>
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
-                            <NavigationMenuItem>
-                                <NavigationMenuLink asChild>
-                                    <Link
-                                        href={siteConfig.links.gaia}
-                                        className={cn(
-                                            navigationMenuTriggerStyle(),
-                                            "text-foreground",
-                                        )}
-                                    >
-                                        <div className="flex items-center gap-2 font-medium">
-                                            <span>GAIA</span>
-                                            <HugeiconsIcon
-                                                icon={LinkSquare02Icon}
-                                                width={12}
-                                                height={12}
-                                            />
-                                        </div>
-                                    </Link>
-                                </NavigationMenuLink>
-                            </NavigationMenuItem>
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
@@ -182,6 +162,27 @@ export function Navbar({ navigation }: NavbarProps) {
                         </Button>
                         <Separator orientation="vertical" className="h-6" />
                         <ThemeToggle />
+                        <Separator orientation="vertical" className="h-6" />
+                        <Button
+                            size="sm"
+                            asChild
+                            className="h-9 gap-2 px-3"
+                        >
+                            <Link
+                                href={siteConfig.links.gaia}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <Image
+                                    src="/media/gaiaui_logo.png"
+                                    alt="GAIA"
+                                    width={20}
+                                    height={20}
+                                    className="rounded-sm"
+                                />
+                                <span className="font-semibold">GAIA</span>
+                            </Link>
+                        </Button>
                     </nav>
                 </div>
             </div>
