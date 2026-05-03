@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-02T21:04:49Z",
+  "title": "Design System: GAIA UI",
+  "extensions": {
+    "colorMeta": {
+      "ink":                  { "role": "primary",     "displayName": "Ink",               "canonical": "oklch(0.145 0 0)",        "tonalRamp": ["oklch(0.10 0 0)", "oklch(0.15 0 0)", "oklch(0.22 0 0)", "oklch(0.32 0 0)", "oklch(0.45 0 0)", "oklch(0.60 0 0)", "oklch(0.75 0 0)", "oklch(0.92 0 0)"] },
+      "electric-blue":        { "role": "primary",     "displayName": "Electric Blue",     "canonical": "#00bbff",                 "tonalRamp": ["#003d54", "#005f85", "#0080b3", "#009fd9", "#00bbff", "#33c9ff", "#66d6ff", "#b3ecff"] },
+      "cta-blue":             { "role": "primary",     "displayName": "CTA Blue",          "canonical": "#0080ff",                 "tonalRamp": ["#00224d", "#003d8f", "#0055c2", "#006cf5", "#0080ff", "#3399ff", "#66b3ff", "#b3d9ff"] },
+      "surface":              { "role": "neutral",     "displayName": "Surface",           "canonical": "oklch(1 0 0)",            "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.30 0 0)", "oklch(0.45 0 0)", "oklch(0.60 0 0)", "oklch(0.75 0 0)", "oklch(0.88 0 0)", "oklch(0.94 0 0)", "oklch(1 0 0)"] },
+      "surface-raised":       { "role": "neutral",     "displayName": "Surface Raised",    "canonical": "oklch(0.97 0 0)",         "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.30 0 0)", "oklch(0.45 0 0)", "oklch(0.60 0 0)", "oklch(0.75 0 0)", "oklch(0.88 0 0)", "oklch(0.94 0 0)", "oklch(0.97 0 0)"] },
+      "surface-border":       { "role": "neutral",     "displayName": "Surface Border",    "canonical": "oklch(0.922 0 0)",        "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.28 0 0)", "oklch(0.42 0 0)", "oklch(0.56 0 0)", "oklch(0.70 0 0)", "oklch(0.82 0 0)", "oklch(0.90 0 0)", "oklch(0.922 0 0)"] },
+      "ink-muted":            { "role": "neutral",     "displayName": "Ink Muted",         "canonical": "oklch(0.556 0 0)",        "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.25 0 0)", "oklch(0.37 0 0)", "oklch(0.48 0 0)", "oklch(0.556 0 0)", "oklch(0.65 0 0)", "oklch(0.78 0 0)", "oklch(0.92 0 0)"] },
+      "destructive":          { "role": "destructive", "displayName": "Destructive Red",   "canonical": "oklch(0.577 0.245 27.325)", "tonalRamp": ["oklch(0.25 0.20 27)", "oklch(0.35 0.22 27)", "oklch(0.44 0.23 27)", "oklch(0.52 0.24 27)", "oklch(0.577 0.245 27)", "oklch(0.65 0.20 27)", "oklch(0.75 0.15 27)", "oklch(0.88 0.08 27)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headings and section titles. Tight tracking at large sizes." },
+      "headline": { "displayName": "Headline", "purpose": "Sub-section headers, component names in gallery." },
+      "body":    { "displayName": "Body",    "purpose": "Prose, documentation copy. 70ch max line length." },
+      "label":   { "displayName": "Label",   "purpose": "Navigation items, badges, metadata, keyboard shortcuts." },
+      "mono":    { "displayName": "Mono",    "purpose": "Code blocks, install commands, API references." }
+    },
+    "shadows": [
+      { "name": "card-ambient",  "value": "0 1px 3px oklch(0 0 0 / 0.08)", "purpose": "Structural separation for card containers. Barely perceptible at rest." },
+      { "name": "raised-button", "value": "0 4px 5px 0 rgba(r,g,b,0.20)",  "purpose": "Color-matched to button background. Only on RaisedButton. Never generic buttons." }
+    ],
+    "motion": [
+      { "name": "ease-out-quart", "value": "cubic-bezier(0.25, 1, 0.5, 1)", "purpose": "Default easing for state transitions and entrances." },
+      { "name": "duration-fast",  "value": "150ms",                          "purpose": "Micro-interactions: button press, hover color shifts." },
+      { "name": "duration-base",  "value": "200ms",                          "purpose": "Component transitions: raised button press, tooltip entrance." }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "768px",  "purpose": "Navigation collapse to mobile." },
+      { "name": "lg", "value": "1024px", "purpose": "Layout switching, content width expansion." },
+      { "name": "2xl","value": "1536px", "purpose": "Max container width for navbar (screen-2xl)." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Button — Primary",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Default filled button. Ink background, white text. For primary actions in documentation and utility contexts.",
+      "html": "<button class=\"ds-btn-primary\">Browse components</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 36px; padding: 8px 16px; background: oklch(0.145 0 0); color: oklch(0.985 0 0); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; border-radius: 8px; border: none; cursor: pointer; transition: background 150ms cubic-bezier(0.25,1,0.5,1), transform 150ms cubic-bezier(0.25,1,0.5,1); white-space: nowrap; } .ds-btn-primary:hover { background: oklch(0.205 0 0); } .ds-btn-primary:active { transform: scale(0.95); } .ds-btn-primary:focus-visible { outline: none; border: 1px solid oklch(0.708 0 0); box-shadow: 0 0 0 3px oklch(0.708 0 0 / 0.5); } .ds-btn-primary:disabled { opacity: 0.5; pointer-events: none; }"
+    },
+    {
+      "name": "Button — Ghost",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Transparent button for navigation and utility actions. Fills with Surface Raised on hover.",
+      "html": "<button class=\"ds-btn-ghost\">Documentation</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 36px; padding: 8px 16px; background: transparent; color: oklch(0.145 0 0); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; border-radius: 8px; border: none; cursor: pointer; transition: background 150ms cubic-bezier(0.25,1,0.5,1), transform 150ms cubic-bezier(0.25,1,0.5,1); } .ds-btn-ghost:hover { background: oklch(0.97 0 0); } .ds-btn-ghost:active { transform: scale(0.95); } .ds-btn-ghost:focus-visible { outline: none; box-shadow: 0 0 0 3px oklch(0.708 0 0 / 0.5); }"
+    },
+    {
+      "name": "RaisedButton — CTA",
+      "kind": "button",
+      "refersTo": "button-raised-blue",
+      "description": "Signature tactile button for primary CTAs on marketing/landing surfaces. Shadow + top gradient overlay creates physical affordance.",
+      "html": "<button class=\"ds-btn-raised\">Browse components <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M5 12h14M13 6l6 6-6 6\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button>",
+      "css": ".ds-btn-raised { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 10px 16px; background: #0080ff; color: #ffffff; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; border-radius: 14px; border: 1px solid rgba(0,128,255,0.5); box-shadow: 0 4px 5px 0 rgba(0,128,255,0.20); cursor: pointer; overflow: hidden; transition: all 200ms ease-in-out; -webkit-font-smoothing: subpixel-antialiased; } .ds-btn-raised::before { content: ''; position: absolute; inset: 0; border-top: 1px solid rgba(255,255,255,0.4); background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent); border-radius: 14px; pointer-events: none; } .ds-btn-raised:hover { opacity: 0.85; } .ds-btn-raised:active { transform: scale(0.96); } .ds-btn-raised:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0,128,255,0.4); }"
+    },
+    {
+      "name": "Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Text input. Stroke-based, transparent background. Focus shifts border to ring color with soft glow.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Search documentation...\">",
+      "css": ".ds-input { display: block; width: 100%; height: 36px; padding: 4px 12px; background: transparent; color: oklch(0.145 0 0); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 400; border: 1px solid oklch(0.922 0 0); border-radius: 8px; box-shadow: 0 1px 2px oklch(0 0 0 / 0.04); outline: none; transition: border-color 150ms cubic-bezier(0.25,1,0.5,1), box-shadow 150ms cubic-bezier(0.25,1,0.5,1); } .ds-input::placeholder { color: oklch(0.556 0 0); } .ds-input:focus-visible { border-color: oklch(0.708 0 0); box-shadow: 0 0 0 3px oklch(0.708 0 0 / 0.5); } .ds-input:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "button-ghost",
+      "description": "Standard container. Flat with minimal ambient shadow for structural separation. No nested cards.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-header\"><div class=\"ds-card-title\">Component Name</div><div class=\"ds-card-desc\">Short description of what it does.</div></div><div class=\"ds-card-content\">Content goes here.</div></div>",
+      "css": ".ds-card { display: flex; flex-direction: column; gap: 24px; background: oklch(1 0 0); color: oklch(0.145 0 0); border: 1px solid oklch(0.922 0 0); border-radius: 14px; padding: 24px; box-shadow: 0 1px 3px oklch(0 0 0 / 0.08); } .ds-card-header { display: grid; gap: 8px; } .ds-card-title { font-size: 0.9375rem; font-weight: 600; line-height: 1; } .ds-card-desc { font-size: 0.875rem; color: oklch(0.556 0 0); } .ds-card-content { font-size: 0.875rem; }"
+    },
+    {
+      "name": "Badge — Default",
+      "kind": "chip",
+      "refersTo": "badge-default",
+      "description": "Filled pill badge. Same authority as a filled button; use sparingly.",
+      "html": "<span class=\"ds-badge\">Beta</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; justify-content: center; padding: 2px 8px; background: oklch(0.145 0 0); color: oklch(0.985 0 0); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 500; border-radius: 9999px; border: 1px solid transparent; white-space: nowrap; }"
+    },
+    {
+      "name": "Badge — Outline",
+      "kind": "chip",
+      "refersTo": "badge-outline",
+      "description": "Border-only badge for metadata and secondary labels.",
+      "html": "<span class=\"ds-badge-outline\">New</span>",
+      "css": ".ds-badge-outline { display: inline-flex; align-items: center; justify-content: center; padding: 2px 8px; background: transparent; color: oklch(0.145 0 0); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 500; border-radius: 9999px; border: 1px solid oklch(0.922 0 0); white-space: nowrap; }"
+    },
+    {
+      "name": "Message Bubble — Sent",
+      "kind": "custom",
+      "description": "iOS iMessage-style bubble for user-sent messages. The primary chromatic moment in the system.",
+      "html": "<div class=\"ds-bubble ds-bubble-sent\"><p>Can you help me build a chatbot?</p></div>",
+      "css": ".ds-bubble { word-wrap: break-word; line-height: 24px; position: relative; padding: 8px 20px; max-width: 60%; border-radius: 20px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; } .ds-bubble-sent { background: #00bbff; color: #000000; align-self: flex-end; } .ds-bubble-sent::before { content: ''; position: absolute; bottom: 0; right: -7px; width: 20px; height: 18px; background: #00bbff; border-bottom-left-radius: 16px 14px; } .ds-bubble-sent::after { content: ''; position: absolute; bottom: 0; right: -26px; width: 26px; height: 18px; background: oklch(1 0 0); border-bottom-left-radius: 10px; }"
+    },
+    {
+      "name": "Message Bubble — Received",
+      "kind": "custom",
+      "description": "iOS iMessage-style bubble for AI/assistant received messages.",
+      "html": "<div class=\"ds-bubble ds-bubble-received\"><p>Sure, here are some components to get you started.</p></div>",
+      "css": ".ds-bubble-received { background: #d4d4d8; color: #000000; align-self: flex-start; } .ds-bubble-received::before { content: ''; position: absolute; bottom: 0; left: -7px; width: 20px; height: 18px; background: #d4d4d8; border-bottom-right-radius: 16px; } .ds-bubble-received::after { content: ''; position: absolute; bottom: 0; left: -26px; width: 26px; height: 18px; background: oklch(1 0 0); border-bottom-right-radius: 10px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Considered Instrument",
+    "overview": "GAIA UI is built-in-production and shared without ceremony. The design system proves quality by example: the precision of the components makes the argument; the site doesn't state it. Every surface follows the logic of the things it showcases.\n\nThe palette is achromatic by decision, not default. Neutrals carry the full weight of hierarchy; the single vivid color (electric blue, #00bbff) appears only in contexts where it earns its presence. The rarity of that blue is the point.\n\nThe typographic system uses Inter throughout: a single workhorse typeface managed through weight and scale contrast rather than family switching.",
+    "keyCharacteristics": [
+      "Achromatic neutral base with one exact chromatic accent (electric blue)",
+      "Flat surfaces at rest; tactile only where interaction demands it",
+      "Inter at scale — hierarchy through weight and size, not decoration",
+      "Generous but varied whitespace; spacing is the primary structural tool",
+      "Dual-theme: light and dark both first-class, neither an afterthought"
+    ],
+    "rules": [
+      { "name": "The One Voice Rule",       "body": "Electric blue (#00bbff) and CTA blue (#0080ff) are the only chromatic colors in the system. They appear on ≤5% of any given surface. Rarity is the signal.", "section": "colors" },
+      { "name": "The Zero Chroma Base Rule","body": "All neutral tokens carry chroma = 0. No tinted grays, no warm whites in the neutral stack. The achromatic base is intentional.",                                   "section": "colors" },
+      { "name": "The Single Family Rule",   "body": "Resist the impulse to add a second display typeface. Inter's weight range (400–700) provides the full expressive range needed.",                              "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "If a surface doesn't need to communicate pressability or stacking, it has no shadow. Tonal differentiation handles layering for everything else.",            "section": "elevation" }
+    ],
+    "dos": [
+      "Do use oklch(0.145 0 0) (Ink) as the default foreground and button fill in light mode.",
+      "Do reserve electric blue (#00bbff) for user-sent message bubbles and hover accents.",
+      "Do reserve CTA blue (#0080ff) for primary RaisedButton CTAs.",
+      "Do vary spacing to create rhythm — identical padding on every section is visual monotony.",
+      "Do use active:scale-95 on all interactive elements that benefit from tactile feedback.",
+      "Do support both light and dark themes for every new component.",
+      "Do cap prose line length at 70ch.",
+      "Do use weight contrast (400 vs 600) within Inter before resorting to size changes."
+    ],
+    "donts": [
+      "Don't use MUI or Chakra UI's visual language: heavy borders, municipal color palettes, utility-first aesthetics.",
+      "Don't use SaaS template patterns: gradient hero blobs, gradient-clipped text, hero-metric blocks, identical feature card grids.",
+      "Don't add chromatic colors beyond electric blue and CTA blue.",
+      "Don't use border-left or border-right greater than 1px as a colored accent stripe.",
+      "Don't use nested cards.",
+      "Don't use glassmorphism decoratively.",
+      "Don't animate layout properties (width, height, padding, margin).",
+      "Don't use bounce or elastic easing.",
+      "Don't add shadows to components that don't communicate pressability or stacking."
+    ]
+  }
+}
