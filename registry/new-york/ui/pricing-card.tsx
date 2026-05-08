@@ -17,20 +17,34 @@ export interface PricingCardProps {
 	price: number;
 	/** Currency symbol (default: "$") */
 	currency?: string;
-	/** Original price before discount (shows strikethrough) */
+	/** Original price before discount (shows strikethrough on yearly) */
 	originalPrice?: number;
-	/** Plan description/subtitle */
+	/** Plan description/subtitle — always reserves two lines for row alignment */
 	description?: string;
 	/** Features included in this plan */
 	features?: (string | PricingFeature)[];
-	/** Custom title above features list */
+	/** Custom label above features list (rendered uppercase, muted) */
 	featuresTitle?: ReactNode;
 	/** Billing period: true for monthly, false for yearly */
 	isMonthly?: boolean;
 	/** Show "Current Plan" badge */
 	isCurrentPlan?: boolean;
-	/** Button label (default: "Get Started") */
+	/** Show "Popular" badge in header */
+	isPopular?: boolean;
+	/** Marks this card as the highlighted Pro tier (tints feature icons) */
+	isPro?: boolean;
+	/** Marks this card as the Enterprise tier (changes accent + suffix copy) */
+	isEnterprise?: boolean;
+	/** Optional plan illustration shown above the price */
+	planImage?: string;
+	/** Override the price display (e.g., "Custom") */
+	priceLabel?: string;
+	/** Override the line beneath the price (defaults to "/ per month" etc.) */
+	priceSuffix?: ReactNode;
+	/** Button label (default depends on plan + state) */
 	buttonLabel?: string;
+	/** Small text rendered under the CTA button */
+	buttonFootnote?: ReactNode;
 	/** Button click handler */
 	onButtonClick?: () => void;
 	/** Whether button is disabled */
@@ -58,97 +72,149 @@ export const PricingCard: FC<PricingCardProps> = ({
 	featuresTitle,
 	isMonthly = true,
 	isCurrentPlan = false,
+	isPopular = false,
+	isPro = false,
+	isEnterprise = false,
+	planImage,
+	priceLabel,
+	priceSuffix,
 	buttonLabel,
+	buttonFootnote,
 	onButtonClick,
 	isDisabled = false,
 	isLoading = false,
-	accentColor = "#00bbff",
+	accentColor,
 	className,
 }) => {
+	const isFree = price === 0 && !isEnterprise;
+
 	const formattedPrice = formatPrice(price, currency);
 	const formattedOriginalPrice = originalPrice
 		? formatPrice(originalPrice, currency)
 		: null;
 
+	// Yearly Pro: show per-month equivalent above an "/ mo, billed $X / year" line
+	const monthlyEquivalent =
+		!isMonthly && isPro && price > 0
+			? formatPrice(Math.round(price / 12), currency)
+			: null;
+
+	const resolvedAccent =
+		accentColor ?? (isEnterprise ? "#fa4b00" : isFree ? "#2a2a2a" : "#00bbff");
+
 	const getButtonLabel = (): string => {
 		if (isLoading) return "Loading...";
 		if (buttonLabel) return buttonLabel;
 		if (isCurrentPlan) return "Current Plan";
-		if (price === 0) return "Get Started";
-		return "Upgrade";
+		if (isFree) return "Start for Free";
+		if (isEnterprise) return "Contact Sales";
+		return "Get Started";
 	};
 
-	const isFree = price === 0;
-	const buttonBgColor = isFree ? "#3b3b3b" : accentColor;
+	const resolvedSuffix: ReactNode = (() => {
+		if (priceSuffix !== undefined) return priceSuffix;
+		if (isEnterprise) return "Tailored pricing";
+		if (price <= 0) return " ";
+		if (monthlyEquivalent) return `/ mo, billed ${formattedPrice} / year`;
+		return isMonthly ? "/ per month" : "/ per year";
+	})();
+
+	const resolvedFootnote: ReactNode = (() => {
+		if (buttonFootnote !== undefined) return buttonFootnote;
+		if (isEnterprise) return "Reply within 24 hours";
+		if (isFree) return "No credit card required";
+		return "Cancel anytime · Secure payment";
+	})();
 
 	return (
 		<div
 			className={cn(
-				"relative w-full overflow-hidden rounded-3xl",
-				"bg-white/10 backdrop-blur-sm",
+				"flex h-full w-full flex-col overflow-hidden rounded-3xl",
+				"bg-white/70 dark:bg-zinc-800/50 backdrop-blur-lg",
 				className,
 			)}
 		>
-			{/* Header Section */}
-			<div className="relative z-[1] flex flex-col gap-2 p-6 pb-4">
-				<div className="flex flex-row items-center justify-between">
+			{/* Header: plan name + badges (reserves a fixed row height) */}
+			<div className="flex flex-col gap-1.5 p-6 pb-4">
+				<div className="flex min-h-5 items-center justify-between">
 					<div className="flex items-center gap-2">
 						<span className="text-2xl font-semibold text-zinc-900 dark:text-white">
 							{title}
 						</span>
 						{isCurrentPlan && (
-							<span className="flex items-center gap-1 rounded-full bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-700 dark:text-green-400">
+							<span className="rounded-full bg-green-500/15 px-2 py-0.5 text-xs font-medium text-green-700 dark:text-green-400">
 								Current Plan
 							</span>
 						)}
 					</div>
+					{isPopular && !isCurrentPlan && (
+						<span className="rounded-full bg-primary/15 px-2 py-0.5 text-xs font-medium tracking-wide text-primary">
+							Popular
+						</span>
+					)}
 				</div>
+
+				{/* Description — always reserve two lines so cards align */}
+				<p className="line-clamp-2 min-h-10 text-sm font-light leading-relaxed text-zinc-600 dark:text-zinc-400">
+					{description ?? " "}
+				</p>
 			</div>
 
-			{/* Inner Nested Card - Price & Button */}
-			<div className="relative z-[-1] mx-4 mb-4 flex flex-col gap-4 overflow-hidden rounded-3xl bg-white/80 dark:bg-black/70 p-6 shadow-xl backdrop-blur-2xl">
-				{/* Description */}
-				{description && (
-					<p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-200">
-						{description}
-					</p>
-				)}
-
-				{/* Price Section */}
-				<div className="relative z-[1] flex flex-col gap-0">
-					<div className="flex items-baseline gap-2">
-						{formattedOriginalPrice && !isMonthly && (
-							<span className="text-3xl font-normal text-red-500 line-through">
-								{formattedOriginalPrice}
-							</span>
-						)}
-						<span className="text-5xl font-bold text-zinc-900 dark:text-white">
-							{formattedPrice}
-						</span>
+			{planImage && (
+				<div className="px-6 pb-5">
+					<div className="relative h-40 w-full overflow-hidden rounded-2xl">
+						{/* eslint-disable-next-line @next/next/no-img-element */}
+						<img
+							src={planImage}
+							alt={`${title} plan`}
+							className="h-full w-full object-cover transition duration-300 hover:scale-125"
+						/>
 					</div>
+				</div>
+			)}
 
-					<span className="min-h-5 text-sm font-normal text-zinc-500 dark:text-zinc-400">
-						{price > 0 && (isMonthly ? "/ per month" : "/ per year")}
+			{/* Price */}
+			<div className="px-6 pb-5">
+				<div className="flex items-baseline gap-2">
+					{formattedOriginalPrice && !isMonthly && !priceLabel && (
+						<span className="text-2xl font-normal text-zinc-500 line-through">
+							{formattedOriginalPrice}
+						</span>
+					)}
+					<span className="text-5xl font-semibold tracking-tight text-zinc-900 dark:text-white">
+						{priceLabel ?? monthlyEquivalent ?? formattedPrice}
 					</span>
 				</div>
-
-				{/* Button Section */}
-				<div className="relative z-[1]">
-					<RaisedButton
-						onClick={onButtonClick}
-						disabled={isDisabled || isLoading || isCurrentPlan}
-						className="w-full rounded-xl text-base font-semibold h-12"
-						color={buttonBgColor}
-					>
-						{getButtonLabel()}
-					</RaisedButton>
-				</div>
+				<p className="mt-1 text-sm font-normal text-zinc-500 dark:text-zinc-400">
+					{resolvedSuffix}
+				</p>
 			</div>
 
-			{/* Features Section */}
+			{/* CTA */}
+			<div className="px-6 pb-5">
+				<RaisedButton
+					onClick={onButtonClick}
+					disabled={isDisabled || isLoading || isCurrentPlan}
+					className="w-full"
+					color={resolvedAccent}
+				>
+					{getButtonLabel()}
+				</RaisedButton>
+				{resolvedFootnote && (
+					<p className="mt-2 text-center text-xs font-light text-zinc-500">
+						{resolvedFootnote}
+					</p>
+				)}
+			</div>
+
+			{/* Features — flex-1 so cards in a row equalize their height */}
 			{(featuresTitle || (features && features.length > 0)) && (
-				<div className="relative z-[1] flex flex-1 flex-col gap-2 px-6 pb-6">
-					{featuresTitle}
+				<div className="flex flex-1 flex-col gap-2.5 px-6 py-5">
+					{featuresTitle && (
+						<p className="mb-0.5 text-xs font-normal uppercase text-zinc-500">
+							{featuresTitle}
+						</p>
+					)}
 
 					{features?.map((feature) => {
 						const featureText =
@@ -159,18 +225,23 @@ export const PricingCard: FC<PricingCardProps> = ({
 							) : (
 								<HugeiconsIcon
 									icon={CheckmarkCircle02Icon}
-									size={18}
-									className="text-green-600 dark:text-green-400"
+									size={15}
+									className={cn(
+										"mt-0.5 shrink-0",
+										isPro || isEnterprise
+											? "text-primary"
+											: "text-zinc-500",
+									)}
 								/>
 							);
 
 						return (
 							<div
 								key={featureText}
-								className="flex items-center gap-3 text-sm font-light text-zinc-700 dark:text-zinc-300"
+								className="flex items-start gap-3 text-sm font-light text-zinc-700 dark:text-zinc-300"
 							>
 								<span className="flex-shrink-0">{featureIcon}</span>
-								{featureText}
+								<span>{featureText}</span>
 							</div>
 						);
 					})}
