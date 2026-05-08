@@ -14,6 +14,7 @@ For deeper design and architectural guidance, see [AGENTS.md](./AGENTS.md).
 - [Design Principles](#design-principles)
 - [Accessibility Requirements](#accessibility-requirements)
 - [Commit & Pull Request Guidelines](#commit--pull-request-guidelines)
+- [Versioning & Releases](#versioning--releases)
 - [Component Checklist](#component-checklist)
 - [Getting Help](#getting-help)
 
@@ -261,19 +262,96 @@ Non-negotiable. Every component must:
 
 PRs should be small and focused. Large, sprawling PRs are hard to review and slow to merge.
 
-### Changesets (release notes)
+### Changesets
 
-We use [Changesets](https://github.com/changesets/changesets) to manage versions and changelogs. Any user-visible change to the published package needs a changeset.
+Every PR that touches the published surface of `@heygaia/ui` must include a changeset — see the [Versioning & Releases](#versioning--releases) section for the full flow. The short version: run `pnpm changeset`, pick a bump type, write a one-line summary, commit the generated file alongside your code.
+
+## Versioning & Releases
+
+We use [Changesets](https://github.com/changesets/changesets) for versioning and [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers) (OIDC) for the actual `npm publish`. There is no manual `npm version` and no `NPM_TOKEN` — releases are gated on a single human merge.
+
+### Why Changesets
+
+Each PR ships with a small `.changeset/*.md` file describing what changed and how it should bump SemVer (patch / minor / major). Authors decide intent and write release notes themselves, instead of deriving them from commit messages. Multiple PRs accumulate into a single release PR with a clean, curated changelog.
+
+### Contributor flow — adding a changeset to your PR
+
+After making your changes, run:
 
 ```bash
 pnpm changeset
 ```
 
-The CLI asks what kind of bump (`patch` / `minor` / `major`) and a short summary. It writes a `.changeset/<name>.md` file — commit it with your PR.
+The CLI asks:
 
-When PRs land on `main`, a bot opens a "chore: release" PR that bumps the version and updates `CHANGELOG.md`. Merging that PR publishes to npm.
+1. **Which packages to bump.** This repo only publishes `@heygaia/ui`, so press space to select it.
+2. **Bump type.** See [Choosing the bump type](#choosing-the-bump-type) below.
+3. **Summary.** One sentence in past tense, written for users — it lands in the changelog. e.g. *"Fix focus ring on Composer when used inside a dialog."*
 
-If your PR has no user-visible impact (CI, internal docs, refactors that don't change the published surface), add the `skip-changeset` label and the check will pass without one.
+That writes `.changeset/<random-name>.md`. Commit it with the rest of your PR — the `Changeset Check` workflow blocks PRs that don't include one.
+
+If your change has zero user-visible impact (CI tweaks, internal docs, dev-only refactors), apply the **`skip-changeset`** label to the PR instead. The check will pass without a changeset and no release will be triggered for that PR.
+
+### Choosing the bump type
+
+The package follows [Semantic Versioning](https://semver.org/). Use this guide:
+
+| Bump | When | Examples |
+|---|---|---|
+| **patch** | Bug fix, dep bump, perf improvement, doc-only change in published files, anything internal | Fix a layout bug, upgrade a transitive dep, tighten an `aria-label` |
+| **minor** | New component, new prop, new variant, anything additive that doesn't break existing usage | Add a new component to the registry, add a new optional prop |
+| **major** | Breaking change to the published surface — removed/renamed components, changed required props, breaking visual changes | Rename a component, change default behavior of an existing prop, drop React 18 support |
+
+When in doubt, prefer the smaller bump and call it out in PR review.
+
+### Release flow — what happens after merge
+
+The release flow has two human-merge gates and is otherwise automatic:
+
+1. **You merge a feature PR** containing a changeset into `main`.
+2. The **Release** workflow (`.github/workflows/publish.yml`) sees pending changesets and opens (or updates) a PR titled **"chore: release"**. This PR:
+   - Bumps `package.json` version based on the highest pending bump type.
+   - Consumes all pending `.changeset/*.md` files and writes their summaries into `CHANGELOG.md`.
+   - Uses [`@changesets/changelog-github`](https://github.com/changesets/changesets/tree/main/packages/changelog-github) to enrich entries with PR/commit links.
+3. **A maintainer merges the "chore: release" PR.** This is the moment of release.
+4. The Release workflow runs again on the merge, runs `pnpm exec changeset publish`, which:
+   - Calls `npm publish` for the bumped package.
+   - Uses **OIDC Trusted Publishing** (no token in the repo) — npm verifies the GitHub Actions run is authorized.
+   - Attaches build provenance automatically (npm 11+).
+   - Creates a matching git tag and GitHub Release with the changelog entry.
+
+Within ~1 minute the new version is live on npm.
+
+### Releasing a hotfix
+
+The same flow handles patch releases:
+
+1. Open a PR with the fix and a `patch` changeset.
+2. Merge to `main`.
+3. Merge the release PR that pops up.
+
+If a release PR is already open with queued changes, your hotfix joins that next release rather than going out separately. To force an immediate release of just the hotfix, merge the release PR before opening the hotfix PR (so it ships against a clean baseline).
+
+### Maintainer setup (one-time)
+
+For the Trusted Publishing flow to work, the package needs a configured trusted publisher on npmjs.com:
+
+1. Go to **https://www.npmjs.com/package/@heygaia/ui/access** as a package maintainer.
+2. Under **Trusted Publisher**, add:
+   - Publisher: **GitHub Actions**
+   - Organization or user: `theexperiencecompany`
+   - Repository: `gaia-ui`
+   - Workflow filename: `publish.yml`
+   - Environment: *(leave blank)*
+
+This only needs to happen once per package. After that, any merge into `main` from `theexperiencecompany/gaia-ui` running `publish.yml` is authorized to publish.
+
+### Troubleshooting
+
+- **`Changeset Check` fails on my PR.** You forgot to run `pnpm changeset`, or your changeset wasn't committed. If the change is genuinely internal, label the PR `skip-changeset`.
+- **The release workflow runs but no release PR appears.** There are no pending `.changeset/*.md` files (other than `README.md`). Either every recent PR shipped without a changeset, or all changesets have already been consumed by a previous release.
+- **`npm error code ENEEDAUTH` in the publish run.** Trusted Publishing isn't configured on npmjs.com — see [Maintainer setup](#maintainer-setup-one-time).
+- **Release PR has the wrong version bump.** Edit the `.changeset/*.md` files on the PR branch, push, and the changesets bot will recompute. Or close the release PR — the workflow will reopen it on the next push to `main`.
 
 ## Component Checklist
 
