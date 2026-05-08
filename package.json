@@ -22,6 +22,10 @@
     "format:check": "biome format .",
     "type": "tsc --noEmit",
     "registry:build": "shadcn build",
+    "build:cf": "opennextjs-cloudflare build",
+    "preview": "opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "changeset publish"
@@ -90,6 +94,7 @@
     "@changesets/changelog-github": "^0.7.0",
     "@changesets/cli": "^2.31.0",
     "@eslint/eslintrc": "^3.3.1",
+    "@opennextjs/cloudflare": "^1.19.8",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^20.19.9",
     "@types/react": "19.1.2",
@@ -99,7 +104,8 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "shadcn": "^3.0.0",
     "tailwindcss": "^4.1.11",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "wrangler": "^4.90.0"
   },
   "pnpm": {
     "overrides": {
