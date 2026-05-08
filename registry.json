@@ -109,7 +109,7 @@
 			"type": "registry:ui",
 			"title": "Link Preview",
 			"description": "An interactive link component with rich preview tooltip showing website metadata like title, description, and images.",
-			"registryDependencies": ["icons"],
+			"registryDependencies": ["icons", "tooltip", "skeleton"],
 			"files": [
 				{
 					"path": "registry/new-york/ui/link-preview.tsx",
