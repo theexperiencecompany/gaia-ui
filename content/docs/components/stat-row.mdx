@@ -1,0 +1,75 @@
+---
+title: Stat Row
+description: A compact KPI tile with optional trend indicator for dashboards and summary panels.
+---
+
+<ComponentPreview name="stat-row/default" />
+
+## Usage in Gaia
+
+Used as the building block for analytics dashboards and AI-generated summaries — quick at-a-glance KPIs with optional up/down/neutral trend.
+
+## Features
+
+- **Single KPI Display** - Title, value, and optional unit at a glance
+- **Trend Indicator** - Up, down, and neutral states with color-coded icons
+- **Trend Label** - Custom text accompanying the trend (e.g. "+12.4%")
+- **Compact Sizing** - `w-fit` with sensible minimum width for grid layouts
+- **Theme-Aware** - Adapts to light and dark themes via design tokens
+- **Flexible Value Type** - Accepts string or number values
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="automatic">
+    <InstallCommand component="stat-row" />
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode filePath="registry/new-york/ui/stat-row.tsx" />
+
+Install required dependencies:
+
+```bash
+npm install @hugeicons/react @hugeicons/core-free-icons
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { StatRow } from "@/components/ui/stat-row";
+
+export default function Example() {
+  return (
+    <StatRow
+      title="Active Users"
+      value="12,480"
+      trend="up"
+      trendLabel="+12.4%"
+    />
+  );
+}
+```
+
+## Props
+
+### StatRow
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| title | string | - | Label for the KPI |
+| value | string \| number | - | The primary value to display |
+| unit | string | - | Optional unit suffix (e.g. "%", "K") |
+| trend | "up" \| "down" \| "neutral" | - | Direction of the trend |
+| trendLabel | string | - | Text shown next to the trend icon |

@@ -1,0 +1,85 @@
+---
+title: Line Chart
+description: A line chart for trends over time with optional dots, labels, and multiple series.
+---
+
+<ComponentPreview name="line-chart/default" />
+
+## Usage in Gaia
+
+Used for time-series trends — daily metrics, longitudinal comparisons, and "how is X changing over time" answers from the AI.
+
+## Features
+
+- **Multi-Series Support** - Plot one or many lines on the same axes
+- **Toggle Dots** - Show or hide point markers via `showDots`
+- **Inline Labels** - Optional point labels via `showLabels`
+- **Auto Legend** - Appears automatically with two or more series
+- **Theme-Aware** - Built on the shadcn chart primitive
+- **Tooltip** - Hover tooltip across all visible series
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="automatic">
+    <InstallCommand component="line-chart" />
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode filePath="registry/new-york/ui/line-chart.tsx" />
+
+Install required dependencies:
+
+```bash
+npm install recharts
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { LineChart } from "@/components/ui/line-chart";
+
+const data = [
+  { day: "Mon", visitors: 320, signups: 24 },
+  { day: "Tue", visitors: 410, signups: 31 },
+  { day: "Wed", visitors: 380, signups: 28 },
+];
+
+export default function Example() {
+  return (
+    <LineChart
+      data={data}
+      xKey="day"
+      yKeys={["visitors", "signups"]}
+      title="Weekly Activity"
+    />
+  );
+}
+```
+
+## Props
+
+### LineChart
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| data | Array&lt;Record&lt;string, string \| number&gt;&gt; | - | Chart data rows |
+| xKey | string | - | Key on each row used for the X axis |
+| yKeys | string \| string[] | - | One or more numeric keys to plot |
+| title | string | - | Card title |
+| description | string | - | Card description |
+| footer | string | - | Optional footer text |
+| colors | string[] | CHART_COLORS | Custom palette for series |
+| showDots | boolean | true | Render point markers on each line |
+| showLabels | boolean | false | Render inline labels above points |

@@ -1,0 +1,83 @@
+---
+title: Pie Chart
+description: A pie chart for proportions with donut, label, and legend display modes.
+---
+
+<ComponentPreview name="pie-chart/default" />
+
+## Usage in Gaia
+
+Used for proportional breakdowns — share of voice, traffic by source, allocation by category — wherever the parts-of-a-whole story matters more than absolute values.
+
+## Features
+
+- **Three Modes** - `donut` (centered total), `legend` (slice list), `label` (inline labels)
+- **Centered Total** - Donut mode shows the summed value in the middle
+- **Theme-Aware Labels** - Inline pie labels inherit the foreground color
+- **Custom Palette** - Built-in PIE_COLORS palette, customizable per slice via the chart config
+- **Tooltip** - Hover tooltip with slice name and value
+- **Auto-Width** - Card width scales to data point count
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="automatic">
+    <InstallCommand component="pie-chart" />
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode filePath="registry/new-york/ui/pie-chart.tsx" />
+
+Install required dependencies:
+
+```bash
+npm install recharts
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { PieChart } from "@/components/ui/pie-chart";
+
+const data = [
+  { source: "Direct", visitors: 1240 },
+  { source: "Search", visitors: 980 },
+  { source: "Social", visitors: 620 },
+];
+
+export default function Example() {
+  return (
+    <PieChart
+      data={data}
+      nameKey="source"
+      valueKey="visitors"
+      title="Traffic Sources"
+    />
+  );
+}
+```
+
+## Props
+
+### PieChart
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| data | Array&lt;Record&lt;string, string \| number&gt;&gt; | - | Chart data rows |
+| nameKey | string | - | Key for slice name |
+| valueKey | string | - | Key for numeric slice value |
+| title | string | - | Card title |
+| description | string | - | Card description |
+| footer | string | - | Optional footer text |
+| mode | "donut" \| "legend" \| "label" | "donut" | Display mode |

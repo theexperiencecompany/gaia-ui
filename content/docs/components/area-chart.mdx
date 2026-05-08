@@ -1,0 +1,83 @@
+---
+title: Area Chart
+description: A filled area chart with gradient fills for cumulative trends and stacked totals.
+---
+
+<ComponentPreview name="area-chart/default" />
+
+## Usage in Gaia
+
+Used for cumulative metrics, volume-over-time visuals, and AI-generated "growth" or "trend" responses where the area under the curve carries meaning.
+
+## Features
+
+- **Gradient Fills** - Each series renders with a smooth top-to-bottom gradient
+- **Multi-Series Support** - Stack multiple areas on the same axes
+- **Auto Legend** - Appears automatically with two or more series
+- **Smooth Curves** - Uses `type="natural"` for soft, organic curves
+- **Theme-Aware** - Built on the shadcn chart primitive
+- **Tooltip** - Hover tooltip with values per series
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="automatic">
+    <InstallCommand component="area-chart" />
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode filePath="registry/new-york/ui/area-chart.tsx" />
+
+Install required dependencies:
+
+```bash
+npm install recharts
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { AreaChart } from "@/components/ui/area-chart";
+
+const data = [
+  { month: "Jan", users: 1200, revenue: 4200 },
+  { month: "Feb", users: 1480, revenue: 5100 },
+  { month: "Mar", users: 1620, revenue: 4800 },
+];
+
+export default function Example() {
+  return (
+    <AreaChart
+      data={data}
+      xKey="month"
+      yKeys={["users", "revenue"]}
+      title="Growth"
+    />
+  );
+}
+```
+
+## Props
+
+### AreaChart
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| data | Array&lt;Record&lt;string, string \| number&gt;&gt; | - | Chart data rows |
+| xKey | string | - | Key on each row used for the X axis |
+| yKeys | string \| string[] | - | One or more numeric keys to plot |
+| title | string | - | Card title |
+| description | string | - | Card description |
+| footer | string | - | Optional footer text |
+| colors | string[] | CHART_COLORS | Custom palette for series |

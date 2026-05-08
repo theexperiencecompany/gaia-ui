@@ -4,6 +4,7 @@ import Image from "next/image";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { Globe02Icon, HugeiconsIcon } from "@/components/icons";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import {
 	Tooltip,
 	TooltipContent,
@@ -23,7 +24,18 @@ interface LinkPreviewProps {
 	href: string;
 	children: ReactNode | string | null;
 	className?: string;
+	/**
+	 * Endpoint that returns URL metadata as JSON. Receives the target URL as
+	 * a `url` query param and must return `{ title, description, image, logo,
+	 * publisher }` (microlink.io shape) or a compatible payload. Defaults to
+	 * the public microlink.io API.
+	 */
+	endpoint?: string;
 }
+
+// Module-level cache so repeat links (common in chat) don't refetch.
+const metadataCache = new Map<string, UrlMetadata>();
+const inFlight = new Map<string, Promise<UrlMetadata>>();
 
 const isEmail = (str: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
 
@@ -36,10 +48,61 @@ const isValidHttpUrl = (str: string): boolean => {
 	}
 };
 
+async function fetchUrlMetadata(
+	href: string,
+	endpoint: string,
+): Promise<UrlMetadata> {
+	const cached = metadataCache.get(href);
+	if (cached) return cached;
+
+	const existing = inFlight.get(href);
+	if (existing) return existing;
+
+	const promise = (async () => {
+		const apiUrl = `${endpoint}${endpoint.includes("?") ? "&" : "?"}url=${encodeURIComponent(href)}`;
+		const response = await fetch(apiUrl);
+		if (!response.ok) {
+			throw new Error(`Failed to fetch metadata (${response.status})`);
+		}
+
+		const json = await response.json();
+		const data = json?.data ?? json;
+		const urlObj = new URL(href);
+
+		const metadata: UrlMetadata = {
+			title: data?.title ?? null,
+			description: data?.description ?? null,
+			website_image:
+				typeof data?.image === "string"
+					? data.image
+					: (data?.image?.url ?? data?.website_image ?? null),
+			favicon:
+				typeof data?.logo === "string"
+					? data.logo
+					: (data?.logo?.url ??
+						data?.favicon ??
+						`${urlObj.origin}/favicon.ico`),
+			website_name: data?.publisher ?? data?.website_name ?? urlObj.hostname,
+			url: href,
+		};
+
+		metadataCache.set(href, metadata);
+		return metadata;
+	})();
+
+	inFlight.set(href, promise);
+	try {
+		return await promise;
+	} finally {
+		inFlight.delete(href);
+	}
+}
+
 export function LinkPreview({
 	href,
 	children,
 	className = "cursor-pointer rounded-sm bg-primary/20 px-1 text-sm font-medium text-primary transition-all hover:text-white hover:underline",
+	endpoint = "https://api.microlink.io",
 }: LinkPreviewProps) {
 	const elementRef = useRef<HTMLAnchorElement>(null);
 	const [isInView, setIsInView] = useState(false);
@@ -60,91 +123,25 @@ export function LinkPreview({
 		if (!isInView || !isValidUrl || metadata) return;
 
 		let isMounted = true;
+		setIsLoading(true);
+		setError(null);
 
-		async function fetchMetadata() {
-			setIsLoading(true);
-			setError(null);
-
-			try {
-				// Fetch the URL directly
-				const response = await fetch(href);
-
-				if (!response.ok) {
-					throw new Error("Failed to fetch URL");
-				}
-
-				const html = await response.text();
-
-				// Extract metadata from HTML
-				const getMetaTag = (name: string): string | null => {
-					const patterns = [
-						new RegExp(
-							`<meta[^>]*property=["']${name}["'][^>]*content=["']([^"']*)["']`,
-							"i",
-						),
-						new RegExp(
-							`<meta[^>]*name=["']${name}["'][^>]*content=["']([^"']*)["']`,
-							"i",
-						),
-						new RegExp(
-							`<meta[^>]*content=["']([^"']*)["'][^>]*property=["']${name}["']`,
-							"i",
-						),
-						new RegExp(
-							`<meta[^>]*content=["']([^"']*)["'][^>]*name=["']${name}["']`,
-							"i",
-						),
-					];
-
-					for (const pattern of patterns) {
-						const match = html.match(pattern);
-						if (match) return match[1];
-					}
-					return null;
-				};
-
-				const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
-				const urlObj = new URL(href);
-
-				const data: UrlMetadata = {
-					title:
-						getMetaTag("og:title") ||
-						getMetaTag("twitter:title") ||
-						titleMatch?.[1] ||
-						null,
-					description:
-						getMetaTag("og:description") ||
-						getMetaTag("twitter:description") ||
-						getMetaTag("description") ||
-						null,
-					website_image:
-						getMetaTag("og:image") || getMetaTag("twitter:image") || null,
-					favicon:
-						getMetaTag("icon") ||
-						getMetaTag("shortcut icon") ||
-						`${urlObj.origin}/favicon.ico`,
-					website_name: getMetaTag("og:site_name") || urlObj.hostname,
-					url: href,
-				};
-
-				if (isMounted) {
-					setMetadata(data);
-					setIsLoading(false);
-				}
-			} catch (err) {
-				if (isMounted) {
-					setError(err as Error);
-					setIsLoading(false);
-				}
-			}
-		}
-
-		fetchMetadata();
+		fetchUrlMetadata(href, endpoint)
+			.then((data) => {
+				if (!isMounted) return;
+				setMetadata(data);
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				if (!isMounted) return;
+				setError(err as Error);
+				setIsLoading(false);
+			});
 
 		return () => {
 			isMounted = false;
 		};
-	}, [isInView, isValidUrl, href, metadata]);
+	}, [isInView, isValidUrl, href, metadata, endpoint]);
 
 	// Set up intersection observer to detect when element is in view
 	useEffect(() => {
@@ -186,10 +183,24 @@ export function LinkPreview({
 					{children}
 				</a>
 			</TooltipTrigger>
-			<TooltipContent className="max-w-[280px] border border-zinc-700 bg-zinc-900 p-3 text-white shadow-lg">
+			<TooltipContent
+				className="w-[300px] max-w-[300px] border border-zinc-700 bg-zinc-900 p-3 text-white shadow-lg"
+				arrowClassName="bg-zinc-900 fill-zinc-900"
+			>
 				{isLoading ? (
-					<div className="flex justify-center p-5">
-						<div className="size-5 animate-spin rounded-full border-2 border-zinc-700 border-t-white" />
+					<div className="flex w-full flex-col gap-2">
+						<Skeleton className="aspect-video w-full rounded-lg bg-zinc-800" />
+						<div className="flex items-center gap-2">
+							<Skeleton className="size-5 rounded-full bg-zinc-800" />
+							<Skeleton className="h-4 w-32 rounded bg-zinc-800" />
+						</div>
+						<Skeleton className="h-4 w-full rounded bg-zinc-800" />
+						<div className="flex flex-col gap-1">
+							<Skeleton className="h-3 w-full rounded bg-zinc-800" />
+							<Skeleton className="h-3 w-full rounded bg-zinc-800" />
+							<Skeleton className="h-3 w-3/4 rounded bg-zinc-800" />
+						</div>
+						<Skeleton className="h-3 w-48 rounded bg-zinc-800" />
 					</div>
 				) : error || !isValidUrl ? (
 					<div className="flex items-center gap-2 p-3 text-red-400">
@@ -215,13 +226,13 @@ export function LinkPreview({
 
 						{/* Website Name & Favicon */}
 						{(metadata.website_name || (metadata.favicon && validFavicon)) && (
-							<div className="flex items-center gap-2">
+							<div className="flex min-w-0 items-center gap-2">
 								{metadata.favicon && validFavicon ? (
 									<Image
 										width={20}
 										height={20}
 										alt="Favicon"
-										className="size-5 rounded-full"
+										className="size-5 shrink-0 rounded-full"
 										src={metadata.favicon}
 										onError={() => setValidFavicon(false)}
 									/>
@@ -229,7 +240,7 @@ export function LinkPreview({
 									<HugeiconsIcon
 										icon={Globe02Icon}
 										size={20}
-										className="text-gray-400"
+										className="shrink-0 text-gray-400"
 									/>
 								)}
 								{metadata.website_name && (
@@ -242,14 +253,14 @@ export function LinkPreview({
 
 						{/* Title */}
 						{metadata.title && (
-							<div className="truncate text-sm font-medium text-white">
+							<div className="line-clamp-2 break-words text-sm font-medium text-white">
 								{metadata.title}
 							</div>
 						)}
 
 						{/* Description */}
 						{metadata.description && (
-							<div className="line-clamp-3 text-xs text-gray-400 w-full">
+							<div className="line-clamp-3 break-words text-xs text-gray-400">
 								{metadata.description}
 							</div>
 						)}

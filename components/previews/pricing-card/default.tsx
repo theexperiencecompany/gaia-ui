@@ -3,20 +3,11 @@
 import Image from "next/image";
 import { PricingCard } from "@/registry/new-york/ui/pricing-card";
 
-const freeFeatures = [
-	"5 conversations per day",
-	"Basic AI responses",
-	"Email support",
-	"Community access",
-];
-
 const proFeatures = [
-	"Unlimited conversations",
-	"Priority AI responses",
-	"All integrations",
+	"Extended access to everything",
+	"Advanced memory features",
 	"Priority support",
-	"Custom workflows",
-	"Advanced analytics",
+	"Private Discord access",
 ];
 
 export default function PricingCardDemo() {
@@ -33,27 +24,18 @@ export default function PricingCardDemo() {
 				<div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90 dark:to-zinc-950/90" />
 			</div>
 
-			{/* Pricing Cards Grid - matching gaia's wrapper structure */}
-			<div className="relative z-[1] grid w-full max-w-2xl grid-cols-1 md:grid-cols-2 gap-3 p-6">
-				{/* Free Tier Card */}
-				<PricingCard
-					title="Free"
-					price={0}
-					description="Perfect for getting started and exploring the basics."
-					features={freeFeatures}
-					onButtonClick={() => alert("Free plan selected!")}
-					className="w-full"
-				/>
-
-				{/* Pro Tier Card with yearly discount */}
+			{/* Single pricing card with plan image */}
+			<div className="relative z-[1] w-full max-w-sm p-6">
 				<PricingCard
 					title="Pro"
-					price={9}
-					originalPrice={12}
+					price={270}
+					originalPrice={360}
 					isMonthly={false}
-					description="For power users who want the full experience."
+					isPro
+					isPopular
+					planImage="/images/pricing/pro.webp"
+					description="A boost of extra access, because you deserve it"
 					features={proFeatures}
-					accentColor="#00bbff"
 					onButtonClick={() => alert("Pro plan selected!")}
 					className="w-full"
 				/>

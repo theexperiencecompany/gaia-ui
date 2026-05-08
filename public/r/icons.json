@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "icons",
+  "type": "registry:ui",
   "title": "Icons",
   "description": "Hugeicons wrapper for all components. Uses free icons by default - upgrade to Pro by changing imports.",
   "dependencies": [
@@ -9,11 +10,9 @@
   ],
   "files": [
     {
-      "path": "components/icons.tsx",
-      "content": "// components/icons.tsx\n// Free icons - upgrade to Pro by changing the import below\nexport * from \"@hugeicons/core-free-icons\";\nexport { HugeiconsIcon } from \"@hugeicons/react\";\n",
-      "type": "registry:ui",
-      "target": "components/icons.tsx"
+      "path": "registry/new-york/ui/icons.tsx",
+      "content": "// registry/new-york/ui/icons.tsx\n// Free icons - upgrade to Pro by changing the import below\nexport * from \"@hugeicons/core-free-icons\";\nexport { HugeiconsIcon } from \"@hugeicons/react\";\n",
+      "type": "registry:ui"
     }
-  ],
-  "type": "registry:ui"
+  ]
 }

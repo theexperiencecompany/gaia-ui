@@ -1,0 +1,83 @@
+---
+title: Scatter Chart
+description: A scatter chart for exploring correlation between two numeric variables.
+---
+
+<ComponentPreview name="scatter-chart/default" />
+
+## Usage in Gaia
+
+Used to show relationships between two metrics — where a trend line would lie, or whether two variables move together — in AI-generated exploratory analyses.
+
+## Features
+
+- **Two Numeric Axes** - X and Y both driven by data keys
+- **Single-Series Layout** - Optimized for one cluster of points
+- **Theme-Aware** - Built on the shadcn chart primitive
+- **Tooltip** - Hover tooltip with both axis values per point
+- **Auto-Width** - Card width scales to point count
+- **Optional Label Key** - Reserved for callout labels on points
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="automatic">
+    <InstallCommand component="scatter-chart" />
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+Copy and paste the following code into your project.
+
+<SourceCode filePath="registry/new-york/ui/scatter-chart.tsx" />
+
+Install required dependencies:
+
+```bash
+npm install recharts
+```
+
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { ScatterChart } from "@/components/ui/scatter-chart";
+
+const data = [
+  { hours: 1, productivity: 22 },
+  { hours: 2, productivity: 35 },
+  { hours: 3, productivity: 48 },
+];
+
+export default function Example() {
+  return (
+    <ScatterChart
+      data={data}
+      xKey="hours"
+      yKey="productivity"
+      title="Hours vs. Productivity"
+    />
+  );
+}
+```
+
+## Props
+
+### ScatterChart
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| data | Array&lt;Record&lt;string, string \| number&gt;&gt; | - | Chart data rows |
+| xKey | string | - | Key for the X axis |
+| yKey | string | - | Key for the Y axis |
+| title | string | - | Card title |
+| description | string | - | Card description |
+| footer | string | - | Optional footer text |
+| labelKey | string | - | Optional key used for point labels |
