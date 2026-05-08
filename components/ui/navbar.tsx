@@ -160,10 +160,8 @@ export function Navbar({ navigation }: NavbarProps) {
                                 <span className="sr-only">GitHub</span>
                             </Link>
                         </Button>
-                        <Separator orientation="vertical" className="h-6" />
-                        <ThemeToggle />
-                        <Separator orientation="vertical" className="h-6" />
                         <Button
+                            variant="ghost"
                             size="sm"
                             asChild
                             className="h-9 gap-2 px-3"
@@ -174,7 +172,7 @@ export function Navbar({ navigation }: NavbarProps) {
                                 rel="noreferrer"
                             >
                                 <Image
-                                    src="/media/gaiaui_logo.png"
+                                    src="/media/gaia_logo.png"
                                     alt="GAIA"
                                     width={20}
                                     height={20}
@@ -183,6 +181,8 @@ export function Navbar({ navigation }: NavbarProps) {
                                 <span className="font-semibold">GAIA</span>
                             </Link>
                         </Button>
+                        <Separator orientation="vertical" className="h-6" />
+                        <ThemeToggle />
                     </nav>
                 </div>
             </div>
