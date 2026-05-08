@@ -35,7 +35,7 @@ jobs:
           cache: "pnpm"
 
       - name: Upgrade npm for Trusted Publishing
-        run: npm install -g npm@latest
+        run: npm install -g npm@latest --force
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -47,5 +47,6 @@ jobs:
           publish: pnpm run release
           commit: "chore: release"
           title: "chore: release"
+          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
