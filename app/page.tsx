@@ -2,7 +2,6 @@ import { ComponentsGrid } from "@/components/core/components-grid";
 import { InfoSection } from "@/components/core/info-section";
 import { InstallCommand } from "@/components/core/install-command";
 import { ContributorsStrip } from "@/components/home/contributors-strip";
-import { HeroPreviewTrio } from "@/components/home/hero-preview-trio";
 import { SocialProofRow } from "@/components/home/social-proof-row";
 import { TerminalDemo } from "@/components/home/terminal-demo";
 import { ArrowRight02Icon, HugeiconsIcon } from "@/components/icons";
@@ -116,7 +115,6 @@ export default function Home() {
           </div>
         </section>
 
-        <HeroPreviewTrio />
         <section className="mx-auto flex flex-col max-w-3xl gap-5 items-center">
           <p className="text-sm leading-relaxed text-muted-foreground md:text-base mt-5">
             We&apos;re working on an open source AI assistant called GAIA. Along
