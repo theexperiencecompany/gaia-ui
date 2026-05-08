@@ -31,6 +31,14 @@
     "release": "changeset publish"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theexperiencecompany/gaia-ui.git"
+  },
+  "homepage": "https://ui.heygaia.io",
+  "bugs": {
+    "url": "https://github.com/theexperiencecompany/gaia-ui/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
