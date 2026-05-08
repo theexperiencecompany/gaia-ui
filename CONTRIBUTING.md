@@ -261,6 +261,20 @@ Non-negotiable. Every component must:
 
 PRs should be small and focused. Large, sprawling PRs are hard to review and slow to merge.
 
+### Changesets (release notes)
+
+We use [Changesets](https://github.com/changesets/changesets) to manage versions and changelogs. Any user-visible change to the published package needs a changeset.
+
+```bash
+pnpm changeset
+```
+
+The CLI asks what kind of bump (`patch` / `minor` / `major`) and a short summary. It writes a `.changeset/<name>.md` file — commit it with your PR.
+
+When PRs land on `main`, a bot opens a "chore: release" PR that bumps the version and updates `CHANGELOG.md`. Merging that PR publishes to npm.
+
+If your PR has no user-visible impact (CI, internal docs, refactors that don't change the published surface), add the `skip-changeset` label and the check will pass without one.
+
 ## Component Checklist
 
 Before you mark a PR ready for review:
@@ -277,6 +291,7 @@ Before you mark a PR ready for review:
 - [ ] Types are exported
 - [ ] `pnpm run type` and `pnpm run lint` pass
 - [ ] Tested via `npx shadcn@latest add http://localhost:3000/r/<name>.json`
+- [ ] Added a changeset (`pnpm changeset`) describing the change
 
 ## Getting Help
 
