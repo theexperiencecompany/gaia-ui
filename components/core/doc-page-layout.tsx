@@ -20,6 +20,7 @@ interface DocPageLayoutProps {
 	markdownContent?: string;
 	children: React.ReactNode;
 	breadcrumbs?: { title: string; href: string }[];
+	fullWidth?: boolean;
 }
 
 export function DocPageLayout({
@@ -30,15 +31,20 @@ export function DocPageLayout({
 	markdownContent,
 	children,
 	breadcrumbs = [],
+	fullWidth = false,
 }: DocPageLayoutProps) {
-	const fullMarkdown = `# ${title}\n\n${description}\n\n${
-		markdownContent || ""
-	}`;
+	const fullMarkdown = `# ${title}\n\n${description}\n\n${markdownContent || ""}`;
 	const navigation = getNavigation();
 
 	return (
-		<main className="relative py-6 lg:gap-10 lg:py-8 flex-1 xl:flex xl:gap-10">
-			<div className="mx-auto w-full max-w-2xl min-w-0 flex-1">
+		<main className="relative min-w-0 py-6 lg:gap-10 lg:py-8 flex-1 xl:flex xl:gap-10">
+			<div
+				className={
+					fullWidth
+						? "w-full min-w-0 flex-1"
+						: "mx-auto w-full max-w-2xl min-w-0 flex-1"
+				}
+			>
 				{breadcrumbs.length > 0 && (
 					<nav className="flex items-center space-x-1 text-sm text-muted-foreground mb-4">
 						<Link
@@ -91,11 +97,13 @@ export function DocPageLayout({
 					navigation={navigation}
 				/>
 			</div>
-			<div className="hidden text-sm xl:block w-[250px] shrink-0">
-				<div className="sticky top-16 -mt-10 h-[calc(100vh-3.5rem)] overflow-hidden pt-6">
-					<TableOfContents toc={toc} />
+			{!fullWidth && toc.length > 0 && (
+				<div className="hidden text-sm xl:block w-[250px] shrink-0">
+					<div className="sticky top-16 -mt-10 h-[calc(100vh-3.5rem)] overflow-hidden pt-6">
+						<TableOfContents toc={toc} />
+					</div>
 				</div>
-			</div>
+			)}
 		</main>
 	);
 }

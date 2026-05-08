@@ -1,5 +1,9 @@
 import { ComponentsGrid } from "@/components/core/components-grid";
 import { InfoSection } from "@/components/core/info-section";
+import { InstallCommand } from "@/components/core/install-command";
+import { ContributorsStrip } from "@/components/home/contributors-strip";
+import { SocialProofRow } from "@/components/home/social-proof-row";
+import { TerminalDemo } from "@/components/home/terminal-demo";
 import { ArrowRight02Icon, HugeiconsIcon } from "@/components/icons";
 import { GitHub } from "@/components/icons/github";
 import { Footer } from "@/components/ui/footer";
@@ -88,6 +92,8 @@ export default function Home() {
               </RaisedButton>
             </Link>
           </div>
+
+          <SocialProofRow componentCount={components.length} />
         </section>
         <div className="w-full max-w-6xl mx-auto">
           <Image
@@ -98,6 +104,17 @@ export default function Home() {
             className="rounded-2xl"
           />
         </div>
+
+        <section className="mx-auto flex flex-col max-w-2xl items-center gap-3">
+          <p className="text-sm text-muted-foreground text-center">
+            One command. Drop into any shadcn project.
+          </p>
+          <TerminalDemo />
+          <div className="w-full">
+            <InstallCommand component="composer" showIcon />
+          </div>
+        </section>
+
         <section className="mx-auto flex flex-col max-w-3xl gap-5 items-center">
           <p className="text-sm leading-relaxed text-muted-foreground md:text-base mt-5">
             We&apos;re working on an open source AI assistant called GAIA. Along
@@ -140,8 +157,26 @@ export default function Home() {
         </section>
 
         <div className="max-w-5xl w-full mx-auto">
+          <div className="flex items-end justify-between mb-6 px-1">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
+                All components
+              </h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                {components.length} components, all open source.
+              </p>
+            </div>
+            <Link
+              href="/docs/gallery"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
+            >
+              Open gallery
+              <HugeiconsIcon icon={ArrowRight02Icon} size={16} />
+            </Link>
+          </div>
           <ComponentsGrid components={components} />
         </div>
+        <ContributorsStrip />
         <Footer />
       </div>
     </>
