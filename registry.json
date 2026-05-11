@@ -162,6 +162,33 @@
 			]
 		},
 		{
+			"name": "iphone-mockup",
+			"type": "registry:ui",
+			"title": "iPhone Mockup",
+			"description": "Pixel-perfect iPhone Pro mockup with Dynamic Island, side buttons, status bar and home indicator. Geometry matched to orchid.ai (390 x 815 chassis, 56/46 px corner radii, 120 x 37 Dynamic Island).",
+			"dependencies": [],
+			"files": [
+				{
+					"path": "registry/new-york/ui/iphone-mockup.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
+			"name": "chat-demo",
+			"type": "registry:ui",
+			"title": "Chat Demo",
+			"description": "Reusable platform-aware chat preview with pixel-accurate bubbles, headers and composers for iMessage, WhatsApp, Slack, Discord and Telegram. Designed to drop inside the iPhone Mockup.",
+			"dependencies": [],
+			"registryDependencies": ["iphone-mockup"],
+			"files": [
+				{
+					"path": "registry/new-york/ui/chat-demo.tsx",
+					"type": "registry:ui"
+				}
+			]
+		},
+		{
 			"name": "weather-card",
 			"type": "registry:ui",
 			"title": "Weather Card",

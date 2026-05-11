@@ -1,0 +1,62 @@
+---
+title: iPhone Mockup
+description: A pixel-perfect iPhone Pro mockup with Dynamic Island, side buttons, status bar and home indicator.
+---
+
+<ComponentPreview name="iphone-mockup/default" />
+
+## Usage in Gaia
+
+Drop any app UI inside the mockup to make landing pages, marketing screenshots and product demos feel native. The chassis dimensions, bezel radius, Dynamic Island, side buttons, status bar icons and home indicator all match real iPhone Pro proportions.
+
+### With a chat demo inside
+
+<ComponentPreview name="iphone-mockup/with-chat" />
+
+## Installation
+
+<Tabs defaultValue="automatic" className="mt-4">
+  <TabsList>
+    <TabsTrigger value="automatic">Automatic</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="automatic">
+    <InstallCommand component="iphone-mockup" />
+  </TabsContent>
+
+  <TabsContent value="manual">
+    Copy and paste the following code into your project.
+    <SourceCode filePath="registry/new-york/ui/iphone-mockup.tsx" />
+  </TabsContent>
+</Tabs>
+
+## Example
+
+```tsx
+import { IPhoneMockup } from "@/components/ui/iphone-mockup";
+
+export default function Example() {
+  return (
+    <IPhoneMockup time="9:41">
+      <div className="flex flex-1 items-center justify-center">
+        Your app here
+      </div>
+    </IPhoneMockup>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `time` | `string` | `"9:41"` | Status bar clock value. |
+| `screenBackground` | `string` | `"#ffffff"` | CSS color for the screen background; used to auto-tint the status bar. |
+| `statusBarTone` | `"auto" \| "light" \| "dark"` | `"auto"` | Status bar icon/text tint. |
+| `hideStatusBar` | `boolean` | `false` | Hide the built-in status bar (let your app draw its own). |
+| `homeIndicator` | `boolean` | `true` | Show the bottom home indicator bar. |
+| `homeIndicatorTone` | `"auto" \| "light" \| "dark"` | `"auto"` | Tint for the home indicator. |
+| `className` | `string` | – | Extra classes for the outer chassis. |
+| `screenClassName` | `string` | – | Extra classes for the inner screen. |
+| `children` | `React.ReactNode` | – | App content rendered inside the screen. |
