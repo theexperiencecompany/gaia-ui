@@ -1,5 +1,19 @@
 # @heygaia/ui
 
+## 0.4.0
+
+### Minor Changes
+
+- [#23](https://github.com/theexperiencecompany/gaia-ui/pull/23) [`ada6bb3`](https://github.com/theexperiencecompany/gaia-ui/commit/ada6bb386f4393ce6cab030624424dc3b80b5c6a) Thanks [@aryanranderiya](https://github.com/aryanranderiya)! - Add `iphone-mockup` and `chat-demo` components.
+
+  - `iphone-mockup`: a pixel-perfect iPhone Pro mockup with a Dynamic Island,
+    side buttons, status bar (cellular / wifi / battery icons) and home
+    indicator.
+  - `chat-demo`: a single platform-aware component that renders authentic
+    iMessage, WhatsApp, Slack, Discord and Telegram chat UIs — bubbles,
+    headers, composers and hover states. Designed to drop inside
+    `iphone-mockup`.
+
 ## 0.3.4
 
 ### Patch Changes
